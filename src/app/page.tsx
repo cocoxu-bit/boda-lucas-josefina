@@ -63,14 +63,14 @@ export default function Home() {
         {/* Interactive 2D Matter.js Photo Gallery with Reset Button */}
         <PhysicsGallery />
 
-        {/* Scratch Card Minigame: Secret Backstories & Anecdotes */}
-        <ScratchSecrets />
-
         {/* Playful Chronogram with Venue Photos (Monforte & Veneno) */}
         <Timeline />
 
         {/* Interactive Dress Code Inspector with Animated Josefina & Lucas Avatars */}
         <DressCodeInspector />
+
+        {/* Scratch Card Minigame: Secret Backstories & Anecdotes */}
+        <ScratchSecrets />
 
         {/* Gamified Multi-Step RSVP Form & Festival VIP Pass Generator */}
         <RSVPWizard />
