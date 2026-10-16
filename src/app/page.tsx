@@ -9,7 +9,6 @@ import { Timeline } from "@/components/Timeline";
 import { DressCodeInspector } from "@/components/DressCodeInspector";
 import { RSVPWizard } from "@/components/RSVPWizard";
 import { EasterEgg } from "@/components/EasterEgg";
-import { Footer } from "@/components/Footer";
 import { EpicIntro } from "@/components/EpicIntro";
 import { WhatsAppHelpModal } from "@/components/WhatsAppHelpModal";
 
@@ -78,9 +77,6 @@ export default function Home() {
 
         {/* Retro Konami Code & Mobile Secret Easter Egg */}
         <EasterEgg />
-
-        {/* Minimalist Editorial Footer with Cryptic Hint & Replay Button */}
-        <Footer />
 
         {/* Global WhatsApp Help & Direct Contact Floating Modal */}
         <WhatsAppHelpModal />
