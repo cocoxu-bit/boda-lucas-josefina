@@ -32,29 +32,48 @@ export const WhatsAppHelpModal: React.FC = () => {
 
   return (
     <>
-      {/* FLOATING ACTION PILL (BOTTOM RIGHT) */}
-      <motion.button
-        onClick={() => setIsOpen(true)}
-        initial={{ opacity: 0, scale: 0.8, y: 10 }}
+      {/* FLOATING ACTION DOCK (BOTTOM RIGHT) - DUAL DIRECT BUTTONS */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.85, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.4 }}
-        whileHover={{ scale: 1.05 }}
-        whileTap={{ scale: 0.95 }}
-        className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-40 flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#1F2937]/90 dark:bg-[#18181B]/95 text-white border border-[var(--accent-gold)]/40 hover:border-[var(--accent-gold)] shadow-xl hover:shadow-[0_0_20px_rgba(212,175,55,0.3)] backdrop-blur-md transition-all cursor-pointer group"
-        aria-label="Resolver dudas por WhatsApp con Josefina o Lucas"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center p-1.5 gap-1.5 rounded-full bg-[#18181B]/95 border border-[var(--accent-gold)]/40 shadow-2xl backdrop-blur-md text-white"
+        role="region"
+        aria-label="Contacto directo por WhatsApp con Josefina o Lucas"
       >
-        <span className="relative flex h-2.5 w-2.5">
-          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
-          <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-emerald-500" />
-        </span>
+        <button
+          onClick={() => setIsOpen(true)}
+          className="flex items-center gap-1.5 pl-2.5 pr-1.5 py-1 font-mono-swiss text-[11px] font-semibold text-zinc-300 hover:text-[var(--accent-gold)] transition-colors cursor-pointer"
+          title="Ver teléfonos y detalles de contacto"
+        >
+          <span className="relative flex h-2 w-2">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+            <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+          </span>
+          <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+          <span className="hidden sm:inline text-zinc-200">¿Dudas?</span>
+        </button>
 
-        {/* WhatsApp Icon */}
-        <MessageCircle className="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform" />
+        {/* Button Josefina */}
+        <button
+          onClick={() => openWhatsApp("34603494678", "Josefina")}
+          className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono-swiss text-xs font-semibold transition-all shadow-sm active:scale-95 cursor-pointer"
+          title="Abrir WhatsApp de Josefina (+34 603 49 46 78)"
+          aria-label="Abrir WhatsApp de Josefina"
+        >
+          <span>Josefina</span>
+        </button>
 
-        <span className="font-mono-swiss text-xs font-semibold tracking-wide text-zinc-100 group-hover:text-[var(--accent-gold)] transition-colors">
-          ¿Dudas?
-        </span>
-      </motion.button>
+        {/* Button Lucas */}
+        <button
+          onClick={() => openWhatsApp("34606513672", "Lucas")}
+          className="flex items-center gap-1 px-3 py-1.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono-swiss text-xs font-semibold transition-all shadow-sm active:scale-95 cursor-pointer"
+          title="Abrir WhatsApp de Lucas (+34 606 51 36 72)"
+          aria-label="Abrir WhatsApp de Lucas"
+        >
+          <span>Lucas</span>
+        </button>
+      </motion.div>
 
       {/* MODAL OVERLAY */}
       <AnimatePresence>

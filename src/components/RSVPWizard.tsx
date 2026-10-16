@@ -539,7 +539,27 @@ export const RSVPWizard: React.FC = () => {
                 <button
                   onClick={() => {
                     const summary = encodeURIComponent(
-                      `¡Hola! Acabo de confirmar mi asistencia a vuestra boda:\n` +
+                      `¡Hola Josefina! Acabo de confirmar mi asistencia a vuestra boda:\n` +
+                      `👤 Nombre: ${form.name}\n` +
+                      `✅ Asistencia: ${form.attendance === "yes" ? "SÍ voy" : "No puedo ir"}\n` +
+                      (form.companion ? `👥 Acompañante: ${form.companion}\n` : "") +
+                      (form.dietary?.length ? `🍽️ Menú/Alergias: ${form.dietary.join(", ")}\n` : "") +
+                      (form.guestRole ? `🎖️ Rol: ${form.guestRole}\n` : "") +
+                      (form.songTitle ? `🎵 Canción: ${form.songTitle} ${form.songArtist ? `- ${form.songArtist}` : ""}\n` : "") +
+                      (form.message ? `💬 Mensaje: "${form.message}"` : "")
+                    );
+                    window.open(`https://wa.me/34603494678?text=${summary}`, "_blank");
+                  }}
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono-swiss text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>Avisar a Josefina</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    const summary = encodeURIComponent(
+                      `¡Hola Lucas! Acabo de confirmar mi asistencia a vuestra boda:\n` +
                       `👤 Nombre: ${form.name}\n` +
                       `✅ Asistencia: ${form.attendance === "yes" ? "SÍ voy" : "No puedo ir"}\n` +
                       (form.companion ? `👥 Acompañante: ${form.companion}\n` : "") +
@@ -553,7 +573,7 @@ export const RSVPWizard: React.FC = () => {
                   className="w-full sm:w-auto px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono-swiss text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
                 >
                   <MessageCircle className="w-3.5 h-3.5" />
-                  <span>Notificar por WhatsApp</span>
+                  <span>Avisar a Lucas</span>
                 </button>
 
                 <button
@@ -913,24 +933,38 @@ export const RSVPWizard: React.FC = () => {
         </AnimatePresence>
 
         {/* WhatsApp Help / Dudas Banner */}
-        <div className="mt-6 p-4 sm:p-5 rounded-2xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.02] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+        <div className="mt-6 p-4 sm:p-5 rounded-2xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.02] flex flex-col md:flex-row items-center justify-between gap-4 text-center md:text-left">
           <div className="space-y-0.5">
-            <p className="font-mono-swiss text-xs font-semibold text-[var(--fg-primary)] flex items-center justify-center sm:justify-start gap-1.5">
+            <p className="font-mono-swiss text-xs font-semibold text-[var(--fg-primary)] flex items-center justify-center md:justify-start gap-1.5">
               <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
               <span>¿Tienes alguna duda antes de confirmar?</span>
             </p>
             <p className="font-sans-ui text-xs text-[var(--fg-muted)] font-light">
-              Pregúntanos por WhatsApp: Josefina (+34 603 49 46 78) o Lucas (+34 606 51 36 72).
+              Escríbenos directamente por WhatsApp a quien tengas más confianza:
             </p>
           </div>
 
-          <button
-            type="button"
-            onClick={() => window.dispatchEvent(new CustomEvent("open-whatsapp-modal"))}
-            className="px-4 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-mono-swiss font-medium transition-colors shrink-0 cursor-pointer"
-          >
-            Abrir WhatsApp
-          </button>
+          <div className="flex flex-wrap items-center justify-center gap-2 shrink-0">
+            <a
+              href="https://wa.me/34603494678?text=¡Hola%20Josefina!%20Tengo%20una%20duda%20sobre%20la%20boda%20del%206%20de%20febrero:"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono-swiss font-medium transition-all shadow-sm active:scale-95 cursor-pointer flex items-center gap-1.5"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span>WhatsApp Josefina</span>
+            </a>
+
+            <a
+              href="https://wa.me/34606513672?text=¡Hola%20Lucas!%20Tengo%20una%20duda%20sobre%20la%20boda%20del%206%20de%20febrero:"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3.5 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono-swiss font-medium transition-all shadow-sm active:scale-95 cursor-pointer flex items-center gap-1.5"
+            >
+              <MessageCircle className="w-3.5 h-3.5" />
+              <span>WhatsApp Lucas</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
