@@ -31,6 +31,13 @@ export default function Home() {
 
   const handleEnter = () => {
     setHasEntered(true);
+    // Scroll down slightly after entering so it reveals the cards and hero content
+    setTimeout(() => {
+      window.scrollTo({
+        top: 260,
+        behavior: "smooth",
+      });
+    }, 600);
   };
 
   return (

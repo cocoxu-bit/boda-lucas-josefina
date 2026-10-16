@@ -1,8 +1,8 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import { Sparkles, ArrowRight, RotateCw, Check } from "lucide-react";
+import React, { useState, useEffect, useRef } from "react";
+import { motion, AnimatePresence, PanInfo } from "framer-motion";
+import { Sparkles, ArrowRight, RotateCw } from "lucide-react";
 
 interface EpicIntroProps {
   onEnter?: () => void;
@@ -13,7 +13,7 @@ type IngredientId = "grapes" | "meat" | "orange";
 interface IngredientInfo {
   id: IngredientId;
   name: string;
-  subtitle: string;
+  region: string;
   emoji: string;
   color: string;
 }
@@ -21,22 +21,22 @@ interface IngredientInfo {
 const INGREDIENTS: IngredientInfo[] = [
   {
     id: "grapes",
-    name: "Racimo de Uvas",
-    subtitle: "El vino y la fiesta",
+    name: "Uvas",
+    region: "Valdepeñas",
     emoji: "🍇",
     color: "#A855F7",
   },
   {
     id: "meat",
-    name: "Buena Carne",
-    subtitle: "Devoción carnívora",
+    name: "Carne",
+    region: "Argentina",
     emoji: "🥩",
     color: "#EF4444",
   },
   {
     id: "orange",
-    name: "Naranja de Valencia",
-    subtitle: "Nuestra tierra y frescura",
+    name: "Naranja",
+    region: "Valencia",
     emoji: "🍊",
     color: "#F97316",
   },
@@ -51,6 +51,9 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
   });
   const [isBlending, setIsBlending] = useState(false);
   const [isWarping, setIsWarping] = useState(false);
+  const [isHoveringBlender, setIsHoveringBlender] = useState(false);
+
+  const blenderRef = useRef<HTMLDivElement>(null);
 
   // Background ambient particles
   const [particles, setParticles] = useState<
@@ -74,11 +77,45 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
   const handleAddIngredient = (id: IngredientId) => {
     if (isBlending || isWarping) return;
     setAdded((prev) => ({ ...prev, [id]: true }));
+    setIsHoveringBlender(false);
   };
 
-  const handleAddAll = () => {
+  const handleDrag = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    if (!blenderRef.current) return;
+    const rect = blenderRef.current.getBoundingClientRect();
+    const isNear =
+      info.point.x >= rect.left - 40 &&
+      info.point.x <= rect.right + 40 &&
+      info.point.y >= rect.top - 60 &&
+      info.point.y <= rect.bottom + 40;
+    setIsHoveringBlender(isNear);
+  };
+
+  const handleDragEnd = (id: IngredientId, _: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    setIsHoveringBlender(false);
     if (isBlending || isWarping) return;
-    setAdded({ grapes: true, meat: true, orange: true });
+
+    if (!blenderRef.current) {
+      if (info.offset.y < -60) {
+        handleAddIngredient(id);
+      }
+      return;
+    }
+
+    const rect = blenderRef.current.getBoundingClientRect();
+    const dropX = info.point.x;
+    const dropY = info.point.y;
+
+    // Generous drop zone around the blender jar
+    const isInside =
+      dropX >= rect.left - 50 &&
+      dropX <= rect.right + 50 &&
+      dropY >= rect.top - 70 &&
+      dropY <= rect.bottom + 50;
+
+    if (isInside || info.offset.y < -70) {
+      handleAddIngredient(id);
+    }
   };
 
   const handleStartBlend = () => {
@@ -96,14 +133,6 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
         setIsVisible(false);
       }, 1100);
     }, 1200);
-  };
-
-  const handleSkip = () => {
-    setIsWarping(true);
-    if (onEnter) onEnter();
-    setTimeout(() => {
-      setIsVisible(false);
-    }, 1000);
   };
 
   if (!isVisible) return null;
@@ -169,15 +198,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
         ))}
       </div>
 
-      {/* 5. TOP RIGHT SKIP BUTTON */}
-      <button
-        onClick={handleSkip}
-        className="absolute top-6 right-6 z-30 font-mono-swiss text-[11px] uppercase tracking-widest text-white/60 hover:text-[#D4AF37] transition-all cursor-pointer px-3 py-1.5 rounded-full border border-white/10 hover:border-[#D4AF37]/40 backdrop-blur-sm"
-      >
-        Saltar intro →
-      </button>
-
-      {/* 6. MAIN MINIGAME STAGE */}
+      {/* 5. MAIN MINIGAME STAGE */}
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={
@@ -197,27 +218,26 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
         }
         className="relative z-30 flex flex-col items-center text-center px-4 max-w-xl mx-auto w-full"
       >
-        {/* Title Header */}
-        <div className="space-y-1 mb-4 sm:mb-6">
+        {/* Title Header with clean explanation text */}
+        <div className="space-y-2 mb-6 sm:mb-7">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/[0.06] backdrop-blur-md">
             <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
             <span className="font-mono-swiss text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[#E8C872]">
-              El Cóctel de Nuestra Boda
+              La Mezcla de Nuestra Boda
             </span>
           </div>
 
-          <h2 className="font-serif-editorial text-2xl sm:text-3xl text-white italic">
-            Mezcla lo que nos representa
+          <h2 className="font-serif-editorial text-3xl sm:text-4xl text-white italic">
+            Lo que nos representa
           </h2>
 
-          <p className="font-sans-ui text-xs text-white/65 max-w-xs sm:max-w-sm mx-auto font-light leading-relaxed">
-            Echa a la batidora los 3 ingredientes imprescindibles para entrar a la celebración:
+          <p className="font-sans-ui text-xs sm:text-sm text-white/75 max-w-sm sm:max-w-md mx-auto font-light leading-relaxed">
+            Arrastra los tres ingredientes a la licuadora para preparar la mezcla: uvas de <strong className="text-white font-medium">Valdepeñas</strong>, carne de <strong className="text-white font-medium">Argentina</strong> y naranja de <strong className="text-white font-medium">Valencia</strong>.
           </p>
         </div>
 
-        {/* INTERACTIVE STAGE: BLENDER IN CENTER & INGREDIENTS */}
+        {/* INTERACTIVE STAGE: BLENDER (BATIDORA DE AUTOR) */}
         <div className="relative w-full flex flex-col items-center mb-6">
-          {/* THE BLENDER (BATIDORA DE AUTOR) */}
           <motion.div
             animate={
               isBlending
@@ -238,20 +258,31 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
             <div
               className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[45px] pointer-events-none transition-all duration-700 ${
                 isBlending
-                  ? "w-72 h-72 bg-[#D4AF37]/45"
+                  ? "w-72 h-72 bg-[#D4AF37]/50"
+                  : isHoveringBlender
+                  ? "w-64 h-64 bg-[#D4AF37]/30"
                   : isReadyToBlend
                   ? "w-56 h-56 bg-[#D4AF37]/20"
                   : "w-40 h-40 bg-white/5"
               }`}
             />
 
-            {/* Blender Jar (Glass Vessel) */}
-            <div className="relative w-36 h-48 sm:w-44 sm:h-56 rounded-t-3xl rounded-b-xl border-2 border-white/20 bg-gradient-to-b from-white/10 via-white/[0.04] to-white/10 backdrop-blur-md overflow-hidden shadow-2xl flex flex-col justify-end p-2.5">
+            {/* Blender Jar (Glass Vessel & Drop Area) */}
+            <div
+              ref={blenderRef}
+              className={`relative w-40 h-52 sm:w-48 sm:h-56 rounded-t-3xl rounded-b-xl border-2 transition-all duration-300 backdrop-blur-md overflow-hidden shadow-2xl flex flex-col justify-end p-2.5 ${
+                isHoveringBlender
+                  ? "border-[#D4AF37] bg-white/[0.12] shadow-[0_0_40px_rgba(212,175,55,0.4)] scale-102"
+                  : isReadyToBlend
+                  ? "border-[#D4AF37]/60 bg-gradient-to-b from-white/10 via-white/[0.04] to-white/10"
+                  : "border-white/20 bg-gradient-to-b from-white/10 via-white/[0.04] to-white/10"
+              }`}
+            >
               {/* Glass reflection streak */}
               <div className="absolute top-0 left-3 w-3 h-full bg-gradient-to-r from-white/20 to-transparent transform -skew-x-12 pointer-events-none" />
 
               {/* Volume tick markings */}
-              <div className="absolute right-2.5 top-6 bottom-12 flex flex-col justify-between items-end opacity-40 font-mono-swiss text-[8px] text-white pointer-events-none">
+              <div className="absolute right-2.5 top-5 bottom-12 flex flex-col justify-between items-end opacity-40 font-mono-swiss text-[8px] text-white pointer-events-none">
                 <span>MAX</span>
                 <span>— 750ml</span>
                 <span>— 500ml</span>
@@ -259,15 +290,28 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                 <span className="text-[7px] text-[#D4AF37]">VENENO</span>
               </div>
 
+              {/* Drop hint when dragging over */}
+              <AnimatePresence>
+                {isHoveringBlender && !isBlending && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -8 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    className="absolute inset-x-3 top-3 py-1 rounded-xl bg-[#D4AF37]/25 border border-[#D4AF37]/60 text-center font-mono-swiss text-[10px] text-[#F3E5AB] uppercase tracking-wider z-20"
+                  >
+                    ¡Suelta dentro!
+                  </motion.div>
+                )}
+              </AnimatePresence>
+
               {/* VORTEX ANIMATION WHEN BLENDING */}
               {isBlending && (
                 <motion.div
                   initial={{ opacity: 0, scaleY: 0 }}
                   animate={{ opacity: 1, scaleY: 1 }}
                   transition={{ duration: 0.3 }}
-                  className="absolute inset-0 bg-gradient-to-t from-[#D4AF37]/80 via-[#F3E5AB]/60 to-transparent flex items-center justify-center overflow-hidden"
+                  className="absolute inset-0 bg-gradient-to-t from-[#D4AF37]/80 via-[#F3E5AB]/60 to-transparent flex items-center justify-center overflow-hidden z-20"
                 >
-                  {/* Swirling liquid cyclone */}
                   <motion.div
                     animate={{ rotate: 1080 }}
                     transition={{ duration: 1.2, ease: "linear" }}
@@ -280,7 +324,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
 
               {/* INGREDIENTS INSIDE THE BLENDER */}
               <div className="relative z-10 flex items-end justify-center gap-2 pb-2 min-h-[90px]">
-                {/* 1. Grapes inside */}
+                {/* 1. Grapes (Valdepeñas) */}
                 {added.grapes && (
                   <motion.div
                     initial={{ y: -120, opacity: 0, scale: 0.4 }}
@@ -294,14 +338,17 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                       stiffness: 350,
                       damping: 22,
                     }}
-                    className="text-3xl sm:text-4xl filter drop-shadow-md select-none"
-                    title="Uvas dentro"
+                    className="flex flex-col items-center select-none"
+                    title="Uvas de Valdepeñas"
                   >
-                    🍇
+                    <span className="text-3xl sm:text-4xl filter drop-shadow-md">🍇</span>
+                    <span className="font-mono-swiss text-[8px] text-[#A855F7] font-semibold mt-0.5">
+                      Valdepeñas
+                    </span>
                   </motion.div>
                 )}
 
-                {/* 2. Meat inside */}
+                {/* 2. Meat (Argentina) */}
                 {added.meat && (
                   <motion.div
                     initial={{ y: -120, opacity: 0, scale: 0.4 }}
@@ -315,14 +362,17 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                       stiffness: 350,
                       damping: 20,
                     }}
-                    className="text-3xl sm:text-4xl filter drop-shadow-md select-none"
-                    title="Carne dentro"
+                    className="flex flex-col items-center select-none"
+                    title="Carne de Argentina"
                   >
-                    🥩
+                    <span className="text-3xl sm:text-4xl filter drop-shadow-md">🥩</span>
+                    <span className="font-mono-swiss text-[8px] text-[#EF4444] font-semibold mt-0.5">
+                      Argentina
+                    </span>
                   </motion.div>
                 )}
 
-                {/* 3. Orange inside */}
+                {/* 3. Orange (Valencia) */}
                 {added.orange && (
                   <motion.div
                     initial={{ y: -120, opacity: 0, scale: 0.4 }}
@@ -336,17 +386,20 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                       stiffness: 350,
                       damping: 18,
                     }}
-                    className="text-3xl sm:text-4xl filter drop-shadow-md select-none"
-                    title="Naranja dentro"
+                    className="flex flex-col items-center select-none"
+                    title="Naranja de Valencia"
                   >
-                    🍊
+                    <span className="text-3xl sm:text-4xl filter drop-shadow-md">🍊</span>
+                    <span className="font-mono-swiss text-[8px] text-[#F97316] font-semibold mt-0.5">
+                      Valencia
+                    </span>
                   </motion.div>
                 )}
 
                 {/* Empty State Prompt */}
-                {totalAdded === 0 && (
+                {totalAdded === 0 && !isHoveringBlender && (
                   <span className="font-mono-swiss text-[10px] text-white/40 uppercase tracking-wider pb-3 animate-pulse">
-                    Vacía (Toca abajo)
+                    Arrastra aquí dentro
                   </span>
                 )}
               </div>
@@ -384,69 +437,51 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
           </motion.div>
         </div>
 
-        {/* 3 INGREDIENTS SELECTOR TABS */}
-        <div className="space-y-3 w-full max-w-md mb-6">
-          <div className="grid grid-cols-3 gap-2.5">
-            {INGREDIENTS.map((item) => {
-              const isAdded = added[item.id];
+        {/* 3 DRAGGABLE INGREDIENT TILES */}
+        <div className="grid grid-cols-3 gap-3 w-full max-w-md mb-6">
+          {INGREDIENTS.map((item) => {
+            const isAdded = added[item.id];
 
-              return (
-                <motion.button
-                  key={item.id}
-                  onClick={() => handleAddIngredient(item.id)}
-                  disabled={isAdded || isBlending || isWarping}
-                  whileHover={!isAdded ? { scale: 1.04, y: -2 } : {}}
-                  whileTap={!isAdded ? { scale: 0.96 } : {}}
-                  className={`relative p-3 rounded-2xl border text-center transition-all cursor-pointer flex flex-col items-center justify-between gap-1.5 ${
-                    isAdded
-                      ? "bg-white/[0.02] border-white/10 opacity-40 cursor-default"
-                      : "bg-[#18181b]/90 border-white/15 hover:border-[#D4AF37]/60 hover:bg-[#202024] shadow-md"
-                  }`}
-                >
-                  {/* Status Indicator check */}
-                  {isAdded && (
-                    <span className="absolute top-1.5 right-1.5 w-4 h-4 rounded-full bg-emerald-500 text-black flex items-center justify-center text-[10px]">
-                      <Check className="w-2.5 h-2.5 stroke-[3]" />
+            return (
+              <div key={item.id} className="relative flex flex-col items-center">
+                {!isAdded ? (
+                  <motion.div
+                    drag
+                    dragSnapToOrigin={true}
+                    whileHover={{ scale: 1.05 }}
+                    whileDrag={{ scale: 1.25, zIndex: 60 }}
+                    onDrag={handleDrag}
+                    onDragEnd={(e, info) => handleDragEnd(item.id, e, info)}
+                    onClick={() => handleAddIngredient(item.id)}
+                    className="w-full p-3 sm:p-4 rounded-2xl border-2 border-white/20 bg-[#18181b]/95 hover:border-[#D4AF37]/60 shadow-xl cursor-grab active:cursor-grabbing flex flex-col items-center gap-1 transition-colors touch-none select-none group"
+                    title={`Arrastra ${item.name} (${item.region}) a la licuadora`}
+                  >
+                    <span className="text-3xl sm:text-4xl filter drop-shadow transform group-hover:scale-110 transition-transform">
+                      {item.emoji}
                     </span>
-                  )}
-
-                  <span className="text-3xl filter drop-shadow-sm transform hover:scale-110 transition-transform">
-                    {item.emoji}
-                  </span>
-
-                  <div>
-                    <span className="font-mono-swiss text-xs font-semibold text-white block leading-tight">
+                    <span className="font-mono-swiss text-xs font-semibold text-white leading-tight">
                       {item.name}
                     </span>
-                    <span className="font-sans-ui text-[10px] text-white/50 block font-light">
-                      {item.subtitle}
+                    <span className="font-mono-swiss text-[10px] text-[#D4AF37] font-medium tracking-wide">
+                      {item.region}
+                    </span>
+                  </motion.div>
+                ) : (
+                  <div className="w-full p-3 sm:p-4 rounded-2xl border border-white/10 bg-white/[0.02] opacity-40 flex flex-col items-center gap-1 select-none cursor-default">
+                    <span className="text-3xl sm:text-4xl grayscale opacity-50">
+                      {item.emoji}
+                    </span>
+                    <span className="font-mono-swiss text-xs text-white/50 leading-tight">
+                      {item.name}
+                    </span>
+                    <span className="font-mono-swiss text-[10px] text-emerald-400 font-medium">
+                      ✓ En la licuadora
                     </span>
                   </div>
-
-                  <span
-                    className={`mt-1 font-mono-swiss text-[9px] uppercase tracking-wider px-2 py-0.5 rounded-full ${
-                      isAdded
-                        ? "text-emerald-400 bg-emerald-950/40"
-                        : "text-[#D4AF37] bg-[#D4AF37]/10"
-                    }`}
-                  >
-                    {isAdded ? "Añadido ✓" : "+ Echar"}
-                  </span>
-                </motion.button>
-              );
-            })}
-          </div>
-
-          {/* Quick "Echar todo de golpe" option if none or partial */}
-          {!isReadyToBlend && (
-            <button
-              onClick={handleAddAll}
-              disabled={isBlending}
-              className="font-mono-swiss text-[11px] text-[#D4AF37]/80 hover:text-[#D4AF37] underline decoration-dotted transition-colors cursor-pointer"
-            >
-              o pulsa aquí para echar los 3 a la vez
-            </button>
-          )}
+                )}
+              </div>
+            );
+          })}
         </div>
 
         {/* MAIN CTA BUTTON: BLEND & ENTER */}
@@ -462,11 +497,6 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                 : "bg-zinc-800 text-zinc-500 border border-zinc-700 cursor-not-allowed opacity-60"
             }`}
           >
-            {/* Shimmer on active button */}
-            {isReadyToBlend && !isBlending && (
-              <div className="absolute inset-0 -translate-x-full hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
-            )}
-
             {isBlending ? (
               <>
                 <RotateCw className="w-4 h-4 animate-spin text-black" />
@@ -483,7 +513,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                 <span>
                   {isReadyToBlend
                     ? "¡Remover y Entrar!"
-                    : `Echa los ingredientes (${totalAdded}/3)`}
+                    : `Arrastra los 3 (${totalAdded}/3)`}
                 </span>
                 <ArrowRight className="w-4 h-4" />
               </>
