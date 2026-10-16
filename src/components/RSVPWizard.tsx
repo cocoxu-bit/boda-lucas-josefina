@@ -303,12 +303,16 @@ export const RSVPWizard: React.FC = () => {
   const addToGoogleCalendar = () => {
     const title = encodeURIComponent("Boda Lucas & Josefina");
     const details = encodeURIComponent(
-      `Pase de invitado para ${form.name || "Invitado"} (${form.guestRole}). Ceremonia civil en Palacios de Monforte (13:00) y cóctel largo en Veneno.`
+      `Pase de invitado para ${form.name || "Invitado"} (${form.guestRole}). Ceremonia civil en Palacios de Monforte (13:00) y cóctel largo en Veneno (14:45).`
     );
-    const location = encodeURIComponent("Jardines de Monforte & Veneno, Valencia");
+    const location = encodeURIComponent("Palacete de los Jardines de Monforte & Veneno, Valencia");
     const dates = "20270206T120000Z/20270206T230000Z";
     const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}`;
     window.open(url, "_blank", "noopener,noreferrer");
+  };
+
+  const addToAppleCalendar = () => {
+    window.open("/api/calendar", "_blank");
   };
 
   const sharePass = () => {
@@ -497,27 +501,35 @@ export const RSVPWizard: React.FC = () => {
               </div>
 
               {/* Action buttons on completed ticket */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-2.5 pt-2">
+              <div className="flex flex-wrap items-center justify-center gap-2 pt-2">
                 <button
                   onClick={downloadTicketAsImage}
                   disabled={isDownloadingImage}
                   className="w-full sm:w-auto px-4 py-2.5 rounded-full bg-[var(--accent-gold)] text-black font-sans-ui text-xs font-semibold hover:opacity-90 transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
                 >
                   <Download className="w-3.5 h-3.5" />
-                  <span>{isDownloadingImage ? "Guardando..." : "Descargar Pase (PNG)"}</span>
+                  <span>{isDownloadingImage ? "Guardando..." : "Descargar Pase"}</span>
                 </button>
 
                 <button
                   onClick={addToGoogleCalendar}
-                  className="w-full sm:w-auto px-4 py-2.5 rounded-full glass-pill hover:opacity-90 text-xs font-mono-swiss flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="w-full sm:w-auto px-3.5 py-2.5 rounded-full glass-pill hover:opacity-90 text-xs font-mono-swiss flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   <Calendar className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-                  <span>Guardar en Calendario</span>
+                  <span>Google Calendar</span>
+                </button>
+
+                <button
+                  onClick={addToAppleCalendar}
+                  className="w-full sm:w-auto px-3.5 py-2.5 rounded-full glass-pill hover:opacity-90 text-xs font-mono-swiss flex items-center justify-center gap-1.5 cursor-pointer"
+                >
+                  <Calendar className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
+                  <span>Apple Calendar</span>
                 </button>
 
                 <button
                   onClick={sharePass}
-                  className="w-full sm:w-auto px-4 py-2.5 rounded-full glass-pill hover:opacity-90 text-xs font-mono-swiss flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="w-full sm:w-auto px-3.5 py-2.5 rounded-full glass-pill hover:opacity-90 text-xs font-mono-swiss flex items-center justify-center gap-1.5 cursor-pointer"
                 >
                   {copiedLink ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Share2 className="w-3.5 h-3.5" />}
                   <span>{copiedLink ? "Copiado" : "Compartir"}</span>

@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { Calendar, Download, Check } from "lucide-react";
+import { Calendar } from "lucide-react";
 import { useSoundEffects } from "@/context/SoundContext";
 
 interface TimeLeft {
@@ -13,8 +13,7 @@ interface TimeLeft {
 }
 
 export const Countdown: React.FC = () => {
-  const { playClick, playSoftPop } = useSoundEffects();
-  const [copiedCal, setCopiedCal] = useState(false);
+  const { playClick } = useSoundEffects();
   const targetDate = new Date("2027-02-06T13:00:00+01:00").getTime();
 
   const [timeLeft, setTimeLeft] = useState<TimeLeft>({
@@ -51,43 +50,18 @@ export const Countdown: React.FC = () => {
     playClick();
     const title = encodeURIComponent("Boda Lucas & Josefina");
     const details = encodeURIComponent(
-      "Ceremonia civil en Palacios de Monforte (13:00) y celebración tipo cóctel largo sin corsé en Veneno. Vestimenta arreglada pero sin protocolo rígido."
+      "Ceremonia civil en Palacios de Monforte (13:00) y celebración tipo cóctel largo en Veneno (14:45). Vestimenta arreglada pero sin protocolo rígido."
     );
-    const location = encodeURIComponent("Jardines de Monforte & Veneno, Valencia");
+    const location = encodeURIComponent("Palacete de los Jardines de Monforte & Veneno, Valencia");
     const dates = "20270206T120000Z/20270206T230000Z";
     const url = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=${title}&dates=${dates}&details=${details}&location=${location}`;
     window.open(url, "_blank", "noopener,noreferrer");
   };
 
-  const downloadICS = () => {
-    playSoftPop();
-    const icsContent = [
-      "BEGIN:VCALENDAR",
-      "VERSION:2.0",
-      "PRODID:-//Lucas y Josefina//Boda Valencia//ES",
-      "CALSCALE:GREGORIAN",
-      "METHOD:PUBLISH",
-      "BEGIN:VEVENT",
-      "SUMMARY:Boda Lucas & Josefina",
-      "DESCRIPTION:Ceremonia civil en Jardines de Monforte (13:00) y cóctel largo en Veneno.",
-      "LOCATION:Jardines de Monforte & Veneno, Valencia",
-      "DTSTART:20270206T120000Z",
-      "DTEND:20270206T230000Z",
-      "STATUS:CONFIRMED",
-      "END:VEVENT",
-      "END:VCALENDAR",
-    ].join("\r\n");
-
-    const blob = new Blob([icsContent], { type: "text/calendar;charset=utf-8" });
-    const link = document.createElement("a");
-    link.href = window.URL.createObjectURL(blob);
-    link.setAttribute("download", "boda-lucas-josefina.ics");
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-
-    setCopiedCal(true);
-    setTimeout(() => setCopiedCal(false), 2500);
+  const addToAppleCalendar = () => {
+    playClick();
+    // Directly opens the iCalendar event on iOS/macOS/Safari native Calendar app
+    window.open("/api/calendar", "_blank");
   };
 
   const formatNumber = (n: number) => n.toString().padStart(2, "0");
@@ -141,7 +115,7 @@ export const Countdown: React.FC = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
             onClick={addToGoogleCalendar}
-            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-black/[0.03] dark:bg-white/5 hover:bg-black/[0.06] dark:hover:bg-white/10 border border-[var(--card-border)] text-xs font-mono-swiss text-[var(--fg-primary)] transition-colors"
+            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 py-2 px-3.5 rounded-xl bg-black/[0.03] dark:bg-white/5 hover:bg-black/[0.06] dark:hover:bg-white/10 border border-[var(--card-border)] text-xs font-mono-swiss text-[var(--fg-primary)] transition-all cursor-pointer"
           >
             <Calendar className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
             <span>Google Calendar</span>
@@ -150,20 +124,11 @@ export const Countdown: React.FC = () => {
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
-            onClick={downloadICS}
-            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-black/[0.03] dark:bg-white/5 hover:bg-black/[0.06] dark:hover:bg-white/10 border border-[var(--card-border)] text-xs font-mono-swiss text-[var(--fg-primary)] transition-colors"
+            onClick={addToAppleCalendar}
+            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 py-2 px-3.5 rounded-xl bg-black/[0.03] dark:bg-white/5 hover:bg-black/[0.06] dark:hover:bg-white/10 border border-[var(--card-border)] text-xs font-mono-swiss text-[var(--fg-primary)] transition-all cursor-pointer"
           >
-            {copiedCal ? (
-              <>
-                <Check className="w-3.5 h-3.5 text-emerald-500" />
-                <span className="text-emerald-500 font-medium">Descargado</span>
-              </>
-            ) : (
-              <>
-                <Download className="w-3.5 h-3.5 text-[var(--fg-muted)]" />
-                <span>Apple / iCal (.ics)</span>
-              </>
-            )}
+            <Calendar className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
+            <span>Apple Calendar</span>
           </motion.button>
         </div>
       </div>
