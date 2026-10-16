@@ -12,13 +12,11 @@ import {
   Music2, 
   Utensils, 
   Ticket, 
-  HeartHandshake, 
   Share2, 
-  Download,
-  Copy,
   Check
 } from "lucide-react";
 import { useSoundEffects } from "@/context/SoundContext";
+import { useTheme } from "@/context/ThemeContext";
 
 interface RSVPFormData {
   name: string;
@@ -88,6 +86,7 @@ export const RSVPWizard: React.FC = () => {
   const [copiedLink, setCopiedLink] = useState(false);
 
   const { playClick, playSoftPop, playSelect, playSuccess, playCardFlip } = useSoundEffects();
+  const { theme } = useTheme();
 
   const [form, setForm] = useState<RSVPFormData>({
     name: "",
@@ -139,9 +138,10 @@ export const RSVPWizard: React.FC = () => {
   };
 
   const triggerConfetti = () => {
-    // Elegant gold and white dual confetti cannons
     const end = Date.now() + 1500;
-    const colors = ["#dfb15b", "#ffffff", "#e8c37d", "#18181b"];
+    const colors = theme === "warm" 
+      ? ["#c28835", "#b45309", "#faf8f5", "#1c1917"] 
+      : ["#dfb15b", "#ffffff", "#e8c37d", "#18181b"];
 
     (function frame() {
       confetti({
@@ -170,7 +170,6 @@ export const RSVPWizard: React.FC = () => {
     setIsSubmitting(true);
     playClick();
 
-    // Emulate smooth network submission
     setTimeout(() => {
       setIsSubmitting(false);
       setIsCompleted(true);
@@ -181,7 +180,7 @@ export const RSVPWizard: React.FC = () => {
 
   const sharePass = () => {
     playClick();
-    const text = `¡Confirmado! Voy a la boda de Lucas & Josefina el 06.02.2027 en Valencia con el rol honorario de "${form.guestRole}".`;
+    const text = `¡Confirmado! Voy a la boda de Lucas & Josefina el 06.02.2027 en Valencia con el rol de "${form.guestRole}".`;
     if (navigator.share) {
       navigator.share({
         title: "Pase Oficial • Boda Lucas & Josefina",
@@ -199,15 +198,15 @@ export const RSVPWizard: React.FC = () => {
     <section id="rsvp-section" className="relative w-full max-w-2xl mx-auto py-16 px-4 sm:px-6">
       {/* Header */}
       <div className="text-center space-y-2 mb-8">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[11px] font-mono-swiss text-[#dfb15b] uppercase tracking-widest">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-pill text-[11px] font-mono-swiss uppercase tracking-widest text-[var(--accent-gold)]">
           <Ticket className="w-3.5 h-3.5" />
           <span>CONFIRMACIÓN DE ASISTENCIA</span>
         </div>
-        <h2 className="font-serif-editorial text-4xl sm:text-5xl text-white italic">
+        <h2 className="font-serif-editorial text-4xl sm:text-5xl text-[var(--fg-primary)] italic transition-colors">
           RSVP & Pase de Invitado
         </h2>
-        <p className="font-sans-ui text-xs sm:text-sm text-zinc-400 max-w-md mx-auto">
-          Confirma tu asistencia antes del 15 de diciembre para que en Monforte y Veneno esté todo a punto.
+        <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-muted)] max-w-md mx-auto">
+          Confirma tu asistencia para que en Monforte y Veneno esté todo a punto.
         </p>
       </div>
 
@@ -219,10 +218,10 @@ export const RSVPWizard: React.FC = () => {
               <div
                 className={`w-7 h-7 rounded-full flex items-center justify-center font-mono-swiss text-xs transition-all ${
                   step === s
-                    ? "bg-[#dfb15b] text-black font-bold ring-4 ring-[#dfb15b]/20"
+                    ? "bg-[var(--accent-gold)] text-black dark:text-black font-bold ring-4 ring-[var(--accent-gold)]/20"
                     : step > s
-                    ? "bg-white/20 text-white"
-                    : "bg-white/5 text-zinc-500 border border-white/10"
+                    ? "bg-black/20 dark:bg-white/20 text-[var(--fg-primary)]"
+                    : "bg-black/5 dark:bg-white/5 text-[var(--fg-muted)] border border-[var(--card-border)]"
                 }`}
               >
                 {step > s ? "✓" : s}
@@ -230,7 +229,7 @@ export const RSVPWizard: React.FC = () => {
               {s < 4 && (
                 <div
                   className={`h-0.5 flex-1 mx-2 transition-colors ${
-                    step > s ? "bg-[#dfb15b]" : "bg-white/10"
+                    step > s ? "bg-[var(--accent-gold)]" : "bg-black/10 dark:bg-white/10"
                   }`}
                 />
               )}
@@ -240,7 +239,7 @@ export const RSVPWizard: React.FC = () => {
       )}
 
       {/* Main Form Box */}
-      <div className="relative rounded-3xl border border-white/10 bg-zinc-950/80 p-5 sm:p-8 backdrop-blur-xl shadow-2xl overflow-hidden">
+      <div className="theme-card relative rounded-3xl p-5 sm:p-8 shadow-2xl overflow-hidden transition-all duration-300">
         <AnimatePresence mode="wait">
           {/* COMPLETED PASS VIEW */}
           {isCompleted ? (
@@ -251,71 +250,75 @@ export const RSVPWizard: React.FC = () => {
               transition={{ type: "spring", stiffness: 300, damping: 25 }}
               className="space-y-6 text-center py-4"
             >
-              <div className="w-14 h-14 rounded-full bg-[#dfb15b]/10 border border-[#dfb15b]/30 flex items-center justify-center mx-auto text-[#dfb15b]">
+              <div className="w-14 h-14 rounded-full bg-[var(--accent-gold)]/10 border border-[var(--accent-gold)]/30 flex items-center justify-center mx-auto text-[var(--accent-gold)]">
                 <Sparkles className="w-7 h-7" />
               </div>
 
               <div>
-                <span className="font-mono-swiss text-[11px] text-[#dfb15b] uppercase tracking-widest">
+                <span className="font-mono-swiss text-[11px] text-[var(--accent-gold)] uppercase tracking-widest font-semibold">
                   CONFIRMACIÓN REGISTRADA CON ÉXITO
                 </span>
-                <h3 className="font-serif-editorial text-3xl sm:text-4xl text-white italic mt-1">
+                <h3 className="font-serif-editorial text-3xl sm:text-4xl text-[var(--fg-primary)] italic mt-1">
                   ¡Nos vemos en Valencia!
                 </h3>
               </div>
 
               {/* Digital Guest Pass Card */}
-              <div className="relative mx-auto max-w-sm rounded-2xl border border-white/20 bg-gradient-to-b from-zinc-900 to-zinc-950 p-6 text-left shadow-2xl overflow-hidden">
+              <div className={`relative mx-auto max-w-sm rounded-2xl border p-6 text-left shadow-2xl overflow-hidden transition-all ${
+                theme === "warm" 
+                  ? "bg-gradient-to-b from-white to-[#faf6ee] border-stone-300 shadow-stone-900/10" 
+                  : "bg-gradient-to-b from-zinc-900 to-zinc-950 border-white/20 shadow-black/60"
+              }`}>
                 {/* Golden top accent strip */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#dfb15b] via-amber-200 to-[#dfb15b]" />
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[var(--accent-gold)] via-amber-300 to-[var(--accent-gold)]" />
                 
-                <div className="flex items-center justify-between pb-4 border-b border-white/10">
+                <div className="flex items-center justify-between pb-4 border-b border-[var(--card-border)]">
                   <div>
-                    <span className="font-mono-swiss text-[9px] uppercase tracking-widest text-zinc-400">
+                    <span className="font-mono-swiss text-[9px] uppercase tracking-widest text-[var(--fg-muted)]">
                       PASE OFICIAL // ENTRADA VIP
                     </span>
-                    <h4 className="font-serif-editorial text-2xl text-white italic">
+                    <h4 className="font-serif-editorial text-2xl text-[var(--fg-primary)] italic">
                       Lucas & Josefina
                     </h4>
                   </div>
                   <div className="text-right">
-                    <span className="font-mono-swiss text-[11px] text-[#dfb15b] font-bold">
+                    <span className="font-mono-swiss text-[11px] text-[var(--accent-gold)] font-bold">
                       06.02.2027
                     </span>
-                    <div className="font-mono-swiss text-[9px] text-zinc-500">13:00 H</div>
+                    <div className="font-mono-swiss text-[9px] text-[var(--fg-muted)]">13:00 H</div>
                   </div>
                 </div>
 
                 <div className="py-4 space-y-3">
                   <div>
-                    <span className="font-mono-swiss text-[9px] uppercase text-zinc-500">Invitado:</span>
-                    <p className="font-sans-ui text-base font-semibold text-white tracking-wide">
+                    <span className="font-mono-swiss text-[9px] uppercase text-[var(--fg-muted)]">Invitado:</span>
+                    <p className="font-sans-ui text-base font-semibold text-[var(--fg-primary)] tracking-wide">
                       {form.name || "Invitado Especial"}
                     </p>
                     {form.companion && (
-                      <p className="font-sans-ui text-xs text-zinc-400">+ {form.companion}</p>
+                      <p className="font-sans-ui text-xs text-[var(--fg-muted)]">+ {form.companion}</p>
                     )}
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/5">
+                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-[var(--card-border)]">
                     <div>
-                      <span className="font-mono-swiss text-[9px] uppercase text-zinc-500">Rol Honorario:</span>
-                      <p className="font-mono-swiss text-xs text-[#dfb15b] font-medium">
+                      <span className="font-mono-swiss text-[9px] uppercase text-[var(--fg-muted)]">Rol Honorario:</span>
+                      <p className="font-mono-swiss text-xs text-[var(--accent-gold)] font-medium">
                         {form.guestRole}
                       </p>
                     </div>
                     <div>
-                      <span className="font-mono-swiss text-[9px] uppercase text-zinc-500">Itinerario:</span>
-                      <p className="font-mono-swiss text-xs text-zinc-300">
+                      <span className="font-mono-swiss text-[9px] uppercase text-[var(--fg-muted)]">Itinerario:</span>
+                      <p className="font-mono-swiss text-xs text-[var(--fg-primary)]/80">
                         Monforte ➔ Veneno
                       </p>
                     </div>
                   </div>
 
                   {form.songTitle && (
-                    <div className="pt-2 border-t border-white/5">
-                      <span className="font-mono-swiss text-[9px] uppercase text-zinc-500">Tema Solicitado:</span>
-                      <p className="font-mono-swiss text-xs text-zinc-300 truncate">
+                    <div className="pt-2 border-t border-[var(--card-border)]">
+                      <span className="font-mono-swiss text-[9px] uppercase text-[var(--fg-muted)]">Tema Solicitado:</span>
+                      <p className="font-mono-swiss text-xs text-[var(--fg-primary)]/80 truncate">
                         ♫ {form.songTitle} {form.songArtist ? `- ${form.songArtist}` : ""}
                       </p>
                     </div>
@@ -323,27 +326,27 @@ export const RSVPWizard: React.FC = () => {
                 </div>
 
                 {/* Swiss barcode simulation */}
-                <div className="pt-3 border-t border-white/10 flex items-center justify-between">
+                <div className="pt-3 border-t border-[var(--card-border)] flex items-center justify-between">
                   <div className="flex items-center gap-1 h-6">
                     {[1, 3, 2, 4, 1, 3, 5, 2, 1, 4, 2, 3, 1, 4].map((w, idx) => (
                       <span
                         key={idx}
-                        className="h-full bg-zinc-400"
+                        className={`h-full ${theme === "warm" ? "bg-stone-800" : "bg-zinc-400"}`}
                         style={{ width: `${w}px` }}
                       />
                     ))}
                   </div>
-                  <span className="font-mono-swiss text-[9px] text-zinc-500 tracking-widest">
+                  <span className="font-mono-swiss text-[9px] text-[var(--fg-muted)] tracking-widest font-mono">
                     VLC-2027-OK
                   </span>
                 </div>
               </div>
 
-              {/* Action buttons */}
-              <div className="flex flex-col sm:flex-row items-center justify-center gap-3 pt-2">
+              {/* Action button */}
+              <div className="flex items-center justify-center pt-2">
                 <button
                   onClick={sharePass}
-                  className="w-full sm:w-auto px-5 py-2.5 rounded-full bg-[#dfb15b] text-black font-sans-ui text-xs font-semibold hover:bg-[#e8c37d] transition-all flex items-center justify-center gap-2"
+                  className="px-5 py-2.5 rounded-full bg-[var(--accent-gold)] text-black font-sans-ui text-xs font-semibold hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-md cursor-pointer"
                 >
                   {copiedLink ? <Check className="w-3.5 h-3.5" /> : <Share2 className="w-3.5 h-3.5" />}
                   <span>{copiedLink ? "Copiado al portapapeles" : "Compartir pase"}</span>
@@ -361,11 +364,11 @@ export const RSVPWizard: React.FC = () => {
                   exit={{ opacity: 0, x: -20 }}
                   className="space-y-5"
                 >
-                  <div className="border-b border-white/10 pb-3">
-                    <span className="font-mono-swiss text-[10px] uppercase text-[#dfb15b]">
+                  <div className="border-b border-[var(--card-border)] pb-3">
+                    <span className="font-mono-swiss text-[10px] uppercase text-[var(--accent-gold)]">
                       PASO 01 // DATOS BÁSICOS
                     </span>
-                    <h3 className="font-serif-editorial text-2xl sm:text-3xl text-white italic">
+                    <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic">
                       ¿Nos acompañas el 6 de febrero?
                     </h3>
                   </div>
@@ -380,13 +383,13 @@ export const RSVPWizard: React.FC = () => {
                       }}
                       className={`p-4 rounded-2xl border text-left transition-all ${
                         form.attendance === "yes"
-                          ? "border-[#dfb15b] bg-[#dfb15b]/10 text-white"
-                          : "border-white/10 bg-white/[0.02] text-zinc-400 hover:border-white/20"
+                          ? "border-[var(--accent-gold)] bg-[var(--accent-gold)]/10 text-[var(--fg-primary)]"
+                          : "border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.02] text-[var(--fg-muted)] hover:border-[var(--card-border-hover)]"
                       }`}
                     >
-                      <CheckCircle2 className={`w-5 h-5 mb-2 ${form.attendance === "yes" ? "text-[#dfb15b]" : "text-zinc-500"}`} />
-                      <div className="font-sans-ui text-sm font-semibold text-white">¡Allí estaré!</div>
-                      <div className="font-sans-ui text-[11px] text-zinc-400 mt-0.5">Listo para celebrar</div>
+                      <CheckCircle2 className={`w-5 h-5 mb-2 ${form.attendance === "yes" ? "text-[var(--accent-gold)]" : "text-[var(--fg-muted)]"}`} />
+                      <div className="font-sans-ui text-sm font-semibold text-[var(--fg-primary)]">¡Allí estaré!</div>
+                      <div className="font-sans-ui text-[11px] text-[var(--fg-muted)] mt-0.5">Listo para celebrar</div>
                     </button>
 
                     <button
@@ -397,19 +400,19 @@ export const RSVPWizard: React.FC = () => {
                       }}
                       className={`p-4 rounded-2xl border text-left transition-all ${
                         form.attendance === "no"
-                          ? "border-red-500/60 bg-red-500/10 text-white"
-                          : "border-white/10 bg-white/[0.02] text-zinc-400 hover:border-white/20"
+                          ? "border-red-500/60 bg-red-500/10 text-[var(--fg-primary)]"
+                          : "border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.02] text-[var(--fg-muted)] hover:border-[var(--card-border-hover)]"
                       }`}
                     >
-                      <XCircle className={`w-5 h-5 mb-2 ${form.attendance === "no" ? "text-red-400" : "text-zinc-500"}`} />
-                      <div className="font-sans-ui text-sm font-semibold text-white">No podré ir</div>
-                      <div className="font-sans-ui text-[11px] text-zinc-400 mt-0.5">Brindaré a la distancia</div>
+                      <XCircle className={`w-5 h-5 mb-2 ${form.attendance === "no" ? "text-red-400" : "text-[var(--fg-muted)]"}`} />
+                      <div className="font-sans-ui text-sm font-semibold text-[var(--fg-primary)]">No podré ir</div>
+                      <div className="font-sans-ui text-[11px] text-[var(--fg-muted)] mt-0.5">Brindaré a la distancia</div>
                     </button>
                   </div>
 
                   {/* Name field */}
                   <div className="space-y-1.5">
-                    <label className="block font-mono-swiss text-[11px] uppercase tracking-wider text-zinc-300">
+                    <label className="block font-mono-swiss text-[11px] uppercase tracking-wider text-[var(--fg-primary)]">
                       Nombre completo *
                     </label>
                     <input
@@ -418,13 +421,13 @@ export const RSVPWizard: React.FC = () => {
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder="Ej. Lucas García o Josefina Gómez"
-                      className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-[#dfb15b] focus:outline-none focus:ring-1 focus:ring-[#dfb15b]"
+                      className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-4 py-3 text-sm text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:border-[var(--accent-gold)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-gold)]"
                     />
                   </div>
 
                   {/* Companion field (Optional) */}
                   <div className="space-y-1.5">
-                    <label className="block font-mono-swiss text-[11px] uppercase tracking-wider text-zinc-300">
+                    <label className="block font-mono-swiss text-[11px] uppercase tracking-wider text-[var(--fg-primary)]">
                       Acompañante (+1) (opcional)
                     </label>
                     <input
@@ -432,7 +435,7 @@ export const RSVPWizard: React.FC = () => {
                       value={form.companion}
                       onChange={(e) => setForm({ ...form, companion: e.target.value })}
                       placeholder="Nombre de tu acompañante si aplica"
-                      className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white placeholder-zinc-500 focus:border-[#dfb15b] focus:outline-none"
+                      className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-4 py-3 text-sm text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:border-[var(--accent-gold)] focus:outline-none"
                     />
                   </div>
 
@@ -443,13 +446,12 @@ export const RSVPWizard: React.FC = () => {
                       disabled={!form.name || !form.attendance}
                       onClick={() => {
                         if (form.attendance === "no") {
-                          // Directly submit if not attending
                           handleSubmit({ preventDefault: () => {} } as React.FormEvent);
                         } else {
                           nextStep();
                         }
                       }}
-                      className="w-full py-3.5 rounded-xl bg-white text-black font-sans-ui text-sm font-semibold hover:bg-[#dfb15b] disabled:opacity-30 disabled:pointer-events-none transition-all flex items-center justify-center gap-2"
+                      className="w-full py-3.5 rounded-xl bg-[var(--fg-primary)] text-[var(--bg-primary)] font-sans-ui text-sm font-semibold hover:bg-[var(--accent-gold)] hover:text-black disabled:opacity-30 disabled:pointer-events-none transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                     >
                       <span>{form.attendance === "no" ? "Enviar respuesta" : "Siguiente paso"}</span>
                       <ArrowRight className="w-4 h-4" />
@@ -467,14 +469,14 @@ export const RSVPWizard: React.FC = () => {
                   exit={{ opacity: 0, x: -20 }}
                   className="space-y-5"
                 >
-                  <div className="border-b border-white/10 pb-3">
-                    <span className="font-mono-swiss text-[10px] uppercase text-[#dfb15b]">
+                  <div className="border-b border-[var(--card-border)] pb-3">
+                    <span className="font-mono-swiss text-[10px] uppercase text-[var(--accent-gold)]">
                       PASO 02 // ALÉRGENOS & DIETA
                     </span>
-                    <h3 className="font-serif-editorial text-2xl sm:text-3xl text-white italic">
+                    <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic">
                       ¿Tienes alguna intolerancia o preferencia?
                     </h3>
-                    <p className="font-sans-ui text-xs text-zinc-400 mt-1">
+                    <p className="font-sans-ui text-xs text-[var(--fg-muted)] mt-1">
                       El cóctel largo contará con múltiples pases adaptados para que todo el mundo coma increíble.
                     </p>
                   </div>
@@ -488,10 +490,10 @@ export const RSVPWizard: React.FC = () => {
                           key={option}
                           type="button"
                           onClick={() => toggleDietary(option)}
-                          className={`px-3 py-2 rounded-xl text-xs font-mono-swiss transition-all text-left flex items-center gap-2 ${
+                          className={`px-3 py-2 rounded-xl text-xs font-mono-swiss transition-all text-left flex items-center gap-2 cursor-pointer ${
                             isSelected
-                              ? "bg-[#dfb15b] text-black font-medium shadow-md shadow-[#dfb15b]/20"
-                              : "bg-white/5 border border-white/10 text-zinc-300 hover:bg-white/10"
+                              ? "bg-[var(--accent-gold)] text-black font-semibold shadow-md"
+                              : "glass-pill hover:opacity-80"
                           }`}
                         >
                           <Utensils className="w-3 h-3 opacity-70" />
@@ -503,15 +505,15 @@ export const RSVPWizard: React.FC = () => {
 
                   {/* Specific other text */}
                   <div className="space-y-1.5 pt-2">
-                    <label className="block font-mono-swiss text-[11px] uppercase tracking-wider text-zinc-300">
+                    <label className="block font-mono-swiss text-[11px] uppercase tracking-wider text-[var(--fg-primary)]">
                       Otras alergias o detalles específicos:
                     </label>
                     <input
                       type="text"
                       value={form.otherDietary}
                       onChange={(e) => setForm({ ...form, otherDietary: e.target.value })}
-                      placeholder="Ej. Alergia severa al sésamo o melocotón..."
-                      className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder-zinc-500 focus:border-[#dfb15b] focus:outline-none"
+                      placeholder="Ej. Alergia al sésamo o marisco..."
+                      className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-4 py-2.5 text-sm text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:border-[var(--accent-gold)] focus:outline-none"
                     />
                   </div>
 
@@ -520,7 +522,7 @@ export const RSVPWizard: React.FC = () => {
                     <button
                       type="button"
                       onClick={prevStep}
-                      className="px-4 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-zinc-300 font-sans-ui text-sm flex items-center gap-1.5"
+                      className="px-4 py-3 rounded-xl border border-[var(--card-border)] hover:bg-black/5 dark:hover:bg-white/5 text-[var(--fg-primary)] font-sans-ui text-sm flex items-center gap-1.5 cursor-pointer"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       <span>Atrás</span>
@@ -528,7 +530,7 @@ export const RSVPWizard: React.FC = () => {
                     <button
                       type="button"
                       onClick={nextStep}
-                      className="flex-1 py-3.5 rounded-xl bg-white text-black font-sans-ui text-sm font-semibold hover:bg-[#dfb15b] transition-all flex items-center justify-center gap-2"
+                      className="flex-1 py-3.5 rounded-xl bg-[var(--fg-primary)] text-[var(--bg-primary)] font-sans-ui text-sm font-semibold hover:bg-[var(--accent-gold)] hover:text-black transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                     >
                       <span>Elegir rol honorario</span>
                       <ArrowRight className="w-4 h-4" />
@@ -537,7 +539,7 @@ export const RSVPWizard: React.FC = () => {
                 </motion.div>
               )}
 
-              {/* STEP 3: Guest Role Selector (Gamified Flagship Feature) */}
+              {/* STEP 3: Guest Role Selector */}
               {step === 3 && (
                 <motion.div
                   key="step-3"
@@ -546,19 +548,18 @@ export const RSVPWizard: React.FC = () => {
                   exit={{ opacity: 0, x: -20 }}
                   className="space-y-5"
                 >
-                  <div className="border-b border-white/10 pb-3">
-                    <span className="font-mono-swiss text-[10px] uppercase text-[#dfb15b]">
+                  <div className="border-b border-[var(--card-border)] pb-3">
+                    <span className="font-mono-swiss text-[10px] uppercase text-[var(--accent-gold)]">
                       PASO 03 // ELIGE TU ROL DE INVITADO
                     </span>
-                    <h3 className="font-serif-editorial text-2xl sm:text-3xl text-white italic">
+                    <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic">
                       ¿Cuál será tu misión oficial en la boda?
                     </h3>
-                    <p className="font-sans-ui text-xs text-zinc-400 mt-1">
+                    <p className="font-sans-ui text-xs text-[var(--fg-muted)] mt-1">
                       Aparecerá impreso en tu pase digital de acceso a Veneno.
                     </p>
                   </div>
 
-                  {/* 6 Gamified Role Cards Grid */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
                     {GUEST_ROLES.map((role) => {
                       const isSelected = form.guestRole === role.title;
@@ -569,17 +570,17 @@ export const RSVPWizard: React.FC = () => {
                           onClick={() => handleRoleSelect(role.title)}
                           className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
                             isSelected
-                              ? "border-[#dfb15b] bg-[#dfb15b]/10 ring-1 ring-[#dfb15b]"
-                              : "border-white/10 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04]"
+                              ? "border-[var(--accent-gold)] bg-[var(--accent-gold)]/15 ring-1 ring-[var(--accent-gold)]"
+                              : "border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.02] hover:border-[var(--card-border-hover)]"
                           }`}
                         >
                           <div className="flex items-center gap-2">
                             <span className="text-xl">{role.emoji}</span>
-                            <span className="font-sans-ui text-xs sm:text-sm font-medium text-white">
+                            <span className="font-sans-ui text-xs sm:text-sm font-medium text-[var(--fg-primary)]">
                               {role.title}
                             </span>
                           </div>
-                          <p className="font-sans-ui text-[11px] text-zinc-400 mt-1 pl-7">
+                          <p className="font-sans-ui text-[11px] text-[var(--fg-muted)] mt-1 pl-7">
                             {role.desc}
                           </p>
                         </button>
@@ -587,12 +588,11 @@ export const RSVPWizard: React.FC = () => {
                     })}
                   </div>
 
-                  {/* Step 3 Actions */}
                   <div className="flex items-center gap-3 pt-3">
                     <button
                       type="button"
                       onClick={prevStep}
-                      className="px-4 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-zinc-300 font-sans-ui text-sm flex items-center gap-1.5"
+                      className="px-4 py-3 rounded-xl border border-[var(--card-border)] hover:bg-black/5 dark:hover:bg-white/5 text-[var(--fg-primary)] font-sans-ui text-sm flex items-center gap-1.5 cursor-pointer"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       <span>Atrás</span>
@@ -600,7 +600,7 @@ export const RSVPWizard: React.FC = () => {
                     <button
                       type="button"
                       onClick={nextStep}
-                      className="flex-1 py-3.5 rounded-xl bg-white text-black font-sans-ui text-sm font-semibold hover:bg-[#dfb15b] transition-all flex items-center justify-center gap-2"
+                      className="flex-1 py-3.5 rounded-xl bg-[var(--fg-primary)] text-[var(--bg-primary)] font-sans-ui text-sm font-semibold hover:bg-[var(--accent-gold)] hover:text-black transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                     >
                       <span>Siguiente: Música & Nota</span>
                       <ArrowRight className="w-4 h-4" />
@@ -618,19 +618,18 @@ export const RSVPWizard: React.FC = () => {
                   exit={{ opacity: 0, x: -20 }}
                   className="space-y-5"
                 >
-                  <div className="border-b border-white/10 pb-3">
-                    <span className="font-mono-swiss text-[10px] uppercase text-[#dfb15b]">
+                  <div className="border-b border-[var(--card-border)] pb-3">
+                    <span className="font-mono-swiss text-[10px] uppercase text-[var(--accent-gold)]">
                       PASO 04 // MÚSICA & MENSAJE
                     </span>
-                    <h3 className="font-serif-editorial text-2xl sm:text-3xl text-white italic">
+                    <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic">
                       El temazo que no puede faltar en Veneno
                     </h3>
                   </div>
 
-                  {/* Music recommendation fields */}
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <label className="block font-mono-swiss text-[10px] uppercase text-zinc-400">
+                      <label className="block font-mono-swiss text-[10px] uppercase text-[var(--fg-muted)]">
                         Canción
                       </label>
                       <input
@@ -638,11 +637,11 @@ export const RSVPWizard: React.FC = () => {
                         value={form.songTitle}
                         onChange={(e) => setForm({ ...form, songTitle: e.target.value })}
                         placeholder="Ej. One More Time"
-                        className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 text-xs text-white placeholder-zinc-500 focus:border-[#dfb15b] focus:outline-none"
+                        className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-3 py-2.5 text-xs text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:border-[var(--accent-gold)] focus:outline-none"
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="block font-mono-swiss text-[10px] uppercase text-zinc-400">
+                      <label className="block font-mono-swiss text-[10px] uppercase text-[var(--fg-muted)]">
                         Artista
                       </label>
                       <input
@@ -650,31 +649,29 @@ export const RSVPWizard: React.FC = () => {
                         value={form.songArtist}
                         onChange={(e) => setForm({ ...form, songArtist: e.target.value })}
                         placeholder="Ej. Daft Punk"
-                        className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 text-xs text-white placeholder-zinc-500 focus:border-[#dfb15b] focus:outline-none"
+                        className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-3 py-2.5 text-xs text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:border-[var(--accent-gold)] focus:outline-none"
                       />
                     </div>
                   </div>
 
-                  {/* Instant Vinyl Preview badge */}
                   {form.songTitle && (
                     <motion.div
                       initial={{ opacity: 0, y: 5 }}
                       animate={{ opacity: 1, y: 0 }}
-                      className="flex items-center gap-2 p-2.5 rounded-xl bg-white/[0.04] border border-white/10"
+                      className="flex items-center gap-2 p-2.5 rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.04]"
                     >
-                      <div className="w-7 h-7 rounded-full bg-zinc-800 border border-[#dfb15b]/40 flex items-center justify-center animate-spin [animation-duration:4s]">
-                        <Music2 className="w-3.5 h-3.5 text-[#dfb15b]" />
+                      <div className="w-7 h-7 rounded-full bg-[var(--accent-gold)]/20 border border-[var(--accent-gold)] flex items-center justify-center animate-spin [animation-duration:4s]">
+                        <Music2 className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
                       </div>
-                      <div className="font-mono-swiss text-xs text-zinc-300 truncate">
-                        <span className="text-white font-medium">{form.songTitle}</span>{" "}
-                        {form.songArtist && <span className="text-zinc-500">• {form.songArtist}</span>}
+                      <div className="font-mono-swiss text-xs text-[var(--fg-primary)] truncate">
+                        <span className="font-medium">{form.songTitle}</span>{" "}
+                        {form.songArtist && <span className="text-[var(--fg-muted)]">• {form.songArtist}</span>}
                       </div>
                     </motion.div>
                   )}
 
-                  {/* Message for couple */}
                   <div className="space-y-1">
-                    <label className="block font-mono-swiss text-[10px] uppercase text-zinc-400">
+                    <label className="block font-mono-swiss text-[10px] uppercase text-[var(--fg-muted)]">
                       Unas palabras para Lucas & Josefina (opcional)
                     </label>
                     <textarea
@@ -682,16 +679,15 @@ export const RSVPWizard: React.FC = () => {
                       value={form.message}
                       onChange={(e) => setForm({ ...form, message: e.target.value })}
                       placeholder="Déjales un mensaje o amenaza cariñosa para el 6 de febrero..."
-                      className="w-full rounded-xl border border-white/10 bg-white/5 px-3 py-2.5 text-xs text-white placeholder-zinc-500 focus:border-[#dfb15b] focus:outline-none resize-none"
+                      className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-3 py-2.5 text-xs text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:border-[var(--accent-gold)] focus:outline-none resize-none"
                     />
                   </div>
 
-                  {/* Submit Final Action */}
                   <div className="flex items-center gap-3 pt-3">
                     <button
                       type="button"
                       onClick={prevStep}
-                      className="px-4 py-3 rounded-xl border border-white/10 hover:bg-white/5 text-zinc-300 font-sans-ui text-sm flex items-center gap-1.5"
+                      className="px-4 py-3 rounded-xl border border-[var(--card-border)] hover:bg-black/5 dark:hover:bg-white/5 text-[var(--fg-primary)] font-sans-ui text-sm flex items-center gap-1.5 cursor-pointer"
                     >
                       <ArrowLeft className="w-4 h-4" />
                       <span>Atrás</span>
@@ -699,7 +695,7 @@ export const RSVPWizard: React.FC = () => {
                     <button
                       type="submit"
                       disabled={isSubmitting}
-                      className="flex-1 py-3.5 rounded-xl bg-[#dfb15b] text-black font-sans-ui text-sm font-semibold hover:bg-[#e8c37d] disabled:opacity-50 transition-all flex items-center justify-center gap-2 shadow-lg shadow-[#dfb15b]/20"
+                      className="flex-1 py-3.5 rounded-xl bg-[var(--accent-gold)] text-black font-sans-ui text-sm font-semibold hover:opacity-90 disabled:opacity-50 transition-all flex items-center justify-center gap-2 shadow-lg cursor-pointer"
                     >
                       {isSubmitting ? (
                         <span>Generando tu pase...</span>

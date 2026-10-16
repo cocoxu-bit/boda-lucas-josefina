@@ -8,7 +8,7 @@ import { Footer } from "@/components/Footer";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen bg-[#09090b] text-[#f4f4f6] selection:bg-[#dfb15b] selection:text-black">
+    <main className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--fg-primary)] selection:bg-[var(--accent-gold)] selection:text-black transition-colors duration-500">
       {/* Top Glassmorphic Navigation */}
       <Header />
 

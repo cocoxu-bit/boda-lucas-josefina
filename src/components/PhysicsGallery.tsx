@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import Matter from "matter-js";
 import { RefreshCw, Sparkles, Hand } from "lucide-react";
 import { useSoundEffects } from "@/context/SoundContext";
+import { useTheme } from "@/context/ThemeContext";
 
 interface PolaroidItem {
   id: string;
@@ -20,7 +21,7 @@ const POLAROIDS_DATA: PolaroidItem[] = [
     caption: "Palacios de Monforte",
     sub: "Ceremonia • 13:00 H",
     color: "#18181b",
-    imgUrl: "https://images.unsplash.com/photo-1548625361-195fe5795df5?auto=format&fit=crop&w=600&q=80", // Valencia botanical / neoclassical garden
+    imgUrl: "https://images.unsplash.com/photo-1548625361-195fe5795df5?auto=format&fit=crop&w=600&q=80",
     rotation: -0.08,
   },
   {
@@ -28,7 +29,7 @@ const POLAROIDS_DATA: PolaroidItem[] = [
     caption: "Veneno Bar",
     sub: "Cóctel Largo • Música",
     color: "#18181b",
-    imgUrl: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80", // Cocktails & atmospheric glassware
+    imgUrl: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80",
     rotation: 0.12,
   },
   {
@@ -36,7 +37,7 @@ const POLAROIDS_DATA: PolaroidItem[] = [
     caption: "Lucas & Josefina",
     sub: "06 • 02 • 2027",
     color: "#18181b",
-    imgUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80", // Intimate modern couple portrait
+    imgUrl: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=600&q=80",
     rotation: -0.04,
   },
   {
@@ -44,7 +45,7 @@ const POLAROIDS_DATA: PolaroidItem[] = [
     caption: "Sin Protocolos",
     sub: "Dress Code: Arreglado Casual",
     color: "#18181b",
-    imgUrl: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80", // Celebratory champagne / glassware
+    imgUrl: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80",
     rotation: 0.09,
   },
   {
@@ -52,7 +53,7 @@ const POLAROIDS_DATA: PolaroidItem[] = [
     caption: "Valencia Ciudad",
     sub: "Luz de Febrero",
     color: "#18181b",
-    imgUrl: "https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=600&q=80", // Valencia architecture
+    imgUrl: "https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=600&q=80",
     rotation: -0.11,
   },
 ];
@@ -67,6 +68,7 @@ export const PhysicsGallery: React.FC = () => {
   const imagesMapRef = useRef<Map<string, HTMLImageElement>>(new Map());
   const [hasInteracted, setHasInteracted] = useState(false);
   const { playClick, playSoftPop } = useSoundEffects();
+  const { theme } = useTheme();
 
   useEffect(() => {
     if (!containerRef.current || !canvasRef.current) return;
@@ -136,7 +138,6 @@ export const PhysicsGallery: React.FC = () => {
     const newBodiesList: { body: Matter.Body; item: PolaroidItem }[] = [];
 
     POLAROIDS_DATA.forEach((item, idx) => {
-      // Stagger initial drop positions
       const posX = (width / (POLAROIDS_DATA.length + 1)) * (idx + 1) + (Math.random() * 20 - 10);
       const posY = -60 - idx * 70;
 
@@ -146,7 +147,7 @@ export const PhysicsGallery: React.FC = () => {
         friction: 0.2,
         frictionAir: 0.018,
         angle: item.rotation,
-        render: { visible: false }, // Custom drawn in afterRender
+        render: { visible: false },
       });
 
       newBodiesList.push({ body, item });
@@ -157,7 +158,6 @@ export const PhysicsGallery: React.FC = () => {
 
     // Mouse & Touch Control
     const mouse = Mouse.create(canvas);
-    // Adjust mouse pixel ratio for crisp coordinates
     mouse.pixelRatio = window.devicePixelRatio || 1;
 
     const mouseConstraint = MouseConstraint.create(engine, {
@@ -171,13 +171,12 @@ export const PhysicsGallery: React.FC = () => {
     Composite.add(engine.world, mouseConstraint);
     render.mouse = mouse;
 
-    // Trigger soft audio feedback on drag interaction
     Events.on(mouseConstraint, "startdrag", () => {
       setHasInteracted(true);
       playSoftPop();
     });
 
-    // Custom Canvas Render for Editorial Polaroid Styling
+    // Custom Canvas Render for Polaroid Styling
     Events.on(render, "afterRender", () => {
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
@@ -191,12 +190,12 @@ export const PhysicsGallery: React.FC = () => {
         ctx.rotate(angle);
 
         // Drop Shadow
-        ctx.shadowColor = "rgba(0, 0, 0, 0.45)";
-        ctx.shadowBlur = 18;
+        ctx.shadowColor = "rgba(0, 0, 0, 0.25)";
+        ctx.shadowBlur = 16;
         ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 8;
+        ctx.shadowOffsetY = 6;
 
-        // Polaroid Frame (Ivory / Warm White paper texture)
+        // Polaroid Frame
         const bw = cardWidth;
         const bh = cardHeight;
         const radius = 6;
@@ -206,10 +205,8 @@ export const PhysicsGallery: React.FC = () => {
         ctx.roundRect(-bw / 2, -bh / 2, bw, bh, radius);
         ctx.fill();
 
-        // Reset shadow for inner elements
         ctx.shadowColor = "transparent";
         ctx.shadowBlur = 0;
-        ctx.shadowOffsetY = 0;
 
         // Outer border
         ctx.strokeStyle = "rgba(0, 0, 0, 0.08)";
@@ -232,19 +229,17 @@ export const PhysicsGallery: React.FC = () => {
           ctx.drawImage(img, photoX, photoY, photoW, photoH);
           ctx.restore();
         } else {
-          // Placeholder gradient while loading
           ctx.fillStyle = "#27272a";
           ctx.beginPath();
           ctx.roundRect(photoX, photoY, photoW, photoH, 3);
           ctx.fill();
         }
 
-        // Inner photo subtle vignette/border
-        ctx.strokeStyle = "rgba(0,0,0,0.12)";
+        ctx.strokeStyle = "rgba(0,0,0,0.1)";
         ctx.lineWidth = 0.5;
         ctx.strokeRect(photoX, photoY, photoW, photoH);
 
-        // Editorial Typography Caption on bottom frame
+        // Typography Caption
         const textY = photoY + photoH + 16;
         ctx.fillStyle = "#18181b";
         ctx.font = `600 ${Math.max(9, Math.round(bw * 0.072))}px "Plus Jakarta Sans", sans-serif`;
@@ -255,10 +250,10 @@ export const PhysicsGallery: React.FC = () => {
         ctx.font = `400 ${Math.max(7.5, Math.round(bw * 0.055))}px monospace`;
         ctx.fillText(item.sub, photoX, textY + 12);
 
-        // Decorative Washi Tape on top edge
-        ctx.fillStyle = "rgba(223, 177, 91, 0.4)"; // translucent gold tape
+        // Washi Tape
+        ctx.fillStyle = "rgba(223, 177, 91, 0.55)";
         ctx.fillRect(-18, -bh / 2 - 4, 36, 10);
-        ctx.strokeStyle = "rgba(255,255,255,0.3)";
+        ctx.strokeStyle = "rgba(255,255,255,0.4)";
         ctx.strokeRect(-18, -bh / 2 - 4, 36, 10);
 
         ctx.restore();
@@ -270,7 +265,6 @@ export const PhysicsGallery: React.FC = () => {
     Runner.run(runner, engine);
     Render.run(render);
 
-    // Resize handler
     const handleResize = () => {
       if (!containerRef.current || !canvasRef.current || !renderRef.current) return;
       const newWidth = containerRef.current.clientWidth;
@@ -291,7 +285,6 @@ export const PhysicsGallery: React.FC = () => {
     };
   }, [playSoftPop]);
 
-  // Fling/Shake effect: impulse on all cards
   const shakePolaroids = () => {
     playClick();
     if (!bodiesRef.current) return;
@@ -307,14 +300,14 @@ export const PhysicsGallery: React.FC = () => {
     <section className="relative w-full max-w-3xl mx-auto py-12 px-4 sm:px-6">
       <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 gap-2">
         <div>
-          <div className="flex items-center gap-1.5 font-mono-swiss text-[11px] uppercase tracking-widest text-[#dfb15b] mb-1">
+          <div className="flex items-center gap-1.5 font-mono-swiss text-[11px] uppercase tracking-widest text-[var(--accent-gold)] mb-1">
             <Sparkles className="w-3.5 h-3.5" />
             <span>FÍSICAS 2D INTERACTIVAS</span>
           </div>
-          <h2 className="font-serif-editorial text-3xl sm:text-4xl text-white italic">
+          <h2 className="font-serif-editorial text-3xl sm:text-4xl text-[var(--fg-primary)] italic transition-colors">
             El Moodboard de la Boda
           </h2>
-          <p className="font-sans-ui text-xs text-zinc-400 mt-1 max-w-md">
+          <p className="font-sans-ui text-xs text-[var(--fg-muted)] mt-1 max-w-md">
             Toca, arrastra y lanza las polaroids. Jardines neoclásicos, la noche en Veneno y la atmósfera de nuestro día.
           </p>
         </div>
@@ -322,16 +315,16 @@ export const PhysicsGallery: React.FC = () => {
         {/* Shake & Hint controls */}
         <div className="flex items-center gap-2 self-start sm:self-auto">
           {!hasInteracted && (
-            <div className="flex items-center gap-1 px-2.5 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-mono-swiss text-zinc-400 animate-pulse">
-              <Hand className="w-3 h-3 text-[#dfb15b]" />
+            <div className="flex items-center gap-1 px-2.5 py-1 rounded-full glass-pill text-[10px] font-mono-swiss animate-pulse">
+              <Hand className="w-3 h-3 text-[var(--accent-gold)]" />
               <span>Arrastra con el dedo</span>
             </div>
           )}
           <button
             onClick={shakePolaroids}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 hover:bg-white/10 active:scale-95 border border-white/10 text-xs font-mono-swiss text-zinc-300 transition-all cursor-pointer"
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-pill hover:opacity-80 active:scale-95 text-xs font-mono-swiss transition-all cursor-pointer"
           >
-            <RefreshCw className="w-3 h-3 text-[#dfb15b]" />
+            <RefreshCw className="w-3 h-3 text-[var(--accent-gold)]" />
             <span>Agitar polaroids</span>
           </button>
         </div>
@@ -340,15 +333,18 @@ export const PhysicsGallery: React.FC = () => {
       {/* Physics Canvas Stage */}
       <div
         ref={containerRef}
-        className="relative w-full h-[480px] rounded-3xl border border-white/10 bg-gradient-to-b from-zinc-900/60 to-zinc-950/90 overflow-hidden shadow-2xl backdrop-blur-md"
+        className={`relative w-full h-[480px] rounded-3xl border border-[var(--card-border)] overflow-hidden shadow-2xl backdrop-blur-md transition-all duration-500 ${
+          theme === "warm"
+            ? "bg-gradient-to-b from-[#f3ece0]/80 to-[#e9e0d0]/90"
+            : "bg-gradient-to-b from-zinc-900/60 to-zinc-950/90"
+        }`}
       >
         {/* Subtle grid background */}
         <div 
-          className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff05_1px,transparent_1px),linear-gradient(to_bottom,#ffffff05_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none" 
+          className="absolute inset-0 bg-[linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] opacity-[0.035] bg-[size:32px_32px] pointer-events-none" 
         />
         
-        {/* Mobile touch hint overlay */}
-        <div className="absolute bottom-3 left-4 pointer-events-none font-mono-swiss text-[9px] uppercase tracking-widest text-zinc-600">
+        <div className="absolute bottom-3 left-4 pointer-events-none font-mono-swiss text-[9px] uppercase tracking-widest text-[var(--fg-muted)] opacity-60">
           MATTER.JS RIGID BODY PHYSICS // 60 FPS
         </div>
 

@@ -1,7 +1,6 @@
 "use client";
 
 import React, { useRef } from "react";
-import { Sparkles, Heart } from "lucide-react";
 import { useSoundEffects } from "@/context/SoundContext";
 
 export const Footer: React.FC = () => {
@@ -25,7 +24,7 @@ export const Footer: React.FC = () => {
   };
 
   return (
-    <footer className="w-full border-t border-white/10 bg-zinc-950/80 py-12 px-4 sm:px-6 text-center">
+    <footer className="w-full border-t border-[var(--card-border)] py-14 px-4 sm:px-6 text-center transition-colors">
       <div className="max-w-xl mx-auto space-y-4">
         {/* Monogram with 3-tap secret mobile trigger */}
         <button
@@ -33,22 +32,22 @@ export const Footer: React.FC = () => {
           className="group inline-flex flex-col items-center cursor-pointer transition-transform active:scale-95"
           title="Toca 3 veces para una sorpresa"
         >
-          <span className="font-serif-editorial text-4xl text-white italic tracking-wider group-hover:text-[#dfb15b] transition-colors">
+          <span className="font-serif-editorial text-4xl text-[var(--fg-primary)] italic tracking-wider group-hover:text-[var(--accent-gold)] transition-colors">
             Lucas & Josefina
           </span>
-          <span className="font-mono-swiss text-[10px] uppercase tracking-[0.3em] text-zinc-500 mt-1">
+          <span className="font-mono-swiss text-[10px] uppercase tracking-[0.3em] text-[var(--fg-muted)] mt-1">
             06 • 02 • 2027 // VALENCIA
           </span>
         </button>
 
-        <p className="font-sans-ui text-xs text-zinc-400 font-light max-w-sm mx-auto">
+        <p className="font-sans-ui text-xs text-[var(--fg-muted)] font-light max-w-sm mx-auto">
           Palacios de Monforte (13:00) & Veneno. Cóctel largo, música sin fin y cero formalismos.
         </p>
 
-        <div className="pt-4 flex items-center justify-center gap-1.5 font-mono-swiss text-[10px] text-zinc-600">
+        <div className="pt-4 flex items-center justify-center gap-1.5 font-mono-swiss text-[10px] text-[var(--fg-muted)] opacity-70">
           <span>Diseño editorial bespoke</span>
           <span>•</span>
-          <span className="hover:text-zinc-400 transition-colors cursor-default">
+          <span className="hover:text-[var(--fg-primary)] transition-colors cursor-default">
             Konami Code ↑ ↑ ↓ ↓ ← → ← → B A
           </span>
         </div>

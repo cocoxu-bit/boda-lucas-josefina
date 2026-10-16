@@ -102,15 +102,15 @@ export const Countdown: React.FC = () => {
   return (
     <div className="w-full max-w-lg mx-auto">
       {/* Swiss grid digital clock container */}
-      <div className="relative rounded-2xl border border-white/10 bg-zinc-950/80 p-4 sm:p-5 backdrop-blur-xl shadow-2xl">
-        <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/5">
+      <div className="relative rounded-2xl border border-[var(--card-border)] bg-[var(--clock-bg)] p-4 sm:p-5 backdrop-blur-xl shadow-xl transition-all duration-300">
+        <div className="flex items-center justify-between pb-3 mb-3 border-b border-[var(--card-border)]">
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#dfb15b] animate-ping" />
-            <span className="font-mono-swiss text-[10px] uppercase tracking-widest text-zinc-400">
-              CUENTA ATRÁS EN VIVO // T-MINUS
+            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)] animate-ping" />
+            <span className="font-mono-swiss text-[10px] uppercase tracking-widest text-[var(--fg-muted)]">
+              CUENTA ATRÁS // T-MINUS
             </span>
           </div>
-          <span className="font-mono-swiss text-[10px] text-zinc-500">
+          <span className="font-mono-swiss text-[10px] text-[var(--fg-muted)]">
             06.FEB.2027 13:00 CET
           </span>
         </div>
@@ -120,15 +120,15 @@ export const Countdown: React.FC = () => {
           {units.map((unit) => (
             <div
               key={unit.label}
-              className="flex flex-col items-center justify-center rounded-xl bg-white/[0.03] border border-white/5 py-3 px-1 transition-colors hover:bg-white/[0.06]"
+              className="flex flex-col items-center justify-center rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-[var(--card-border)] py-3 px-1 transition-colors hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
             >
-              <div className="font-mono-swiss text-[9px] text-zinc-500 mb-1">
+              <div className="font-mono-swiss text-[9px] text-[var(--fg-muted)] mb-1">
                 {unit.index}
               </div>
-              <span className="font-mono-swiss text-2xl sm:text-3xl font-semibold tracking-tight text-white tabular-nums">
+              <span className="font-mono-swiss text-2xl sm:text-3xl font-semibold tracking-tight text-[var(--fg-primary)] tabular-nums">
                 {unit.value}
               </span>
-              <span className="font-mono-swiss text-[9px] uppercase tracking-wider text-zinc-400 mt-1">
+              <span className="font-mono-swiss text-[9px] uppercase tracking-wider text-[var(--fg-muted)] mt-1">
                 {unit.label}
               </span>
             </div>
@@ -136,14 +136,14 @@ export const Countdown: React.FC = () => {
         </div>
 
         {/* Calendar integration buttons */}
-        <div className="mt-4 pt-3 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+        <div className="mt-4 pt-3 border-t border-[var(--card-border)] flex flex-col sm:flex-row items-center justify-between gap-2.5">
           <motion.button
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
             onClick={addToGoogleCalendar}
-            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono-swiss text-zinc-300 transition-colors"
+            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-black/[0.03] dark:bg-white/5 hover:bg-black/[0.06] dark:hover:bg-white/10 border border-[var(--card-border)] text-xs font-mono-swiss text-[var(--fg-primary)] transition-colors"
           >
-            <Calendar className="w-3.5 h-3.5 text-[#dfb15b]" />
+            <Calendar className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
             <span>Google Calendar</span>
           </motion.button>
 
@@ -151,16 +151,16 @@ export const Countdown: React.FC = () => {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.97 }}
             onClick={downloadICS}
-            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-xs font-mono-swiss text-zinc-300 transition-colors"
+            className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg bg-black/[0.03] dark:bg-white/5 hover:bg-black/[0.06] dark:hover:bg-white/10 border border-[var(--card-border)] text-xs font-mono-swiss text-[var(--fg-primary)] transition-colors"
           >
             {copiedCal ? (
               <>
-                <Check className="w-3.5 h-3.5 text-emerald-400" />
-                <span className="text-emerald-400">Descargado</span>
+                <Check className="w-3.5 h-3.5 text-emerald-500" />
+                <span className="text-emerald-500 font-medium">Descargado</span>
               </>
             ) : (
               <>
-                <Download className="w-3.5 h-3.5 text-zinc-400" />
+                <Download className="w-3.5 h-3.5 text-[var(--fg-muted)]" />
                 <span>Apple / iCal (.ics)</span>
               </>
             )}

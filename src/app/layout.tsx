@@ -2,7 +2,9 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { SoundProvider } from "@/context/SoundContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { SmoothScroll } from "@/components/SmoothScroll";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -43,16 +45,20 @@ export default function RootLayout({
     <html
       lang="es"
       className={`${geistSans.variable} ${geistMono.variable} dark`}
+      suppressHydrationWarning
     >
-      <body className="min-h-screen bg-[#09090b] text-[#f4f4f6] font-sans antialiased selection:bg-[#dfb15b] selection:text-black">
-        <SoundProvider>
-          <SmoothScroll>
-            <div className="noise-overlay" aria-hidden="true" />
-            <div className="relative flex min-h-screen flex-col overflow-x-hidden">
-              {children}
-            </div>
-          </SmoothScroll>
-        </SoundProvider>
+      <body className="min-h-screen bg-[var(--bg-primary)] text-[var(--fg-primary)] font-sans antialiased selection:bg-[var(--accent-gold)] selection:text-black transition-colors duration-500">
+        <ThemeProvider>
+          <SoundProvider>
+            <SmoothScroll>
+              <div className="noise-overlay" aria-hidden="true" />
+              <div className="relative flex min-h-screen flex-col overflow-x-hidden">
+                {children}
+                <ThemeSwitcher />
+              </div>
+            </SmoothScroll>
+          </SoundProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
