@@ -28,7 +28,10 @@ export async function getSubmissions(): Promise<RSVPSubmission[]> {
     const targetBlob = blobs.find((b) => b.pathname === BLOB_PATH);
 
     if (targetBlob) {
-      const res = await fetch(targetBlob.url, { cache: "no-store" });
+      const urlWithCacheBuster = targetBlob.url.includes("?")
+        ? `${targetBlob.url}&_t=${Date.now()}`
+        : `${targetBlob.url}?_t=${Date.now()}`;
+      const res = await fetch(urlWithCacheBuster, { cache: "no-store" });
       if (res.ok) {
         const data = await res.json();
         return Array.isArray(data) ? data : [];
