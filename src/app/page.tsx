@@ -4,7 +4,6 @@ import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
-import { PhysicsGallery } from "@/components/PhysicsGallery";
 import { ScratchSecrets } from "@/components/ScratchSecrets";
 import { Timeline } from "@/components/Timeline";
 import { DressCodeInspector } from "@/components/DressCodeInspector";
@@ -64,9 +63,6 @@ export default function Home() {
 
         {/* Hero Section with Kinetic Typography & Live Countdown */}
         <Hero />
-
-        {/* Interactive 2D Matter.js Photo Gallery with Reset Button */}
-        <PhysicsGallery />
 
         {/* Playful Chronogram with Venue Photos (Monforte & Veneno) */}
         <Timeline />
