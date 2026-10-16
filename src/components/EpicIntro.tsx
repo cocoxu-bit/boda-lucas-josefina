@@ -366,7 +366,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
             {/* Blender Motor Base (Stainless Steel & Dial) */}
             <div className="relative w-40 sm:w-48 h-14 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-900 rounded-b-2xl border-t-2 border-zinc-500 shadow-xl flex items-center justify-between px-5">
               <span className="font-serif-editorial text-sm text-[#D4AF37] italic font-semibold">
-                L & J
+                J & L
               </span>
 
               {/* Rotary Control Dial */}

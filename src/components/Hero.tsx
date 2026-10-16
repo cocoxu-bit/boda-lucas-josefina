@@ -56,11 +56,11 @@ export const Hero: React.FC = () => {
         {/* Main Editorial Headline */}
         <motion.div variants={itemVariants} className="space-y-2">
           <h1 className="font-serif-editorial text-7xl sm:text-9xl tracking-tight leading-[0.9] text-[var(--fg-primary)] transition-colors duration-300">
-            <span className="inline-block hover:scale-[1.01] transition-transform">Lucas</span>
+            <span className="inline-block hover:scale-[1.01] transition-transform">Josefina</span>
             <span className="block sm:inline font-sans-ui font-light text-4xl sm:text-6xl text-[var(--accent-gold)] mx-3 italic">
               &
             </span>
-            <span className="inline-block hover:scale-[1.01] transition-transform">Josefina</span>
+            <span className="inline-block hover:scale-[1.01] transition-transform">Lucas</span>
           </h1>
           <p className="font-mono-swiss text-xs sm:text-sm uppercase tracking-[0.25em] text-[var(--fg-muted)] pt-1">
             06 • 02 • 2027 // VALENCIA

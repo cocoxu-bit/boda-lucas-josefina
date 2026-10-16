@@ -224,7 +224,7 @@ export const RSVPWizard: React.FC = () => {
 
       ctx.fillStyle = "#ffffff";
       ctx.font = 'italic 86px "Instrument Serif", Georgia, serif';
-      ctx.fillText("Lucas & Josefina", 140, 270);
+      ctx.fillText("Josefina & Lucas", 140, 270);
 
       ctx.fillStyle = "#a1a1aa";
       ctx.font = "28px monospace";
@@ -310,7 +310,7 @@ export const RSVPWizard: React.FC = () => {
   };
 
   const addToGoogleCalendar = () => {
-    const title = encodeURIComponent("Boda Lucas & Josefina");
+    const title = encodeURIComponent("Boda Josefina & Lucas");
     const details = encodeURIComponent(
       `Pase de invitado para ${form.name || "Invitado"} (${form.guestRole}). Ceremonia civil en Palacios de Monforte (13:00) y cóctel largo en Veneno (14:45).`
     );
@@ -325,10 +325,10 @@ export const RSVPWizard: React.FC = () => {
   };
 
   const sharePass = () => {
-    const text = `¡Confirmado! Voy a la boda de Lucas & Josefina el 06.02.2027 en Valencia con el rol honorario de "${form.guestRole}".`;
+    const text = `¡Confirmado! Voy a la boda de Josefina & Lucas el 06.02.2027 en Valencia con el rol honorario de "${form.guestRole}".`;
     if (navigator.share) {
       navigator.share({
-        title: "Pase Oficial • Boda Lucas & Josefina",
+        title: "Pase Oficial • Boda Josefina & Lucas",
         text: text,
         url: window.location.href,
       }).catch(() => {});
@@ -444,7 +444,7 @@ export const RSVPWizard: React.FC = () => {
                       PASE OFICIAL DE ACCESO
                     </span>
                     <h4 className="font-serif-editorial text-2xl text-white italic">
-                      Lucas & Josefina
+                      Josefina & Lucas
                     </h4>
                   </div>
                   <div className="text-right">
@@ -627,7 +627,7 @@ export const RSVPWizard: React.FC = () => {
                       required
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      placeholder="Ej. Lucas García o Josefina Gómez"
+                      placeholder="Ej. Josefina Gómez o Lucas García"
                       className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-4 py-3 text-sm text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:border-[var(--accent-gold)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-gold)]"
                     />
                   </div>
@@ -871,7 +871,7 @@ export const RSVPWizard: React.FC = () => {
 
                   <div className="space-y-1">
                     <label className="block font-mono-swiss text-[10px] uppercase text-[var(--fg-muted)]">
-                      Unas palabras para Lucas & Josefina (opcional)
+                      Unas palabras para Josefina & Lucas (opcional)
                     </label>
                     <textarea
                       rows={2}
@@ -920,7 +920,7 @@ export const RSVPWizard: React.FC = () => {
               <span>¿Tienes alguna duda antes de confirmar?</span>
             </p>
             <p className="font-sans-ui text-xs text-[var(--fg-muted)] font-light">
-              Pregúntanos por WhatsApp: Lucas (+34 606 51 36 72) o Josefina (+34 603 49 46 78).
+              Pregúntanos por WhatsApp: Josefina (+34 603 49 46 78) o Lucas (+34 606 51 36 72).
             </p>
           </div>
 

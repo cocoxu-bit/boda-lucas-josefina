@@ -27,10 +27,10 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "Lucas & Josefina — 06.02.2027 | Valencia",
+  title: "Josefina & Lucas — 06.02.2027 | Valencia",
   description: "Enlace civil en Jardines de Monforte y celebración en Veneno. Cóctel largo, música y cero convencionalismos.",
   openGraph: {
-    title: "Lucas & Josefina — Boda en Valencia",
+    title: "Josefina & Lucas — Boda en Valencia",
     description: "06.02.2027 • Monforte & Veneno",
     type: "website",
   },

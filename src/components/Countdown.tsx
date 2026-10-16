@@ -48,7 +48,7 @@ export const Countdown: React.FC = () => {
 
   const addToGoogleCalendar = () => {
     playClick();
-    const title = encodeURIComponent("Boda Lucas & Josefina");
+    const title = encodeURIComponent("Boda Josefina & Lucas");
     const details = encodeURIComponent(
       "Ceremonia civil en Palacios de Monforte (13:00) y celebración tipo cóctel largo en Veneno (14:45). Vestimenta arreglada pero sin protocolo rígido."
     );

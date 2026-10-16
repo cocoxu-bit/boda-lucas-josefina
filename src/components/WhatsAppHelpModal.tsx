@@ -41,7 +41,7 @@ export const WhatsAppHelpModal: React.FC = () => {
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
         className="fixed bottom-5 right-5 sm:bottom-6 sm:right-6 z-40 flex items-center gap-2.5 px-4 py-2.5 rounded-full bg-[#1F2937]/90 dark:bg-[#18181B]/95 text-white border border-[var(--accent-gold)]/40 hover:border-[var(--accent-gold)] shadow-xl hover:shadow-[0_0_20px_rgba(212,175,55,0.3)] backdrop-blur-md transition-all cursor-pointer group"
-        aria-label="Resolver dudas por WhatsApp con Lucas o Josefina"
+        aria-label="Resolver dudas por WhatsApp con Josefina o Lucas"
       >
         <span className="relative flex h-2.5 w-2.5">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
@@ -104,30 +104,6 @@ export const WhatsAppHelpModal: React.FC = () => {
 
               {/* Two Contact Cards */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
-                {/* LUCAS */}
-                <div className="p-4 rounded-2xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.03] space-y-3 flex flex-col justify-between hover:border-[var(--accent-gold)]/50 transition-all">
-                  <div className="space-y-1 text-left">
-                    <span className="font-mono-swiss text-[10px] uppercase tracking-wider text-[var(--fg-muted)] block">
-                      El Novio
-                    </span>
-                    <h4 className="font-serif-editorial text-2xl text-[var(--fg-primary)] italic">
-                      Lucas
-                    </h4>
-                    <p className="font-mono-swiss text-xs text-[var(--accent-gold)] font-medium">
-                      +34 606 51 36 72
-                    </p>
-                  </div>
-
-                  <button
-                    onClick={() => openWhatsApp("34606513672", "Lucas")}
-                    className="w-full flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono-swiss text-xs font-semibold tracking-wide transition-all shadow-md active:scale-95 cursor-pointer"
-                  >
-                    <MessageCircle className="w-4 h-4" />
-                    <span>WhatsApp Lucas</span>
-                    <ExternalLink className="w-3.5 h-3.5 opacity-80" />
-                  </button>
-                </div>
-
                 {/* JOSEFINA */}
                 <div className="p-4 rounded-2xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.03] space-y-3 flex flex-col justify-between hover:border-[var(--accent-gold)]/50 transition-all">
                   <div className="space-y-1 text-left">
@@ -148,6 +124,30 @@ export const WhatsAppHelpModal: React.FC = () => {
                   >
                     <MessageCircle className="w-4 h-4" />
                     <span>WhatsApp Josefina</span>
+                    <ExternalLink className="w-3.5 h-3.5 opacity-80" />
+                  </button>
+                </div>
+
+                {/* LUCAS */}
+                <div className="p-4 rounded-2xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.03] space-y-3 flex flex-col justify-between hover:border-[var(--accent-gold)]/50 transition-all">
+                  <div className="space-y-1 text-left">
+                    <span className="font-mono-swiss text-[10px] uppercase tracking-wider text-[var(--fg-muted)] block">
+                      El Novio
+                    </span>
+                    <h4 className="font-serif-editorial text-2xl text-[var(--fg-primary)] italic">
+                      Lucas
+                    </h4>
+                    <p className="font-mono-swiss text-xs text-[var(--accent-gold)] font-medium">
+                      +34 606 51 36 72
+                    </p>
+                  </div>
+
+                  <button
+                    onClick={() => openWhatsApp("34606513672", "Lucas")}
+                    className="w-full flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-mono-swiss text-xs font-semibold tracking-wide transition-all shadow-md active:scale-95 cursor-pointer"
+                  >
+                    <MessageCircle className="w-4 h-4" />
+                    <span>WhatsApp Lucas</span>
                     <ExternalLink className="w-3.5 h-3.5 opacity-80" />
                   </button>
                 </div>

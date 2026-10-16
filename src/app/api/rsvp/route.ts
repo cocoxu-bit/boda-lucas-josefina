@@ -3,6 +3,7 @@ import { getSubmissions, saveSubmission, deleteSubmission } from "@/lib/rsvpStor
 
 const VALID_PASSWORDS = [
   (process.env.ADMIN_PASSWORD || "boda2027").trim().toLowerCase(),
+  "josefinaylucas2027",
   "lucasyjosefina2027",
   "monforte2027",
 ];

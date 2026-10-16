@@ -33,7 +33,7 @@ const POLAROIDS_DATA: PolaroidItem[] = [
   },
   {
     id: "p3",
-    caption: "Lucas, Josefina & peque",
+    caption: "Josefina, Lucas & peque",
     sub: "06 • 02 • 2027",
     color: "#18181b",
     imgUrl: "/images/lucas-josefina.png",

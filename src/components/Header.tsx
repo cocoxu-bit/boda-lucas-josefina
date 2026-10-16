@@ -71,10 +71,10 @@ export const Header: React.FC = () => {
             onPointerUp={handlePointerUp}
             onPointerCancel={handlePointerUp}
             className="flex items-center gap-2.5 text-left active:scale-95 transition-transform cursor-pointer"
-            title="L & J • Valencia 2027"
+            title="J & L • Valencia 2027"
           >
             <span className="font-serif-editorial text-xl italic tracking-wide text-[var(--fg-primary)] hover:text-[var(--accent-gold)] transition-colors">
-              Lucas & Josefina
+              Josefina & Lucas
             </span>
             <span className="h-3 w-px bg-current opacity-20" />
             <span className="font-mono-swiss text-[11px] uppercase tracking-widest text-[var(--fg-muted)]">

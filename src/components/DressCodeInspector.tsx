@@ -616,38 +616,38 @@ export const DressCodeInspector: React.FC = () => {
 
               {/* Conversation Box */}
               <div className="space-y-3">
-                {/* 1. Lucas's Speech Bubble (Turns left -> right) */}
+                {/* 1. Josefina's Speech Bubble (Speaks first left -> right) */}
                 <motion.div
                   initial={{ opacity: 0, x: -10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3 }}
                   className="flex items-start gap-3 sm:gap-4"
                 >
-                  <LucasAvatar mood={currentOutfit.mood} />
+                  <JosefinaAvatar mood={currentOutfit.mood} />
 
                   <div className="relative flex-1 p-3.5 sm:p-4 rounded-2xl rounded-tl-sm bg-black/[0.03] dark:bg-white/[0.04] border border-[var(--card-border)] text-left shadow-sm">
                     {/* Speech bubble pointer */}
                     <div className="absolute -left-1.5 top-4 w-3 h-3 bg-black/[0.03] dark:bg-[#1a1a1e] border-l border-t border-[var(--card-border)] rotate-[-45deg]" />
                     <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-primary)]/90 font-light leading-relaxed italic">
-                      &ldquo;{currentOutfit.lucasQuote}&rdquo;
+                      &ldquo;{currentOutfit.josefinaQuote}&rdquo;
                     </p>
                   </div>
                 </motion.div>
 
-                {/* 2. Josefina's Speech Bubble (Replies right -> left) */}
+                {/* 2. Lucas's Speech Bubble (Replies right -> left) */}
                 <motion.div
                   initial={{ opacity: 0, x: 10 }}
                   animate={{ opacity: 1, x: 0 }}
                   transition={{ duration: 0.3, delay: 0.12 }}
                   className="flex items-start gap-3 sm:gap-4 flex-row-reverse"
                 >
-                  <JosefinaAvatar mood={currentOutfit.mood} />
+                  <LucasAvatar mood={currentOutfit.mood} />
 
                   <div className="relative flex-1 p-3.5 sm:p-4 rounded-2xl rounded-tr-sm bg-black/[0.03] dark:bg-white/[0.04] border border-[var(--card-border)] text-left shadow-sm">
                     {/* Speech bubble pointer */}
                     <div className="absolute -right-1.5 top-4 w-3 h-3 bg-black/[0.03] dark:bg-[#1a1a1e] border-r border-t border-[var(--card-border)] rotate-[45deg]" />
                     <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-primary)]/90 font-light leading-relaxed italic">
-                      &ldquo;{currentOutfit.josefinaQuote}&rdquo;
+                      &ldquo;{currentOutfit.lucasQuote}&rdquo;
                     </p>
                   </div>
                 </motion.div>

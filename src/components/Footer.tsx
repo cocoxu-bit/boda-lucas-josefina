@@ -28,10 +28,10 @@ export const Footer: React.FC = () => {
         <button
           onClick={handleMobileSecretTap}
           className="group inline-flex flex-col items-center cursor-pointer transition-transform active:scale-95"
-          title="Lucas & Josefina"
+          title="Josefina & Lucas"
         >
           <span className="font-serif-editorial text-4xl text-[var(--fg-primary)] italic tracking-wider group-hover:text-[var(--accent-gold)] transition-colors">
-            Lucas & Josefina
+            Josefina & Lucas
           </span>
           <span className="font-mono-swiss text-[10px] uppercase tracking-[0.3em] text-[var(--fg-muted)] mt-1">
             06 • 02 • 2027 // VALENCIA
@@ -45,16 +45,6 @@ export const Footer: React.FC = () => {
         {/* WhatsApp Dudas Direct Contact */}
         <div className="pt-2 flex flex-wrap items-center justify-center gap-2.5">
           <a
-            href="https://wa.me/34606513672?text=%C2%A1Hola%20Lucas!%20Tengo%20una%20duda%20sobre%20la%20boda%20del%206%20de%20febrero:"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.03] hover:border-emerald-500/50 hover:bg-emerald-500/10 font-mono-swiss text-[11px] text-[var(--fg-primary)] transition-all cursor-pointer"
-          >
-            <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
-            <span>Lucas: <strong>+34 606 51 36 72</strong></span>
-          </a>
-
-          <a
             href="https://wa.me/34603494678?text=%C2%A1Hola%20Josefina!%20Tengo%20una%20duda%20sobre%20la%20boda%20del%206%20de%20febrero:"
             target="_blank"
             rel="noopener noreferrer"
@@ -62,6 +52,16 @@ export const Footer: React.FC = () => {
           >
             <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
             <span>Josefina: <strong>+34 603 49 46 78</strong></span>
+          </a>
+
+          <a
+            href="https://wa.me/34606513672?text=%C2%A1Hola%20Lucas!%20Tengo%20una%20duda%20sobre%20la%20boda%20del%206%20de%20febrero:"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.03] hover:border-emerald-500/50 hover:bg-emerald-500/10 font-mono-swiss text-[11px] text-[var(--fg-primary)] transition-all cursor-pointer"
+          >
+            <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Lucas: <strong>+34 606 51 36 72</strong></span>
           </a>
         </div>
 

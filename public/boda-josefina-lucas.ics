@@ -1,0 +1,23 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Josefina y Lucas//Boda Valencia 2027//ES
+CALSCALE:GREGORIAN
+METHOD:PUBLISH
+X-WR-CALNAME:Boda Josefina & Lucas
+X-WR-TIMEZONE:Europe/Madrid
+BEGIN:VEVENT
+UID:boda-josefina-lucas-20270206@valencia
+DTSTAMP:20261016T200000Z
+DTSTART:20270206T120000Z
+DTEND:20270206T230000Z
+SUMMARY:Boda Josefina & Lucas
+DESCRIPTION:Ceremonia civil en Palacete de Monforte (13:00) y cóctel largo en Veneno (14:45). Dress code: arreglado pero a tu rollo.
+LOCATION:Palacete de los Jardines de Monforte & Veneno, Valencia
+STATUS:CONFIRMED
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:¡Mañana es la boda de Josefina & Lucas en Valencia!
+END:VALARM
+END:VEVENT
+END:VCALENDAR

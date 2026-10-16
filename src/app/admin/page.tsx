@@ -212,7 +212,7 @@ export default function AdminPage() {
     const url = URL.createObjectURL(blob);
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", `boda_lucas_josefina_respuestas_${new Date().toISOString().slice(0, 10)}.csv`);
+    link.setAttribute("download", `boda_josefina_lucas_respuestas_${new Date().toISOString().slice(0, 10)}.csv`);
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
@@ -233,7 +233,7 @@ export default function AdminPage() {
               <Lock className="w-6 h-6 text-[#dfb15b]" />
             </div>
             <h1 className="font-serif-editorial text-4xl text-white italic pt-2">
-              Lucas & Josefina
+              Josefina & Lucas
             </h1>
             <span className="font-mono-swiss text-[11px] uppercase tracking-widest text-zinc-400">
               Panel Privado de Gestión RSVP
@@ -297,7 +297,7 @@ export default function AdminPage() {
           <div>
             <div className="flex items-center gap-2">
               <span className="font-serif-editorial text-3xl sm:text-4xl text-white italic">
-                Lucas & Josefina
+                Josefina & Lucas
               </span>
               <span className="px-2 py-0.5 rounded-full bg-[#dfb15b]/10 border border-[#dfb15b]/30 font-mono-swiss text-[10px] text-[#dfb15b] uppercase tracking-widest">
                 Admin

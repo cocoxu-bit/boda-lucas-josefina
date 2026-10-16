@@ -62,7 +62,7 @@ export default function Home() {
         {/* Playful Chronogram with Venue Photos (Monforte & Veneno) */}
         <Timeline />
 
-        {/* Interactive Dress Code Inspector with Animated Lucas & Josefina Avatars */}
+        {/* Interactive Dress Code Inspector with Animated Josefina & Lucas Avatars */}
         <DressCodeInspector />
 
         {/* Gamified Multi-Step RSVP Form & Festival VIP Pass Generator */}
