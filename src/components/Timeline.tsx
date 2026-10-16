@@ -24,7 +24,7 @@ const STOPS: TimelineStop[] = [
     location: "Palacete de los Jardines de Monforte",
     description: "Recepción de invitados entre cipreses y estatuas neoclásicas en uno de los jardines históricos más bonitos de Valencia.",
     mapUrl: "https://maps.google.com/?q=Jardines+de+Monforte+Valencia",
-    imageUrl: "https://images.unsplash.com/photo-1584824486509-112e4181ff6b?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "/images/palacio-monforte.jpg",
     imageAlt: "Palacios de Monforte",
   },
   {
@@ -49,7 +49,7 @@ const STOPS: TimelineStop[] = [
     location: "Veneno Bar & Club",
     description: "Comida gourmet continua servida por camareros, bebida y cócteles de autor desde el primer minuto. Todo dinámico y de pie.",
     mapUrl: "https://maps.google.com/?q=Veneno+Valencia",
-    imageUrl: "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=900&q=80",
+    imageUrl: "/images/veneno-bar.jpg",
     imageAlt: "Veneno Bar Valencia",
   },
   {

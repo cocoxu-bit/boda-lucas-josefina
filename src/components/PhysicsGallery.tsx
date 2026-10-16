@@ -20,7 +20,7 @@ const POLAROIDS_DATA: PolaroidItem[] = [
     caption: "Palacios de Monforte",
     sub: "Ceremonia • 13:00 H",
     color: "#18181b",
-    imgUrl: "https://images.unsplash.com/photo-1548625361-195fe5795df5?auto=format&fit=crop&w=600&q=80",
+    imgUrl: "/images/palacio-monforte.jpg",
     rotation: -0.07,
   },
   {
@@ -28,7 +28,7 @@ const POLAROIDS_DATA: PolaroidItem[] = [
     caption: "Veneno Bar",
     sub: "Cóctel Largo • Música",
     color: "#18181b",
-    imgUrl: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80",
+    imgUrl: "/images/veneno-bar.jpg",
     rotation: 0.11,
   },
   {
@@ -41,18 +41,18 @@ const POLAROIDS_DATA: PolaroidItem[] = [
   },
   {
     id: "p4",
-    caption: "Sin Protocolos",
-    sub: "Dress Code: Arreglado Casual",
+    caption: "Veneno Interior",
+    sub: "Tardeo & Fiesta",
     color: "#18181b",
-    imgUrl: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80",
+    imgUrl: "/images/veneno-interior.jpg",
     rotation: 0.08,
   },
   {
     id: "p5",
-    caption: "Valencia Ciudad",
-    sub: "Luz de Febrero",
+    caption: "Jardines de Monforte",
+    sub: "Valencia • Febrero",
     color: "#18181b",
-    imgUrl: "https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=600&q=80",
+    imgUrl: "/images/jardines-monforte.jpg",
     rotation: -0.1,
   },
 ];
@@ -83,7 +83,9 @@ export const PhysicsGallery: React.FC = () => {
     // Preload polaroid images
     POLAROIDS_DATA.forEach((item) => {
       const img = new Image();
-      img.crossOrigin = "anonymous";
+      if (!item.imgUrl.startsWith("/")) {
+        img.crossOrigin = "anonymous";
+      }
       img.src = item.imgUrl;
       imagesMapRef.current.set(item.id, img);
     });
