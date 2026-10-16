@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef } from "react";
-import { Gamepad2, Heart } from "lucide-react";
+import { Gamepad2, Heart, MessageCircle } from "lucide-react";
 
 export const Footer: React.FC = () => {
   const tapCountRef = useRef(0);
@@ -41,6 +41,29 @@ export const Footer: React.FC = () => {
         <p className="font-sans-ui text-xs text-[var(--fg-muted)] font-light max-w-sm mx-auto">
           Palacios de Monforte (13:00) & Veneno. Cóctel largo, música sin fin y cero formalismos.
         </p>
+
+        {/* WhatsApp Dudas Direct Contact */}
+        <div className="pt-2 flex flex-wrap items-center justify-center gap-2.5">
+          <a
+            href="https://wa.me/34606513672?text=%C2%A1Hola%20Lucas!%20Tengo%20una%20duda%20sobre%20la%20boda%20del%206%20de%20febrero:"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.03] hover:border-emerald-500/50 hover:bg-emerald-500/10 font-mono-swiss text-[11px] text-[var(--fg-primary)] transition-all cursor-pointer"
+          >
+            <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Lucas: <strong>+34 606 51 36 72</strong></span>
+          </a>
+
+          <a
+            href="https://wa.me/34603494678?text=%C2%A1Hola%20Josefina!%20Tengo%20una%20duda%20sobre%20la%20boda%20del%206%20de%20febrero:"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.03] hover:border-emerald-500/50 hover:bg-emerald-500/10 font-mono-swiss text-[11px] text-[var(--fg-primary)] transition-all cursor-pointer"
+          >
+            <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+            <span>Josefina: <strong>+34 603 49 46 78</strong></span>
+          </a>
+        </div>
 
         {/* Actions & Hints */}
         <div className="pt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4 font-mono-swiss text-[10px] text-[var(--fg-muted)]">

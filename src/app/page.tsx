@@ -12,6 +12,7 @@ import { RSVPWizard } from "@/components/RSVPWizard";
 import { EasterEgg } from "@/components/EasterEgg";
 import { Footer } from "@/components/Footer";
 import { EpicIntro } from "@/components/EpicIntro";
+import { WhatsAppHelpModal } from "@/components/WhatsAppHelpModal";
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
@@ -72,6 +73,9 @@ export default function Home() {
 
         {/* Minimalist Editorial Footer with Cryptic Hint & Replay Button */}
         <Footer />
+
+        {/* Global WhatsApp Help & Direct Contact Floating Modal */}
+        <WhatsAppHelpModal />
       </motion.main>
     </>
   );

@@ -2,7 +2,7 @@
 
 import React, { useRef } from "react";
 import { motion } from "framer-motion";
-import { Sparkles, Calendar } from "lucide-react";
+import { Sparkles, Calendar, MessageCircle } from "lucide-react";
 
 export const Header: React.FC = () => {
   const tapCountRef = useRef(0);
@@ -90,6 +90,15 @@ export const Header: React.FC = () => {
             >
               <Calendar className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
               <span>El Plan</span>
+            </button>
+
+            {/* Dudas WhatsApp Trigger */}
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent("open-whatsapp-modal"))}
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono-swiss text-[var(--fg-muted)] hover:text-emerald-400 transition-colors cursor-pointer"
+            >
+              <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+              <span>¿Dudas?</span>
             </button>
 
             {/* RSVP Direct Jump */}

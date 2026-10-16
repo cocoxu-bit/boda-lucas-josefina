@@ -16,7 +16,8 @@ import {
   Check,
   Download,
   Calendar,
-  Sparkle
+  Sparkle,
+  MessageCircle
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -882,6 +883,27 @@ export const RSVPWizard: React.FC = () => {
             </form>
           )}
         </AnimatePresence>
+
+        {/* WhatsApp Help / Dudas Banner */}
+        <div className="mt-6 p-4 sm:p-5 rounded-2xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.02] flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+          <div className="space-y-0.5">
+            <p className="font-mono-swiss text-xs font-semibold text-[var(--fg-primary)] flex items-center justify-center sm:justify-start gap-1.5">
+              <MessageCircle className="w-3.5 h-3.5 text-emerald-400" />
+              <span>¿Tienes alguna duda antes de confirmar?</span>
+            </p>
+            <p className="font-sans-ui text-xs text-[var(--fg-muted)] font-light">
+              Pregúntanos por WhatsApp: Lucas (+34 606 51 36 72) o Josefina (+34 603 49 46 78).
+            </p>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => window.dispatchEvent(new CustomEvent("open-whatsapp-modal"))}
+            className="px-4 py-2 rounded-xl bg-emerald-500/10 hover:bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 text-xs font-mono-swiss font-medium transition-colors shrink-0 cursor-pointer"
+          >
+            Abrir WhatsApp
+          </button>
+        </div>
       </div>
     </section>
   );
