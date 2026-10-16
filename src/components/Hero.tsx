@@ -67,6 +67,11 @@ export const Hero: React.FC = () => {
           </p>
         </motion.div>
 
+        {/* Live Electronic Countdown Clock with Direct Google & Apple Calendar integration */}
+        <motion.div variants={itemVariants} className="w-full pt-1">
+          <Countdown />
+        </motion.div>
+
         {/* TWO LARGE VENUE CARDS: Palacios de Monforte & Veneno */}
         <motion.div
           variants={itemVariants}
@@ -161,11 +166,6 @@ export const Hero: React.FC = () => {
               </a>
             </div>
           </div>
-        </motion.div>
-
-        {/* Live Electronic Countdown Clock with Direct Google & Apple Calendar integration */}
-        <motion.div variants={itemVariants} className="w-full pt-1">
-          <Countdown />
         </motion.div>
 
         {/* Scroll Indicator */}
