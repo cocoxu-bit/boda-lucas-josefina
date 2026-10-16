@@ -1,6 +1,7 @@
 import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { PhysicsGallery } from "@/components/PhysicsGallery";
+import { ScratchSecrets } from "@/components/ScratchSecrets";
 import { Timeline } from "@/components/Timeline";
 import { DressCodeInspector } from "@/components/DressCodeInspector";
 import { RSVPWizard } from "@/components/RSVPWizard";
@@ -16,8 +17,11 @@ export default function Home() {
       {/* Hero Section with Kinetic Typography & Live Countdown */}
       <Hero />
 
-      {/* Interactive 2D Matter.js Photo Gallery */}
+      {/* Interactive 2D Matter.js Photo Gallery with Reset Button */}
       <PhysicsGallery />
+
+      {/* Scratch Card Minigame: Secret Backstories & Anecdotes */}
+      <ScratchSecrets />
 
       {/* Playful Chronogram with Venue Photos (Monforte & Veneno) */}
       <Timeline />
@@ -25,13 +29,13 @@ export default function Home() {
       {/* Interactive Dress Code Inspector with Animated Lucas & Josefina Avatars */}
       <DressCodeInspector />
 
-      {/* Gamified Multi-Step RSVP Form & Digital Pass Generator */}
+      {/* Gamified Multi-Step RSVP Form & Festival VIP Pass Generator */}
       <RSVPWizard />
 
       {/* Retro Konami Code & Mobile Secret Easter Egg */}
       <EasterEgg />
 
-      {/* Minimalist Editorial Footer */}
+      {/* Minimalist Editorial Footer with Cryptic Hint */}
       <Footer />
     </main>
   );

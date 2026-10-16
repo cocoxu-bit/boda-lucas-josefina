@@ -1,15 +1,13 @@
 "use client";
 
 import React, { useRef } from "react";
-import { useSoundEffects } from "@/context/SoundContext";
+import { Gamepad2, Heart } from "lucide-react";
 
 export const Footer: React.FC = () => {
   const tapCountRef = useRef(0);
   const tapTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const { playSoftPop } = useSoundEffects();
 
   const handleMobileSecretTap = () => {
-    playSoftPop();
     tapCountRef.current += 1;
     if (tapTimeoutRef.current) clearTimeout(tapTimeoutRef.current);
 
@@ -19,7 +17,7 @@ export const Footer: React.FC = () => {
     } else {
       tapTimeoutRef.current = setTimeout(() => {
         tapCountRef.current = 0;
-      }, 900);
+      }, 700);
     }
   };
 
@@ -30,7 +28,7 @@ export const Footer: React.FC = () => {
         <button
           onClick={handleMobileSecretTap}
           className="group inline-flex flex-col items-center cursor-pointer transition-transform active:scale-95"
-          title="Toca 3 veces para una sorpresa"
+          title="Lucas & Josefina"
         >
           <span className="font-serif-editorial text-4xl text-[var(--fg-primary)] italic tracking-wider group-hover:text-[var(--accent-gold)] transition-colors">
             Lucas & Josefina
@@ -44,12 +42,10 @@ export const Footer: React.FC = () => {
           Palacios de Monforte (13:00) & Veneno. Cóctel largo, música sin fin y cero formalismos.
         </p>
 
-        <div className="pt-4 flex items-center justify-center gap-1.5 font-mono-swiss text-[10px] text-[var(--fg-muted)] opacity-70">
-          <span>Diseño editorial bespoke</span>
-          <span>•</span>
-          <span className="hover:text-[var(--fg-primary)] transition-colors cursor-default">
-            Konami Code ↑ ↑ ↓ ↓ ← → ← → B A
-          </span>
+        {/* Cryptic Easter Egg hint (NO SPOILER) */}
+        <div className="pt-4 flex items-center justify-center gap-2 font-mono-swiss text-[10px] text-[var(--fg-muted)] opacity-60">
+          <Gamepad2 className="w-3.5 h-3.5 animate-pulse text-[var(--accent-gold)]" />
+          <span>Modo Secreto: sólo para quienes jugaron a la Game Boy</span>
         </div>
       </div>
     </footer>

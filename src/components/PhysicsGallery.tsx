@@ -2,8 +2,7 @@
 
 import React, { useEffect, useRef, useState } from "react";
 import Matter from "matter-js";
-import { RefreshCw, Sparkles, Hand } from "lucide-react";
-import { useSoundEffects } from "@/context/SoundContext";
+import { RotateCcw, Sparkles, Hand, Shuffle } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 
 interface PolaroidItem {
@@ -22,7 +21,7 @@ const POLAROIDS_DATA: PolaroidItem[] = [
     sub: "Ceremonia • 13:00 H",
     color: "#18181b",
     imgUrl: "https://images.unsplash.com/photo-1548625361-195fe5795df5?auto=format&fit=crop&w=600&q=80",
-    rotation: -0.08,
+    rotation: -0.07,
   },
   {
     id: "p2",
@@ -30,7 +29,7 @@ const POLAROIDS_DATA: PolaroidItem[] = [
     sub: "Cóctel Largo • Música",
     color: "#18181b",
     imgUrl: "https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?auto=format&fit=crop&w=600&q=80",
-    rotation: 0.12,
+    rotation: 0.11,
   },
   {
     id: "p3",
@@ -46,7 +45,7 @@ const POLAROIDS_DATA: PolaroidItem[] = [
     sub: "Dress Code: Arreglado Casual",
     color: "#18181b",
     imgUrl: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=600&q=80",
-    rotation: 0.09,
+    rotation: 0.08,
   },
   {
     id: "p5",
@@ -54,7 +53,7 @@ const POLAROIDS_DATA: PolaroidItem[] = [
     sub: "Luz de Febrero",
     color: "#18181b",
     imgUrl: "https://images.unsplash.com/photo-1583422409516-2895a77efded?auto=format&fit=crop&w=600&q=80",
-    rotation: -0.11,
+    rotation: -0.1,
   },
 ];
 
@@ -64,10 +63,10 @@ export const PhysicsGallery: React.FC = () => {
   const engineRef = useRef<Matter.Engine | null>(null);
   const runnerRef = useRef<Matter.Runner | null>(null);
   const renderRef = useRef<Matter.Render | null>(null);
-  const bodiesRef = useRef<{ body: Matter.Body; item: PolaroidItem }[]>([]);
+  const bodiesRef = useRef<{ body: Matter.Body; item: PolaroidItem; initialPos: { x: number; y: number; angle: number } }[]>([]);
   const imagesMapRef = useRef<Map<string, HTMLImageElement>>(new Map());
   const [hasInteracted, setHasInteracted] = useState(false);
-  const { playClick, playSoftPop } = useSoundEffects();
+  const [isGrabbing, setIsGrabbing] = useState(false);
   const { theme } = useTheme();
 
   useEffect(() => {
@@ -116,18 +115,18 @@ export const PhysicsGallery: React.FC = () => {
     renderRef.current = render;
 
     // Static Boundaries (walls & floor)
+    const wallThickness = 60;
     const wallOptions: Matter.IChamferableBodyDefinition = {
       isStatic: true,
       render: { visible: false },
       friction: 0.3,
-      restitution: 0.4,
+      restitution: 0.5,
     };
 
-    const wallThickness = 60;
     const floor = Bodies.rectangle(width / 2, height + wallThickness / 2 - 4, width * 2, wallThickness, wallOptions);
     const leftWall = Bodies.rectangle(-wallThickness / 2, height / 2, wallThickness, height * 2, wallOptions);
     const rightWall = Bodies.rectangle(width + wallThickness / 2, height / 2, wallThickness, height * 2, wallOptions);
-    const ceiling = Bodies.rectangle(width / 2, -wallThickness / 2 - 100, width * 2, wallThickness, wallOptions);
+    const ceiling = Bodies.rectangle(width / 2, -wallThickness / 2 - 120, width * 2, wallThickness, wallOptions);
 
     Composite.add(engine.world, [floor, leftWall, rightWall, ceiling]);
 
@@ -135,22 +134,28 @@ export const PhysicsGallery: React.FC = () => {
     const cardWidth = Math.min(138, width * 0.38);
     const cardHeight = cardWidth * 1.34;
 
-    const newBodiesList: { body: Matter.Body; item: PolaroidItem }[] = [];
+    const newBodiesList: { body: Matter.Body; item: PolaroidItem; initialPos: { x: number; y: number; angle: number } }[] = [];
 
     POLAROIDS_DATA.forEach((item, idx) => {
+      // Gentle random tilt and spread
+      const randomTilt = item.rotation + (Math.random() * 0.06 - 0.03);
       const posX = (width / (POLAROIDS_DATA.length + 1)) * (idx + 1) + (Math.random() * 20 - 10);
-      const posY = -60 - idx * 70;
+      const posY = -50 - idx * 75;
 
       const body = Bodies.rectangle(posX, posY, cardWidth, cardHeight, {
         chamfer: { radius: 6 },
-        restitution: 0.45,
-        friction: 0.2,
-        frictionAir: 0.018,
-        angle: item.rotation,
+        restitution: 0.6, // Refined elastic bounce requested by user
+        friction: 0.18,
+        frictionAir: 0.02, // Natural inertia requested by user
+        angle: randomTilt,
         render: { visible: false },
       });
 
-      newBodiesList.push({ body, item });
+      newBodiesList.push({
+        body,
+        item,
+        initialPos: { x: posX, y: 180 + idx * 40, angle: randomTilt },
+      });
       Composite.add(engine.world, body);
     });
 
@@ -163,7 +168,7 @@ export const PhysicsGallery: React.FC = () => {
     const mouseConstraint = MouseConstraint.create(engine, {
       mouse: mouse,
       constraint: {
-        stiffness: 0.2,
+        stiffness: 0.22,
         render: { visible: false },
       },
     });
@@ -173,10 +178,14 @@ export const PhysicsGallery: React.FC = () => {
 
     Events.on(mouseConstraint, "startdrag", () => {
       setHasInteracted(true);
-      playSoftPop();
+      setIsGrabbing(true);
     });
 
-    // Custom Canvas Render for Polaroid Styling
+    Events.on(mouseConstraint, "enddrag", () => {
+      setIsGrabbing(false);
+    });
+
+    // Custom Canvas Render for High-End Photographic Paper Styling
     Events.on(render, "afterRender", () => {
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
@@ -189,18 +198,18 @@ export const PhysicsGallery: React.FC = () => {
         ctx.translate(x, y);
         ctx.rotate(angle);
 
-        // Drop Shadow
-        ctx.shadowColor = "rgba(0, 0, 0, 0.25)";
-        ctx.shadowBlur = 16;
+        // Soft projected drop shadow
+        ctx.shadowColor = "rgba(0, 0, 0, 0.3)";
+        ctx.shadowBlur = 22;
         ctx.shadowOffsetX = 0;
-        ctx.shadowOffsetY = 6;
+        ctx.shadowOffsetY = 10;
 
-        // Polaroid Frame
+        // Photographic paper card background (#F4F4F5 off-white)
         const bw = cardWidth;
         const bh = cardHeight;
         const radius = 6;
 
-        ctx.fillStyle = "#faf8f5";
+        ctx.fillStyle = "#F4F4F5";
         ctx.beginPath();
         ctx.roundRect(-bw / 2, -bh / 2, bw, bh, radius);
         ctx.fill();
@@ -208,8 +217,8 @@ export const PhysicsGallery: React.FC = () => {
         ctx.shadowColor = "transparent";
         ctx.shadowBlur = 0;
 
-        // Outer border
-        ctx.strokeStyle = "rgba(0, 0, 0, 0.08)";
+        // Outer crisp micro-border
+        ctx.strokeStyle = "rgba(0, 0, 0, 0.06)";
         ctx.lineWidth = 1;
         ctx.stroke();
 
@@ -235,7 +244,8 @@ export const PhysicsGallery: React.FC = () => {
           ctx.fill();
         }
 
-        ctx.strokeStyle = "rgba(0,0,0,0.1)";
+        // Inner photo border
+        ctx.strokeStyle = "rgba(0,0,0,0.08)";
         ctx.lineWidth = 0.5;
         ctx.strokeRect(photoX, photoY, photoW, photoH);
 
@@ -250,10 +260,10 @@ export const PhysicsGallery: React.FC = () => {
         ctx.font = `400 ${Math.max(7.5, Math.round(bw * 0.055))}px monospace`;
         ctx.fillText(item.sub, photoX, textY + 12);
 
-        // Washi Tape
+        // Translucent Washi Tape on top edge
         ctx.fillStyle = "rgba(223, 177, 91, 0.55)";
         ctx.fillRect(-18, -bh / 2 - 4, 36, 10);
-        ctx.strokeStyle = "rgba(255,255,255,0.4)";
+        ctx.strokeStyle = "rgba(255,255,255,0.35)";
         ctx.strokeRect(-18, -bh / 2 - 4, 36, 10);
 
         ctx.restore();
@@ -283,14 +293,28 @@ export const PhysicsGallery: React.FC = () => {
       Composite.clear(engine.world, false);
       Engine.clear(engine);
     };
-  }, [playSoftPop]);
+  }, []);
 
-  const shakePolaroids = () => {
-    playClick();
+  // Reset polaroids back to original orderly arrangement
+  const resetPolaroids = () => {
+    if (!bodiesRef.current) return;
+    const width = containerRef.current?.clientWidth || 360;
+    bodiesRef.current.forEach(({ body, item }, idx) => {
+      const targetX = (width / (POLAROIDS_DATA.length + 1)) * (idx + 1);
+      const targetY = 120 + idx * 45;
+      Matter.Body.setPosition(body, { x: targetX, y: targetY });
+      Matter.Body.setVelocity(body, { x: (Math.random() - 0.5) * 2, y: -2 });
+      Matter.Body.setAngle(body, item.rotation);
+      Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.04);
+    });
+  };
+
+  // Toss impulse
+  const shufflePolaroids = () => {
     if (!bodiesRef.current) return;
     bodiesRef.current.forEach(({ body }) => {
-      const forceX = (Math.random() - 0.5) * 0.04;
-      const forceY = -0.05 - Math.random() * 0.05;
+      const forceX = (Math.random() - 0.5) * 0.05;
+      const forceY = -0.06 - Math.random() * 0.04;
       Matter.Body.applyForce(body, body.position, { x: forceX, y: forceY });
       Matter.Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.15);
     });
@@ -302,17 +326,17 @@ export const PhysicsGallery: React.FC = () => {
         <div>
           <div className="flex items-center gap-1.5 font-mono-swiss text-[11px] uppercase tracking-widest text-[var(--accent-gold)] mb-1">
             <Sparkles className="w-3.5 h-3.5" />
-            <span>FÍSICAS 2D INTERACTIVAS</span>
+            <span>MESA DE TRABAJO // POLAROIDS</span>
           </div>
           <h2 className="font-serif-editorial text-3xl sm:text-4xl text-[var(--fg-primary)] italic transition-colors">
             El Moodboard de la Boda
           </h2>
           <p className="font-sans-ui text-xs text-[var(--fg-muted)] mt-1 max-w-md">
-            Toca, arrastra y lanza las polaroids. Jardines neoclásicos, la noche en Veneno y la atmósfera de nuestro día.
+            Desordena, apila y lanza las fotos con el dedo. La atmósfera del día a tu antojo.
           </p>
         </div>
 
-        {/* Shake & Hint controls */}
+        {/* Minimal Controls */}
         <div className="flex items-center gap-2 self-start sm:self-auto">
           {!hasInteracted && (
             <div className="flex items-center gap-1 px-2.5 py-1 rounded-full glass-pill text-[10px] font-mono-swiss animate-pulse">
@@ -321,11 +345,20 @@ export const PhysicsGallery: React.FC = () => {
             </div>
           )}
           <button
-            onClick={shakePolaroids}
+            onClick={shufflePolaroids}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-pill hover:opacity-80 active:scale-95 text-xs font-mono-swiss transition-all cursor-pointer"
+            title="Lanzar fotos"
           >
-            <RefreshCw className="w-3 h-3 text-[var(--accent-gold)]" />
-            <span>Agitar polaroids</span>
+            <Shuffle className="w-3 h-3 text-[var(--accent-gold)]" />
+            <span>Lanzar</span>
+          </button>
+          <button
+            onClick={resetPolaroids}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-pill hover:opacity-80 active:scale-95 text-xs font-mono-swiss transition-all cursor-pointer"
+            title="Restaurar orden original"
+          >
+            <RotateCcw className="w-3 h-3 text-[var(--accent-gold)]" />
+            <span>Reset</span>
           </button>
         </div>
       </div>
@@ -344,13 +377,16 @@ export const PhysicsGallery: React.FC = () => {
           className="absolute inset-0 bg-[linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] opacity-[0.035] bg-[size:32px_32px] pointer-events-none" 
         />
         
-        <div className="absolute bottom-3 left-4 pointer-events-none font-mono-swiss text-[9px] uppercase tracking-widest text-[var(--fg-muted)] opacity-60">
-          MATTER.JS RIGID BODY PHYSICS // 60 FPS
+        {/* Subtle organic micro-copy (replaces debug technical text) */}
+        <div className="absolute bottom-3 left-4 pointer-events-none font-mono-swiss text-[9px] uppercase tracking-widest text-[var(--fg-muted)] opacity-50">
+          [ MESA DE TRABAJO // DESORDENA Y LANZA ]
         </div>
 
         <canvas
           ref={canvasRef}
-          className="relative z-10 w-full h-full cursor-grab active:cursor-grabbing touch-none"
+          className={`relative z-10 w-full h-full touch-none select-none ${
+            isGrabbing ? "cursor-grabbing" : "cursor-grab"
+          }`}
         />
       </div>
     </section>
