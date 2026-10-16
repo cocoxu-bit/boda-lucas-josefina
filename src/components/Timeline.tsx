@@ -2,278 +2,259 @@
 
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import Image from "next/image";
 import { 
   MapPin, 
   Clock, 
   ChevronDown, 
   ExternalLink, 
-  Shirt, 
   Armchair, 
-  Navigation
+  Navigation,
+  Sparkles,
+  Camera,
+  GlassWater,
+  Music,
+  Heart
 } from "lucide-react";
-import { useSoundEffects } from "@/context/SoundContext";
 
-interface TimelineEvent {
+interface TimelineStop {
   time: string;
+  stepNumber: string;
   title: string;
   location: string;
+  emoji: string;
   description: string;
-  tag: string;
+  humorTip: string;
   mapUrl?: string;
+  image?: {
+    url: string;
+    caption: string;
+  };
 }
 
-const EVENTS: TimelineEvent[] = [
+const STOPS: TimelineStop[] = [
   {
     time: "12:45",
-    title: "Llegada & Encuentro",
+    stepNumber: "01",
+    title: "El Checkpoint de Monforte",
     location: "Palacete de los Jardines de Monforte",
-    description: "Recepción de invitados en uno de los rincones neoclásicos más bonitos de Valencia. Respira los jardines antes del enlace.",
-    tag: "Puntualidad",
+    emoji: "🏛️",
+    description: "Llegada escalonada y primeros abrazos entre cipreses, fuentes y estatuas neoclásicas en uno de los rincones más mágicos de Valencia.",
+    humorTip: "Tip: Respira hondo y busca sombra si hace solecito de febrero.",
     mapUrl: "https://maps.google.com/?q=Jardines+de+Monforte+Valencia",
+    image: {
+      url: "https://images.unsplash.com/photo-1584824486509-112e4181ff6b?auto=format&fit=crop&w=1000&q=80",
+      caption: "Palacete y Jardines de Monforte — Un oasis neoclásico en Valencia",
+    },
   },
   {
     time: "13:00",
-    title: "La Ceremonia Civil",
+    stepNumber: "02",
+    title: "El 'Sí, Quiero' (Sin rodeos)",
     location: "Palacios de Monforte",
-    description: "Firma civil, votos breves y directos, música en directo y salida con lluvia de confeti.",
-    tag: "El Sí Quiero",
+    emoji: "💍",
+    description: "Ceremonia civil íntima, votos de verdad, alguna lagrimilla (se admiten apuestas de quién llora antes) y salida triunfal.",
+    humorTip: "Kleenex en mano para los más sensibles.",
     mapUrl: "https://maps.google.com/?q=Jardines+de+Monforte+Valencia",
   },
   {
     time: "14:15",
-    title: "Paseo hacia Veneno",
-    location: "Valencia Centro",
-    description: "Tiempo libre para una cerveza rápida de camino, paseo o taxi corto hacia Veneno. Sin prisas ni autobuses eternos.",
-    tag: "Transición",
+    stepNumber: "03",
+    title: "La Ruta del Vermut (Monforte ➔ Veneno)",
+    location: "Centro de Valencia",
+    emoji: "🚶‍♂️🍻",
+    description: "Transición urbana ágil. Un agradable paseo a pie o 7 minutos en taxi / Uber por el centro. Sin autobuses interminables ni esperas.",
+    humorTip: "Se permite parada técnica en bar intermedio para una cerveza de transición.",
   },
   {
     time: "14:45",
-    title: "Apertura del Cóctel Largo",
+    stepNumber: "04",
+    title: "Asalto a Veneno: Cóctel Largo",
     location: "Veneno Bar & Club",
-    description: "Comienza la fiesta: comida continua (salada y dulce gourmet), cócteles de autor y copas desde el minuto uno. Todo de pie, dinámico y fluido.",
-    tag: "Comida & Cócteles",
+    emoji: "🍸🍴",
+    description: "Aquí empieza la fiesta grande. Comida continua (fría y caliente gourmet), cócteles de autor y copas desde el minuto uno. Todo dinámico y de pie.",
+    humorTip: "Cero protocolo de mesas numeradas. Come y bebe a tu ritmo.",
     mapUrl: "https://maps.google.com/?q=Veneno+Valencia",
+    image: {
+      url: "https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=1000&q=80",
+      caption: "Veneno — Iluminación íntima, barra libre de cócteles y ambientazo",
+    },
   },
   {
     time: "17:30",
-    title: "Tardeo, DJ & Pista Libre",
-    location: "Veneno",
-    description: "Luces bajas, buena selección musical (indie, funk, disco y clásicos) y baile hasta que el cuerpo aguante.",
-    tag: "Party Time",
+    stepNumber: "05",
+    title: "Tardeo, DJ & Zapatillas en Llamas",
+    location: "Veneno Club",
+    emoji: "🪩⚡",
+    description: "Luces bajas, selección musical impecable (indie, funk, disco y clásicos) y baile sin fin hasta que el cuerpo aguante.",
+    humorTip: "Aviso: Lucas y Josefina tomarán el control de la cabina.",
     mapUrl: "https://maps.google.com/?q=Veneno+Valencia",
-  },
-];
-
-interface InfoDrawer {
-  id: string;
-  title: string;
-  subtitle: string;
-  icon: React.ElementType;
-  content: string;
-  bulletPoints: string[];
-}
-
-const DETAILS_DRAWERS: InfoDrawer[] = [
-  {
-    id: "dress-code",
-    title: "Dress Code: Arreglado pero a tu rollo",
-    subtitle: "Elegancia contemporánea sin etiqueta rígida",
-    icon: Shirt,
-    content: "Queremos que todo el mundo se vea genial y especial en las fotos, pero sin disfraces ni rigideces innecesarias.",
-    bulletPoints: [
-      "Sí: Trajes contemporáneos, camisas bonitas, vestidos midi/cortos, monos de diseño.",
-      "Zapatillas elegantes y calzado cómodo: 100% recomendados (vas a bailar muchas horas).",
-      "No obligatorio: Ni corbatas ni pajaritas ni tocados imposibles.",
-    ],
-  },
-  {
-    id: "format",
-    title: "El Formato: Cóctel Largo & Asientos",
-    subtitle: "Cero mesas numeradas, cero esperas de 4 horas",
-    icon: Armchair,
-    content: "La boda está pensada como una gran celebración social de pie, con comida continua servida por camareros y estaciones gastronómicas.",
-    bulletPoints: [
-      "Comerás mucho y muy rico: No te preocupes por quedarte con hambre, el pase es continuo y abundante.",
-      "Asientos garantizados: Habrá bancos, taburetes y zonas lounge reservadas para personas mayores o quien necesite sentarse a reposar.",
-      "Libertad total de movimiento para charlar con quien quieras.",
-    ],
-  },
-  {
-    id: "locations",
-    title: "Cómo Moverse (Monforte ➔ Veneno)",
-    subtitle: "Logística urbana ágil en Valencia",
-    icon: Navigation,
-    content: "Ambos espacios están ubicados en la ciudad. El trayecto se puede hacer en taxi/Uber (unos 8-10 minutos) o con un agradable paseo.",
-    bulletPoints: [
-      "Jardines de Monforte: Carrer de Montfort, s/n (fácil acceso en taxi o metro Facultats).",
-      "Veneno: En el corazón del ocio valenciano. Os facilitaremos la ubicación exacta y paradas de taxi cercanas.",
-    ],
   },
 ];
 
 export const Timeline: React.FC = () => {
-  const [openDrawer, setOpenDrawer] = useState<string | null>("dress-code");
-  const { playClick, playSelect } = useSoundEffects();
-
-  const toggleDrawer = (id: string) => {
-    playSelect();
-    setOpenDrawer((prev) => (prev === id ? null : id));
-  };
+  const [activePhoto, setActivePhoto] = useState<string | null>("monforte");
 
   return (
     <section id="timeline-section" className="relative w-full max-w-3xl mx-auto py-16 px-4 sm:px-6">
-      {/* Section Header */}
+      {/* Header */}
       <div className="text-center space-y-2 mb-12">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-pill text-[11px] font-mono-swiss uppercase tracking-widest text-[var(--accent-gold)]">
           <Clock className="w-3.5 h-3.5" />
-          <span>CRONOGRAMA & LOGÍSTICA</span>
+          <span>ROADMAP // EL PLAN DEL DÍA</span>
         </div>
-        <h2 className="font-serif-editorial text-4xl sm:text-5xl text-[var(--fg-primary)] italic transition-colors">
-          El Plan del Día
+        <h2 className="font-serif-editorial text-4xl sm:text-5xl text-[var(--fg-primary)] italic">
+          La Hoja de Ruta Festera
         </h2>
-        <p className="font-sans-ui text-sm text-[var(--fg-muted)] max-w-md mx-auto">
-          Sábado 6 de febrero de 2027. Los hitos clave para que no te pierdas nada.
+        <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-muted)] max-w-md mx-auto">
+          Sábado 6 de febrero de 2027. De la solemnidad botánica en Monforte al tardeo desenfadado en Veneno.
         </p>
       </div>
 
-      {/* Tracing Beam Timeline Container */}
-      <div className="relative pl-6 sm:pl-8 border-l border-[var(--card-border)] space-y-10 my-8">
-        <div 
-          className="absolute left-[-1px] top-0 bottom-0 w-[2px] bg-gradient-to-b from-[var(--accent-gold)] via-[var(--fg-primary)]/30 to-transparent" 
-          aria-hidden="true" 
-        />
+      {/* Venues Visual Spotlight Gallery */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-14">
+        {/* Monforte Card */}
+        <div className="theme-card rounded-2xl overflow-hidden group shadow-lg">
+          <div className="relative h-48 w-full overflow-hidden">
+            <Image
+              src="https://images.unsplash.com/photo-1584824486509-112e4181ff6b?auto=format&fit=crop&w=800&q=80"
+              alt="Palacios de Monforte Valencia"
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute top-3 left-3">
+              <span className="glass-pill px-2.5 py-0.5 rounded-full text-[10px] font-mono-swiss text-white">
+                13:00 H • CEREMONIA CIVIL
+              </span>
+            </div>
+            <div className="absolute bottom-3 left-3 right-3 text-white">
+              <h4 className="font-serif-editorial text-2xl italic leading-none">
+                Palacios de Monforte
+              </h4>
+              <p className="font-mono-swiss text-[10px] text-zinc-300 mt-1 flex items-center gap-1">
+                <MapPin className="w-3 h-3 text-[#dfb15b]" />
+                Jardines neoclásicos de Valencia
+              </p>
+            </div>
+          </div>
+          <div className="p-3.5 text-xs text-[var(--fg-muted)] font-light leading-relaxed">
+            Jardines históricos protegidos con laberintos, estatuas de mármol y un palacete civil donde nos daremos el sí.
+          </div>
+        </div>
 
-        {EVENTS.map((event, index) => (
+        {/* Veneno Card */}
+        <div className="theme-card rounded-2xl overflow-hidden group shadow-lg">
+          <div className="relative h-48 w-full overflow-hidden">
+            <Image
+              src="https://images.unsplash.com/photo-1572116469696-31de0f17cc34?auto=format&fit=crop&w=800&q=80"
+              alt="Veneno Bar Valencia"
+              fill
+              className="object-cover group-hover:scale-105 transition-transform duration-500"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+            <div className="absolute top-3 left-3">
+              <span className="glass-pill px-2.5 py-0.5 rounded-full text-[10px] font-mono-swiss text-white">
+                14:45 H • CÓCTEL LARGO & CLUB
+              </span>
+            </div>
+            <div className="absolute bottom-3 left-3 right-3 text-white">
+              <h4 className="font-serif-editorial text-2xl italic leading-none">
+                Veneno
+              </h4>
+              <p className="font-mono-swiss text-[10px] text-zinc-300 mt-1 flex items-center gap-1">
+                <MapPin className="w-3 h-3 text-[#dfb15b]" />
+                Valencia Centro
+              </p>
+            </div>
+          </div>
+          <div className="p-3.5 text-xs text-[var(--fg-muted)] font-light leading-relaxed">
+            Espacio alternativo con rollo club/coctelería. Cero manteles de boda tradicional: comida gourmet continua y tardeo épico.
+          </div>
+        </div>
+      </div>
+
+      {/* Storyboard Metro Map Timeline */}
+      <div className="relative pl-6 sm:pl-8 border-l-2 border-[var(--accent-gold)]/40 space-y-8 my-8">
+        {STOPS.map((stop, index) => (
           <motion.div
-            key={event.time}
-            initial={{ opacity: 0, x: -16 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true, margin: "-60px" }}
-            transition={{ duration: 0.5, delay: index * 0.08 }}
+            key={stop.stepNumber}
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-40px" }}
+            transition={{ duration: 0.4, delay: index * 0.08 }}
             className="relative group"
           >
-            {/* Timeline node dot */}
-            <div className="absolute -left-[31px] sm:-left-[39px] top-1.5 w-4 h-4 rounded-full bg-[var(--bg-primary)] border-2 border-[var(--accent-gold)] flex items-center justify-center transition-transform group-hover:scale-125">
-              <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)]" />
+            {/* Custom Station Pin */}
+            <div className="absolute -left-[33px] sm:-left-[41px] top-1.5 w-5 h-5 rounded-full bg-[var(--bg-primary)] border-2 border-[var(--accent-gold)] flex items-center justify-center shadow-md group-hover:scale-125 transition-transform">
+              <span className="font-mono-swiss text-[9px] font-bold text-[var(--accent-gold)]">
+                {stop.stepNumber}
+              </span>
             </div>
 
-            {/* Event Card */}
-            <div className="theme-card rounded-2xl p-4 sm:p-5 transition-all hover:border-[var(--card-border-hover)] shadow-lg">
-              <div className="flex flex-wrap items-center justify-between gap-2 mb-2">
+            {/* Story Card */}
+            <div className="theme-card rounded-2xl p-4 sm:p-5 transition-all hover:border-[var(--card-border-hover)] shadow-lg space-y-2">
+              <div className="flex flex-wrap items-center justify-between gap-2">
                 <div className="flex items-center gap-2">
+                  <span className="text-xl sm:text-2xl">{stop.emoji}</span>
                   <span className="font-mono-swiss text-sm sm:text-base font-bold text-[var(--accent-gold)]">
-                    {event.time}
-                  </span>
-                  <span className="font-mono-swiss text-[10px] uppercase tracking-wider px-2 py-0.5 rounded-full glass-pill">
-                    {event.tag}
+                    {stop.time} H
                   </span>
                 </div>
 
-                {event.mapUrl && (
+                {stop.mapUrl && (
                   <a
-                    href={event.mapUrl}
+                    href={stop.mapUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    onClick={() => playClick()}
                     className="flex items-center gap-1 font-mono-swiss text-[11px] text-[var(--fg-muted)] hover:text-[var(--accent-gold)] transition-colors"
                   >
                     <MapPin className="w-3 h-3 text-[var(--accent-gold)]" />
-                    <span>Ver mapa</span>
+                    <span>Ver ubicación</span>
                     <ExternalLink className="w-2.5 h-2.5 opacity-60" />
                   </a>
                 )}
               </div>
 
-              <h3 className="font-serif-editorial text-2xl text-[var(--fg-primary)] italic tracking-wide">
-                {event.title}
+              <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic">
+                {stop.title}
               </h3>
-              
-              <div className="font-sans-ui text-xs font-medium text-[var(--fg-muted)] mt-0.5 mb-2 flex items-center gap-1.5">
-                <span className="w-1 h-1 rounded-full bg-[var(--accent-gold)]" />
-                <span>{event.location}</span>
+
+              <div className="font-sans-ui text-xs text-[var(--fg-muted)] flex items-center gap-1.5 font-medium">
+                <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)]" />
+                <span>{stop.location}</span>
               </div>
 
-              <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-primary)]/80 font-light leading-relaxed">
-                {event.description}
+              <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-primary)]/85 font-light leading-relaxed pt-1">
+                {stop.description}
               </p>
+
+              {/* Humor Tip pill */}
+              <div className="pt-2">
+                <span className="inline-block px-3 py-1 rounded-xl text-[11px] font-mono-swiss bg-black/[0.03] dark:bg-white/[0.04] border border-[var(--card-border)] text-[var(--accent-gold)]">
+                  💡 {stop.humorTip}
+                </span>
+              </div>
             </div>
           </motion.div>
         ))}
       </div>
 
-      {/* Accordion / Logistics Clarity Drawers */}
-      <div className="mt-16 space-y-4">
-        <div className="text-center mb-6">
-          <span className="font-mono-swiss text-[11px] uppercase tracking-widest text-[var(--fg-muted)]">
-            DETALLES IMPORTANTES // ZERO FALSAS EXPECTATIVAS
-          </span>
+      {/* Clarification on Seats (Reassurance for guests) */}
+      <div className="mt-12 theme-card rounded-2xl p-5 border-l-4 border-l-[var(--accent-gold)] shadow-md">
+        <div className="flex items-start gap-3">
+          <div className="p-2 rounded-xl glass-pill text-[var(--accent-gold)] mt-0.5">
+            <Armchair className="w-5 h-5" />
+          </div>
+          <div className="space-y-1">
+            <h4 className="font-sans-ui text-sm sm:text-base font-semibold text-[var(--fg-primary)]">
+              Recordatorio importante: Cóctel de pie con zonas de asiento
+            </h4>
+            <p className="font-sans-ui text-xs text-[var(--fg-muted)] leading-relaxed">
+              No habrá asignación de mesas formal de banquete clásico de 4 horas. Habrá barra continua y pase de comida abundante, pero <strong className="text-[var(--fg-primary)] font-medium">garantizamos sillones y bancos reservados para nuestros mayores</strong> y para que cualquiera pueda reposar cuando le apetezca.
+            </p>
+          </div>
         </div>
-
-        {DETAILS_DRAWERS.map((drawer) => {
-          const isOpen = openDrawer === drawer.id;
-          const Icon = drawer.icon;
-
-          return (
-            <div
-              key={drawer.id}
-              className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
-                isOpen 
-                  ? "border-[var(--accent-gold)]/50 bg-[var(--card-bg)] shadow-xl" 
-                  : "border-[var(--card-border)] bg-[var(--card-bg)]/60 hover:border-[var(--card-border-hover)]"
-              }`}
-            >
-              <button
-                onClick={() => toggleDrawer(drawer.id)}
-                className="w-full p-4 sm:p-5 flex items-center justify-between text-left gap-3 cursor-pointer"
-              >
-                <div className="flex items-center gap-3">
-                  <div className={`p-2 rounded-xl transition-colors ${isOpen ? "bg-[var(--accent-gold)]/10 text-[var(--accent-gold)]" : "glass-pill"}`}>
-                    <Icon className="w-5 h-5" />
-                  </div>
-                  <div>
-                    <h4 className="font-sans-ui text-sm sm:text-base font-medium text-[var(--fg-primary)]">
-                      {drawer.title}
-                    </h4>
-                    <p className="font-sans-ui text-xs text-[var(--fg-muted)]">
-                      {drawer.subtitle}
-                    </p>
-                  </div>
-                </div>
-
-                <motion.div
-                  animate={{ rotate: isOpen ? 180 : 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="text-[var(--fg-muted)]"
-                >
-                  <ChevronDown className="w-4 h-4" />
-                </motion.div>
-              </button>
-
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: "auto", opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.25, ease: "easeInOut" }}
-                  >
-                    <div className="px-5 pb-5 pt-1 text-xs sm:text-sm text-[var(--fg-primary)]/85 space-y-3 border-t border-[var(--card-border)]">
-                      <p className="font-light leading-relaxed">{drawer.content}</p>
-                      <ul className="space-y-2 pt-1">
-                        {drawer.bulletPoints.map((pt, i) => (
-                          <li key={i} className="flex items-start gap-2 font-mono-swiss text-[11px] sm:text-xs text-[var(--fg-primary)]/80">
-                            <span className="text-[var(--accent-gold)] mt-0.5">•</span>
-                            <span>{pt}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          );
-        })}
       </div>
     </section>
   );

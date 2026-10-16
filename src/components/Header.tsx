@@ -2,20 +2,18 @@
 
 import React from "react";
 import { motion } from "framer-motion";
-import { VolumeX, Sparkles } from "lucide-react";
-import { useSoundEffects } from "@/context/SoundContext";
+import { Sparkles, Calendar } from "lucide-react";
 
 export const Header: React.FC = () => {
-  const { isAmbientPlaying, toggleAmbient, playClick } = useSoundEffects();
-
-  const handleSoundToggle = () => {
-    playClick();
-    toggleAmbient();
+  const scrollToRSVP = () => {
+    const el = document.getElementById("rsvp-section");
+    if (el) {
+      el.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
-  const scrollToRSVP = () => {
-    playClick();
-    const el = document.getElementById("rsvp-section");
+  const scrollToTimeline = () => {
+    const el = document.getElementById("timeline-section");
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
     }
@@ -33,7 +31,7 @@ export const Header: React.FC = () => {
           {/* Monogram / Date */}
           <div className="flex items-center gap-2.5">
             <span className="font-serif-editorial text-xl italic tracking-wide text-[var(--fg-primary)]">
-              L & J
+              Lucas & Josefina
             </span>
             <span className="h-3 w-px bg-current opacity-20" />
             <span className="font-mono-swiss text-[11px] uppercase tracking-widest text-[var(--fg-muted)]">
@@ -41,36 +39,23 @@ export const Header: React.FC = () => {
             </span>
           </div>
 
-          {/* Right actions: Sound toggle & RSVP button */}
+          {/* Right actions */}
           <div className="flex items-center gap-2">
-            {/* Ambient Sound Toggle Button */}
             <button
-              onClick={handleSoundToggle}
-              aria-label={isAmbientPlaying ? "Pausar música ambiental" : "Reproducir música ambiental"}
-              className="group relative flex items-center gap-2 rounded-full px-3 py-1.5 text-xs transition-all hover:bg-black/5 dark:hover:bg-white/10 active:scale-95"
+              onClick={scrollToTimeline}
+              className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-mono-swiss text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors"
             >
-              {isAmbientPlaying ? (
-                <div className="flex items-center gap-0.5 h-3">
-                  <span className="w-0.5 h-3 bg-[var(--accent-gold)] animate-pulse" />
-                  <span className="w-0.5 h-2 bg-[var(--accent-gold)] animate-pulse [animation-delay:150ms]" />
-                  <span className="w-0.5 h-3.5 bg-[var(--accent-gold)] animate-pulse [animation-delay:300ms]" />
-                  <span className="w-0.5 h-1.5 bg-[var(--accent-gold)] animate-pulse [animation-delay:450ms]" />
-                </div>
-              ) : (
-                <VolumeX className="w-3.5 h-3.5 text-[var(--fg-muted)] group-hover:text-[var(--fg-primary)] transition-colors" />
-              )}
-              <span className="hidden sm:inline font-mono-swiss text-[10px] tracking-wider uppercase text-[var(--fg-muted)] group-hover:text-[var(--fg-primary)]">
-                {isAmbientPlaying ? "Sound ON" : "Sound"}
-              </span>
+              <Calendar className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
+              <span>El Plan</span>
             </button>
 
             {/* RSVP Direct Jump */}
             <button
               onClick={scrollToRSVP}
-              className="relative overflow-hidden rounded-full bg-[var(--fg-primary)] px-3.5 py-1.5 font-sans-ui text-xs font-medium text-[var(--bg-primary)] transition-all hover:bg-[var(--accent-gold)] hover:text-white dark:hover:text-black active:scale-95 flex items-center gap-1.5 shadow-sm"
+              className="relative overflow-hidden rounded-full bg-[var(--fg-primary)] px-3.5 py-1.5 font-sans-ui text-xs font-medium text-[var(--bg-primary)] transition-all hover:bg-[var(--accent-gold)] hover:text-black active:scale-95 flex items-center gap-1.5 shadow-sm cursor-pointer"
             >
               <Sparkles className="w-3 h-3" />
-              <span>Confirmar</span>
+              <span>Confirmar Asistencia</span>
             </button>
           </div>
         </nav>

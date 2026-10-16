@@ -2,6 +2,7 @@ import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { PhysicsGallery } from "@/components/PhysicsGallery";
 import { Timeline } from "@/components/Timeline";
+import { DressCodeInspector } from "@/components/DressCodeInspector";
 import { RSVPWizard } from "@/components/RSVPWizard";
 import { EasterEgg } from "@/components/EasterEgg";
 import { Footer } from "@/components/Footer";
@@ -18,8 +19,11 @@ export default function Home() {
       {/* Interactive 2D Matter.js Photo Gallery */}
       <PhysicsGallery />
 
-      {/* Logistics & Chronogram with Tracing Beam & Detail Cards */}
+      {/* Playful Chronogram with Venue Photos (Monforte & Veneno) */}
       <Timeline />
+
+      {/* Interactive Dress Code Inspector with Animated Lucas & Josefina Avatars */}
+      <DressCodeInspector />
 
       {/* Gamified Multi-Step RSVP Form & Digital Pass Generator */}
       <RSVPWizard />
