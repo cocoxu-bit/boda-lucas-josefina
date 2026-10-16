@@ -17,6 +17,7 @@ interface OutfitExample {
   imageUrl: string;
   lucasQuote: string;
   josefinaQuote: string;
+  maximoQuote: string;
 }
 
 const OUTFITS: OutfitExample[] = [
@@ -30,6 +31,7 @@ const OUTFITS: OutfitExample[] = [
     imageUrl: "/images/sample_casual_man.jpg",
     lucasQuote: "Para mí es el uniforme definitivo. Vas arreglado, no pasas calor y con las zapatillas aguantas 8 horas de pie en Veneno sin enterarte de los pies.",
     josefinaQuote: "¡Totalmente! Me encanta el rollazo que da. Se ve arreglado pero moderno y cero estirado. ¡Aprobado con nota!",
+    maximoQuote: "¡Aba-dá! *[aplaude con las dos manitas entusiasmado y estira los brazos para que le cojan]*",
   },
   {
     id: "midi-flow",
@@ -41,6 +43,7 @@ const OUTFITS: OutfitExample[] = [
     imageUrl: "/images/dress_green.jpg",
     lucasQuote: "Encaja a la perfección con la luz de febrero en los jardines de Monforte y el ambiente desenfadado de Veneno.",
     josefinaQuote: "Mi opción favorita. Comodísimo, fresco y con libertad total de movimiento para pillar el cóctel al vuelo y bailar toda la tarde.",
+    maximoQuote: "¡Agú tatá! *[se ríe a carcajadas mirando los colores y señala con el dedito]*",
   },
   {
     id: "tailoring-chic",
@@ -52,6 +55,7 @@ const OUTFITS: OutfitExample[] = [
     imageUrl: "/images/sample_fashion_look.jpg",
     lucasQuote: "Aprobado al cien por cien. Elegante, contemporáneo y acorde con el espíritu de una boda sin etiquetas rancias.",
     josefinaQuote: "Un dos piezas fluido con zapatillas o zapato cómodo tiene una personalidad increíble. Pura elegancia sin corsés.",
+    maximoQuote: "¡Da-dá! *[da palmaditas en la mesa y sonríe mostrando dos dientes]*",
   },
   {
     id: "linen-no-tie",
@@ -63,6 +67,7 @@ const OUTFITS: OutfitExample[] = [
     imageUrl: "/images/linen_shirt.jpg",
     lucasQuote: "La corbata queda vetada en nuestra boda. Con un traje moderno desabrochado vas impecable y disfrutas mil veces más.",
     josefinaQuote: "Mucho más guapos y cercanos así que pareciendo que vais a una junta de accionistas en pleno lunes.",
+    maximoQuote: "¡Gugú baaa! *[agarra la tela suave con los puñitos y asiente satisfecho]*",
   },
   {
     id: "rock-chic",
@@ -74,6 +79,7 @@ const OUTFITS: OutfitExample[] = [
     imageUrl: "/images/sample_elegant_woman.jpg",
     lucasQuote: "Si alguien viene así a Veneno, le invito a la primera copa. Rollo indie club total.",
     josefinaQuote: "¡Me flipa! Queremos que cada uno venga a su rollo siendo 100% fiel a su estilo.",
+    maximoQuote: "¡Ooooh... brrr! *[mueve los piececitos al ritmo y suelta un gritito de fiesta]*",
   },
   {
     id: "stiletto-gala",
@@ -85,6 +91,7 @@ const OUTFITS: OutfitExample[] = [
     imageUrl: "/images/gala_dress.jpg",
     lucasQuote: "Demasiado encorsetado para un cóctel de pie. Te vas a cansar antes de que empiece la música.",
     josefinaQuote: "Irás divina los primeros 20 minutos de fotos en Monforte. En Veneno a las 16:00 estarás pidiendo tiritas a gritos. ¡Mete zapatillas en el bolso sí o sí!",
+    maximoQuote: "¡Mmmh? *[ladea la cabeza masticando la esquina de su babero con cara de duda]*",
   },
   {
     id: "chaque-rigido",
@@ -96,6 +103,7 @@ const OUTFITS: OutfitExample[] = [
     imageUrl: "/images/tuxedo.jpg",
     lucasQuote: "¡Por favor, no! Esto es una boda civil y nos vamos directos a un bar a beber copas, no a la abadía de Westminster. Vas a pasar un calor infernal.",
     josefinaQuote: "Desentona totalmente con el concepto. Buscamos cercanía y naturalidad, ¡dejad el pingüino en el armario!",
+    maximoQuote: "¡Gaaaa-bu! *[tira el sonajero al suelo y hace pucheros de agobio con el sombrero]*",
   },
   {
     id: "sport-chandal",
@@ -107,6 +115,7 @@ const OUTFITS: OutfitExample[] = [
     imageUrl: "/images/sample_yellow_chic.jpg",
     lucasQuote: "A ver, tampoco nos pasemos de alternativos. Es nuestra boda, no un partido en la pista del barrio.",
     josefinaQuote: "Venid guapos y arreglados a vuestro propio estilo. El chándal lo guardamos para el domingo de descanso.",
+    maximoQuote: "¡Pffft-baaah! *[hace una pedorreta con la lengua fuera y se gira indignado]*",
   },
 ];
 
@@ -389,6 +398,134 @@ const JosefinaAvatar: React.FC<{ mood: MoodType }> = ({ mood }) => {
   );
 };
 
+/* Illustrated Avatar for baby Máximo */
+const MaximoAvatar: React.FC<{ mood: MoodType }> = ({ mood }) => {
+  return (
+    <motion.div
+      animate={
+        mood === "love"
+          ? { y: [0, -6, 0], rotate: [0, -4, 4, 0] }
+          : mood === "veto"
+          ? { x: [-3, 3, -3, 3, 0] }
+          : { rotate: [-5, 5, -5] }
+      }
+      transition={{ duration: mood === "veto" ? 0.35 : 2, repeat: Infinity, ease: "easeInOut", delay: 0.25 }}
+      className="relative flex flex-col items-center shrink-0"
+    >
+      <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-full bg-gradient-to-b from-amber-500/10 to-transparent p-1 border border-[var(--card-border)] flex items-center justify-center shadow-md">
+        <svg viewBox="0 0 100 100" className="w-full h-full filter drop-shadow-sm">
+          <defs>
+            <linearGradient id="maxSkin" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#FEE9DC" />
+              <stop offset="100%" stopColor="#F8D3BE" />
+            </linearGradient>
+            <linearGradient id="maxBib" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#BAE6FD" />
+              <stop offset="100%" stopColor="#7DD3FC" />
+            </linearGradient>
+          </defs>
+
+          {/* Baby Bib / Romper */}
+          <path d="M28 78 L24 100 L76 100 L72 78 Z" fill="url(#maxBib)" />
+          <path d="M40 76 Q50 82 60 76" stroke="#38BDF8" strokeWidth="1.5" fill="none" />
+          <circle cx="50" cy="88" r="2.5" fill="#FFFFFF" opacity="0.9" />
+
+          {/* Baby Ears */}
+          <circle cx="23" cy="52" r="6" fill="#FEE9DC" />
+          <circle cx="23" cy="52" r="3.5" fill="#F8D3BE" />
+          <circle cx="77" cy="52" r="6" fill="#FEE9DC" />
+          <circle cx="77" cy="52" r="3.5" fill="#F8D3BE" />
+
+          {/* Chubby Baby Head */}
+          <ellipse cx="50" cy="50" rx="27" ry="26" fill="url(#maxSkin)" />
+
+          {/* Baby Hair Tuft / Swirl */}
+          <path
+            d="M47 25 C45 18 52 14 55 18 C57 21 54 25 50 25"
+            stroke="#6C4128"
+            strokeWidth="2.5"
+            strokeLinecap="round"
+            fill="none"
+          />
+
+          {/* Rosy Baby Cheeks */}
+          <circle cx="34" cy="58" r="5.5" fill="#F43F5E" opacity="0.35" />
+          <circle cx="66" cy="58" r="5.5" fill="#F43F5E" opacity="0.35" />
+
+          {/* Eyebrows */}
+          {mood === "love" && (
+            <>
+              <path d="M36 43 Q41 39 46 42" stroke="#6C4128" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+              <path d="M54 42 Q59 39 64 43" stroke="#6C4128" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+            </>
+          )}
+          {mood === "meh" && (
+            <>
+              <path d="M36 43 L46 43" stroke="#6C4128" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+              <path d="M54 41 Q59 38 64 43" stroke="#6C4128" strokeWidth="1.6" strokeLinecap="round" fill="none" />
+            </>
+          )}
+          {mood === "veto" && (
+            <>
+              <path d="M36 41 L46 44" stroke="#6C4128" strokeWidth="2" strokeLinecap="round" fill="none" />
+              <path d="M54 44 L64 41" stroke="#6C4128" strokeWidth="2" strokeLinecap="round" fill="none" />
+            </>
+          )}
+
+          {/* Eyes */}
+          {mood === "love" && (
+            <>
+              <circle cx="41" cy="49" r="4.2" fill="#221712" />
+              <circle cx="39.5" cy="47.5" r="1.6" fill="#FFFFFF" />
+              <circle cx="42.5" cy="50.5" r="0.8" fill="#FFFFFF" />
+              <circle cx="59" cy="49" r="4.2" fill="#221712" />
+              <circle cx="57.5" cy="47.5" r="1.6" fill="#FFFFFF" />
+              <circle cx="60.5" cy="50.5" r="0.8" fill="#FFFFFF" />
+            </>
+          )}
+          {mood === "meh" && (
+            <>
+              <circle cx="43" cy="49" r="3.8" fill="#221712" />
+              <circle cx="42" cy="47.5" r="1.2" fill="#FFFFFF" />
+              <circle cx="61" cy="49" r="3.8" fill="#221712" />
+              <circle cx="60" cy="47.5" r="1.2" fill="#FFFFFF" />
+            </>
+          )}
+          {mood === "veto" && (
+            <>
+              <path d="M37 49 Q41 53 45 49" stroke="#221712" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+              <path d="M55 49 Q59 53 63 49" stroke="#221712" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+              <ellipse cx="66" cy="55" rx="1.5" ry="2.2" fill="#38BDF8" />
+            </>
+          )}
+
+          {/* Tiny Baby Button Nose */}
+          <path d="M49 53 Q50 55 51 53" stroke="#E5B99F" strokeWidth="1.5" strokeLinecap="round" fill="none" />
+
+          {/* Mouth */}
+          {mood === "love" && (
+            <g>
+              <path d="M42 61 Q50 72 58 61 Z" fill="#D85C68" />
+              <rect x="47" y="65.5" width="2.5" height="2" rx="0.5" fill="#FFFFFF" />
+              <rect x="50.5" y="65.5" width="2.5" height="2" rx="0.5" fill="#FFFFFF" />
+              <path d="M41 61 Q50 63 59 61" stroke="#BA4752" strokeWidth="1.5" fill="none" />
+            </g>
+          )}
+          {mood === "meh" && (
+            <circle cx="50" cy="63" r="3" fill="#D85C68" stroke="#BA4752" strokeWidth="1.2" />
+          )}
+          {mood === "veto" && (
+            <path d="M43 65 Q50 59 57 65" stroke="#BA4752" strokeWidth="2.2" strokeLinecap="round" fill="none" />
+          )}
+        </svg>
+      </div>
+      <span className="font-mono-swiss text-[11px] font-semibold text-[var(--accent-gold)] mt-1 tracking-wider">
+        Máximo
+      </span>
+    </motion.div>
+  );
+};
+
 export const DressCodeInspector: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const currentOutfit = OUTFITS[currentIndex];
@@ -409,7 +546,7 @@ export const DressCodeInspector: React.FC = () => {
           Dress Code
         </h2>
         <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-muted)] max-w-md mx-auto">
-          Arreglado pero a tu rollo. Pasa los ejemplos reales para escuchar lo que opinan los novios:
+          Arreglado pero a tu rollo. Pasa los ejemplos reales para escuchar lo que opinan los novios y el peque:
         </p>
       </div>
 
@@ -511,6 +648,27 @@ export const DressCodeInspector: React.FC = () => {
                     <div className="absolute -right-1.5 top-4 w-3 h-3 bg-black/[0.03] dark:bg-[#1a1a1e] border-r border-t border-[var(--card-border)] rotate-[45deg]" />
                     <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-primary)]/90 font-light leading-relaxed italic">
                       &ldquo;{currentOutfit.josefinaQuote}&rdquo;
+                    </p>
+                  </div>
+                </motion.div>
+
+                {/* 3. Máximo's Speech Bubble (Baby joins in!) */}
+                <motion.div
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.3, delay: 0.22 }}
+                  className="flex items-start gap-3 sm:gap-4"
+                >
+                  <MaximoAvatar mood={currentOutfit.mood} />
+
+                  <div className="relative flex-1 p-3.5 sm:p-4 rounded-2xl rounded-tl-sm bg-black/[0.03] dark:bg-white/[0.04] border border-[var(--accent-gold)]/30 text-left shadow-sm">
+                    {/* Speech bubble pointer */}
+                    <div className="absolute -left-1.5 top-4 w-3 h-3 bg-black/[0.03] dark:bg-[#1a1a1e] border-l border-t border-[var(--accent-gold)]/30 rotate-[-45deg]" />
+                    <span className="font-mono-swiss text-[10px] text-[var(--accent-gold)] font-semibold uppercase tracking-wider block mb-1">
+                      El veredicto de Máximo:
+                    </span>
+                    <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-primary)]/90 font-light leading-relaxed italic">
+                      &ldquo;{currentOutfit.maximoQuote}&rdquo;
                     </p>
                   </div>
                 </motion.div>
