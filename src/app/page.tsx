@@ -19,10 +19,16 @@ export default function Home() {
   const [hasEntered, setHasEntered] = useState(false);
 
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+    }
+
     const handleReplayIntro = () => {
       setHasEntered(false);
       setShowIntro(true);
-      window.scrollTo({ top: 0, behavior: "smooth" });
+      if (typeof window !== "undefined") {
+        window.scrollTo(0, 0);
+      }
     };
 
     window.addEventListener("replay-epic-intro", handleReplayIntro);
@@ -31,13 +37,12 @@ export default function Home() {
 
   const handleEnter = () => {
     setHasEntered(true);
-    // Scroll down slightly after entering so it reveals the cards and hero content
-    setTimeout(() => {
-      window.scrollTo({
-        top: 260,
-        behavior: "smooth",
-      });
-    }, 600);
+    // Guarantee the page is and remains at the very top
+    if (typeof window !== "undefined") {
+      window.scrollTo(0, 0);
+      setTimeout(() => window.scrollTo(0, 0), 400);
+      setTimeout(() => window.scrollTo(0, 0), 1200);
+    }
   };
 
   return (
