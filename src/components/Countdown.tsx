@@ -67,10 +67,10 @@ export const Countdown: React.FC = () => {
   const formatNumber = (n: number) => n.toString().padStart(2, "0");
 
   const units = [
-    { label: "DÍAS", value: formatNumber(timeLeft.days), index: "01" },
-    { label: "HORAS", value: formatNumber(timeLeft.hours), index: "02" },
-    { label: "MINUTOS", value: formatNumber(timeLeft.minutes), index: "03" },
-    { label: "SEGUNDOS", value: formatNumber(timeLeft.seconds), index: "04" },
+    { label: "días", value: formatNumber(timeLeft.days), index: "01" },
+    { label: "horas", value: formatNumber(timeLeft.hours), index: "02" },
+    { label: "minutos", value: formatNumber(timeLeft.minutes), index: "03" },
+    { label: "segundos", value: formatNumber(timeLeft.seconds), index: "04" },
   ];
 
   return (
@@ -80,12 +80,12 @@ export const Countdown: React.FC = () => {
         <div className="flex items-center justify-between pb-3 mb-3 border-b border-[var(--card-border)]">
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)] animate-ping" />
-            <span className="font-mono-swiss text-[10px] uppercase tracking-widest text-[var(--fg-muted)]">
-              CUENTA ATRÁS // T-MINUS
+            <span className="font-mono-swiss text-[10px] tracking-wider text-[var(--fg-muted)]">
+              cuenta atrás // t-minus
             </span>
           </div>
           <span className="font-mono-swiss text-[10px] text-[var(--fg-muted)]">
-            06.FEB.2027 13:00 CET
+            06.02.2027 • 13:00 h
           </span>
         </div>
 
@@ -102,7 +102,7 @@ export const Countdown: React.FC = () => {
               <span className="font-mono-swiss text-2xl sm:text-3xl font-semibold tracking-tight text-[var(--fg-primary)] tabular-nums">
                 {unit.value}
               </span>
-              <span className="font-mono-swiss text-[9px] uppercase tracking-wider text-[var(--fg-muted)] mt-1">
+              <span className="font-mono-swiss text-[9px] tracking-wider text-[var(--fg-muted)] mt-1">
                 {unit.label}
               </span>
             </div>

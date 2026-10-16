@@ -420,8 +420,8 @@ export const RSVPWizard: React.FC = () => {
               </div>
 
               <div>
-                <span className="font-mono-swiss text-[11px] text-[var(--accent-gold)] uppercase tracking-widest font-semibold">
-                  CONFIRMACIÓN REGISTRADA
+                <span className="font-mono-swiss text-[11px] text-[var(--accent-gold)] tracking-wider font-semibold">
+                  Confirmación registrada
                 </span>
                 <h3 className="font-serif-editorial text-3xl sm:text-4xl text-[var(--fg-primary)] italic mt-1">
                   ¡Nos vemos en Valencia!
@@ -440,8 +440,8 @@ export const RSVPWizard: React.FC = () => {
                 {/* Top header */}
                 <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
                   <div>
-                    <span className="font-mono-swiss text-[9px] uppercase tracking-widest text-[#dfb15b] font-semibold">
-                      PASE OFICIAL DE ACCESO
+                    <span className="font-mono-swiss text-[9px] tracking-wider text-[#dfb15b] font-semibold">
+                      Pase oficial de acceso
                     </span>
                     <h4 className="font-serif-editorial text-2xl text-white italic">
                       Josefina & Lucas
@@ -451,14 +451,14 @@ export const RSVPWizard: React.FC = () => {
                     <span className="font-mono-swiss text-[11px] text-[#dfb15b] font-bold">
                       06.02.2027
                     </span>
-                    <div className="font-mono-swiss text-[9px] text-zinc-400">13:00 H</div>
+                    <div className="font-mono-swiss text-[9px] text-zinc-400">13:00 h</div>
                   </div>
                 </div>
 
                 {/* Main Guest Pass Content */}
                 <div className="py-2 space-y-3">
                   <div>
-                    <span className="font-mono-swiss text-[9px] uppercase text-zinc-400">Titular del Pase:</span>
+                    <span className="font-mono-swiss text-[9px] text-zinc-400">Titular del pase:</span>
                     <p className="font-sans-ui text-base font-semibold text-white tracking-wide">
                       {form.name || "Invitado Especial"}
                     </p>
@@ -469,13 +469,13 @@ export const RSVPWizard: React.FC = () => {
 
                   <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/10">
                     <div>
-                      <span className="font-mono-swiss text-[9px] uppercase text-zinc-400">Rol Honorario:</span>
+                      <span className="font-mono-swiss text-[9px] text-zinc-400">Rol honorario:</span>
                       <p className="font-mono-swiss text-xs text-[#dfb15b] font-semibold">
                         {form.guestRole}
                       </p>
                     </div>
                     <div>
-                      <span className="font-mono-swiss text-[9px] uppercase text-zinc-400">Acceso:</span>
+                      <span className="font-mono-swiss text-[9px] text-zinc-400">Acceso:</span>
                       <p className="font-mono-swiss text-xs text-zinc-300">
                         Monforte ➔ Veneno
                       </p>
@@ -484,7 +484,7 @@ export const RSVPWizard: React.FC = () => {
 
                   {form.songTitle && (
                     <div className="pt-2 border-t border-white/10">
-                      <span className="font-mono-swiss text-[9px] uppercase text-zinc-400">Petición Musical:</span>
+                      <span className="font-mono-swiss text-[9px] text-zinc-400">Petición musical:</span>
                       <p className="font-mono-swiss text-xs text-zinc-300 truncate">
                         ♫ {form.songTitle} {form.songArtist ? `- ${form.songArtist}` : ""}
                       </p>
@@ -639,7 +639,7 @@ export const RSVPWizard: React.FC = () => {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="block font-mono-swiss text-[11px] uppercase tracking-wider text-[var(--fg-primary)]">
+                    <label className="block font-mono-swiss text-[11px] tracking-wider text-[var(--fg-primary)]">
                       Nombre completo *
                     </label>
                     <input
@@ -653,7 +653,7 @@ export const RSVPWizard: React.FC = () => {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="block font-mono-swiss text-[11px] uppercase tracking-wider text-[var(--fg-primary)]">
+                    <label className="block font-mono-swiss text-[11px] tracking-wider text-[var(--fg-primary)]">
                       Acompañante (+1) (opcional)
                     </label>
                     <input
@@ -727,7 +727,7 @@ export const RSVPWizard: React.FC = () => {
                   </div>
 
                   <div className="space-y-1.5 pt-2">
-                    <label className="block font-mono-swiss text-[11px] uppercase tracking-wider text-[var(--fg-primary)]">
+                    <label className="block font-mono-swiss text-[11px] tracking-wider text-[var(--fg-primary)]">
                       Otras alergias o detalles específicos:
                     </label>
                     <input
@@ -848,7 +848,7 @@ export const RSVPWizard: React.FC = () => {
 
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     <div className="space-y-1">
-                      <label className="block font-mono-swiss text-[10px] uppercase text-[var(--fg-muted)]">
+                      <label className="block font-mono-swiss text-[10px] text-[var(--fg-muted)]">
                         Canción
                       </label>
                       <input
@@ -860,7 +860,7 @@ export const RSVPWizard: React.FC = () => {
                       />
                     </div>
                     <div className="space-y-1">
-                      <label className="block font-mono-swiss text-[10px] uppercase text-[var(--fg-muted)]">
+                      <label className="block font-mono-swiss text-[10px] text-[var(--fg-muted)]">
                         Artista
                       </label>
                       <input
@@ -890,7 +890,7 @@ export const RSVPWizard: React.FC = () => {
                   )}
 
                   <div className="space-y-1">
-                    <label className="block font-mono-swiss text-[10px] uppercase text-[var(--fg-muted)]">
+                    <label className="block font-mono-swiss text-[10px] text-[var(--fg-muted)]">
                       Unas palabras para Josefina & Lucas (opcional)
                     </label>
                     <textarea

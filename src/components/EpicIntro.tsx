@@ -14,7 +14,6 @@ interface IngredientInfo {
   id: IngredientId;
   name: string;
   region: string;
-  emoji: string;
   color: string;
 }
 
@@ -23,24 +22,94 @@ const INGREDIENTS: IngredientInfo[] = [
     id: "grapes",
     name: "Uvas",
     region: "Valdepeñas",
-    emoji: "🍇",
-    color: "#A855F7",
+    color: "#a855f7",
   },
   {
     id: "meat",
     name: "Carne",
     region: "Argentina",
-    emoji: "🥩",
-    color: "#EF4444",
+    color: "#ef4444",
   },
   {
     id: "orange",
     name: "Naranja",
     region: "Valencia",
-    emoji: "🍊",
-    color: "#F97316",
+    color: "#f97316",
   },
 ];
+
+/* Custom Vector Illustrated Ingredients (No generic emojis) */
+const GrapesIllustration: React.FC<{ className?: string }> = ({ className = "w-10 h-10" }) => (
+  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <path d="M24 5 C24 9, 25 11, 27 13" stroke="#78350f" strokeWidth="2.5" strokeLinecap="round" />
+    <path d="M26 8 C30 6, 36 7, 38 11 C34 13, 29 12, 26 10 Z" fill="#15803d" stroke="#14532d" strokeWidth="1" />
+    <circle cx="19" cy="18" r="5" fill="#9333ea" stroke="#581c87" strokeWidth="1" />
+    <circle cx="17.5" cy="16.5" r="1.5" fill="#f3e8ff" opacity="0.9" />
+    <circle cx="28" cy="18" r="5" fill="#a855f7" stroke="#581c87" strokeWidth="1" />
+    <circle cx="26.5" cy="16.5" r="1.5" fill="#f3e8ff" opacity="0.9" />
+    <circle cx="14" cy="25" r="5" fill="#7e22ce" stroke="#4c1d95" strokeWidth="1" />
+    <circle cx="12.5" cy="23.5" r="1.5" fill="#e9d5ff" opacity="0.8" />
+    <circle cx="23.5" cy="24" r="5" fill="#9333ea" stroke="#581c87" strokeWidth="1" />
+    <circle cx="22" cy="22.5" r="1.5" fill="#f3e8ff" opacity="0.9" />
+    <circle cx="33" cy="25" r="5" fill="#7e22ce" stroke="#4c1d95" strokeWidth="1" />
+    <circle cx="31.5" cy="23.5" r="1.5" fill="#e9d5ff" opacity="0.8" />
+    <circle cx="19" cy="32" r="4.5" fill="#6b21a8" stroke="#3b0764" strokeWidth="1" />
+    <circle cx="17.5" cy="31" r="1.2" fill="#e9d5ff" opacity="0.8" />
+    <circle cx="28" cy="32" r="4.5" fill="#7e22ce" stroke="#4c1d95" strokeWidth="1" />
+    <circle cx="26.5" cy="31" r="1.2" fill="#f3e8ff" opacity="0.8" />
+    <circle cx="23.5" cy="39" r="4" fill="#581c87" stroke="#2e1065" strokeWidth="1" />
+    <circle cx="22.5" cy="38" r="1" fill="#f3e8ff" opacity="0.8" />
+  </svg>
+);
+
+const MeatIllustration: React.FC<{ className?: string }> = ({ className = "w-10 h-10" }) => (
+  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <path
+      d="M10 21 C10 13, 21 10, 33 12 C41 13, 42 22, 38 31 C34 38, 25 40, 16 38 C9 36, 10 28, 10 21 Z"
+      fill="#b91c1c"
+      stroke="#7f1d1d"
+      strokeWidth="2"
+    />
+    <path
+      d="M13 22 C13 16, 22 13, 31 15 C37 16, 38 23, 35 29 C32 35, 24 37, 17 35 C12 33, 13 27, 13 22 Z"
+      fill="#dc2626"
+    />
+    <path d="M16 19 Q21 23, 27 19 T34 23" stroke="#fecaca" strokeWidth="1.8" strokeLinecap="round" opacity="0.9" />
+    <path d="M18 27 Q24 26, 29 30" stroke="#fecaca" strokeWidth="1.6" strokeLinecap="round" opacity="0.85" />
+    <path d="M21 33 Q26 31, 31 34" stroke="#fecaca" strokeWidth="1.4" strokeLinecap="round" opacity="0.75" />
+    <path
+      d="M31 12 C36 13, 41 17, 40 24 C37 23, 33 18, 31 12 Z"
+      fill="#f8fafc"
+      stroke="#cbd5e1"
+      strokeWidth="1"
+    />
+  </svg>
+);
+
+const OrangeIllustration: React.FC<{ className?: string }> = ({ className = "w-10 h-10" }) => (
+  <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <circle cx="24" cy="26" r="16" fill="#f97316" stroke="#c2410c" strokeWidth="2" />
+    <circle cx="21" cy="23" r="13" fill="#fb923c" opacity="0.7" />
+    <circle cx="18" cy="22" r="0.9" fill="#9a3412" opacity="0.4" />
+    <circle cx="27" cy="24" r="0.9" fill="#9a3412" opacity="0.4" />
+    <circle cx="22" cy="30" r="0.9" fill="#9a3412" opacity="0.4" />
+    <circle cx="29" cy="29" r="0.9" fill="#9a3412" opacity="0.4" />
+    <path d="M15 19 A12 12 0 0 1 24 13" stroke="#ffedd5" strokeWidth="2" strokeLinecap="round" opacity="0.85" />
+    <path d="M24 11 C24 8, 25 6, 26 5" stroke="#78350f" strokeWidth="2.5" strokeLinecap="round" />
+    <path
+      d="M25 8 C29 5, 36 6, 38 10 C34 11, 28 11, 25 8 Z"
+      fill="#16a34a"
+      stroke="#14532d"
+      strokeWidth="1"
+    />
+  </svg>
+);
+
+const IngredientIcon: React.FC<{ id: IngredientId; className?: string }> = ({ id, className = "w-10 h-10" }) => {
+  if (id === "grapes") return <GrapesIllustration className={className} />;
+  if (id === "meat") return <MeatIllustration className={className} />;
+  return <OrangeIllustration className={className} />;
+};
 
 export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
   const [isVisible, setIsVisible] = useState(true);
@@ -54,22 +123,6 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
   const [isHoveringBlender, setIsHoveringBlender] = useState(false);
 
   const blenderRef = useRef<HTMLDivElement>(null);
-
-  // Background ambient particles
-  const [particles, setParticles] = useState<
-    Array<{ id: number; x: number; y: number; size: number; duration: number }>
-  >([]);
-
-  useEffect(() => {
-    const generated = Array.from({ length: 24 }).map((_, i) => ({
-      id: i,
-      x: Math.random() * 100,
-      y: Math.random() * 100,
-      size: Math.random() * 3 + 1.5,
-      duration: Math.random() * 4 + 3,
-    }));
-    setParticles(generated);
-  }, []);
 
   const totalAdded = Object.values(added).filter(Boolean).length;
   const isReadyToBlend = totalAdded === 3;
@@ -106,7 +159,6 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
     const dropX = info.point.x;
     const dropY = info.point.y;
 
-    // Generous drop zone around the blender jar
     const isInside =
       dropX >= rect.left - 50 &&
       dropX <= rect.right + 50 &&
@@ -123,12 +175,10 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
 
     setIsBlending(true);
 
-    // After 1.2s of aggressive vortex blending, trigger the epic portal warp
     setTimeout(() => {
       setIsWarping(true);
       if (onEnter) onEnter();
 
-      // Complete curtain transition
       setTimeout(() => {
         setIsVisible(false);
       }, 1100);
@@ -144,9 +194,9 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
         initial={{ y: 0 }}
         animate={{ y: isWarping ? "-100%" : 0 }}
         transition={{ duration: 1.05, ease: [0.77, 0, 0.175, 1] }}
-        className="absolute top-0 left-0 w-full h-1/2 bg-[#09090b] border-b border-[#D4AF37]/20 shadow-2xl z-20"
+        className="absolute top-0 left-0 w-full h-1/2 bg-[#09090b] border-b border-[#dfb15b]/20 shadow-2xl z-20"
       >
-        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px]" />
+        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#dfb15b_1px,transparent_1px)] [background-size:24px_24px]" />
       </motion.div>
 
       {/* 2. BOTTOM SHUTTER PANEL */}
@@ -154,51 +204,15 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
         initial={{ y: 0 }}
         animate={{ y: isWarping ? "100%" : 0 }}
         transition={{ duration: 1.05, ease: [0.77, 0, 0.175, 1] }}
-        className="absolute bottom-0 left-0 w-full h-1/2 bg-[#09090b] border-t border-[#D4AF37]/20 shadow-2xl z-20"
+        className="absolute bottom-0 left-0 w-full h-1/2 bg-[#09090b] border-t border-[#dfb15b]/20 shadow-2xl z-20"
       >
-        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#D4AF37_1px,transparent_1px)] [background-size:24px_24px]" />
+        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#dfb15b_1px,transparent_1px)] [background-size:24px_24px]" />
       </motion.div>
 
-      {/* 3. WARP SHOCKWAVE FLASH */}
-      <AnimatePresence>
-        {isWarping && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.5 }}
-            animate={{ opacity: [0, 0.9, 0], scale: [0.5, 2.5, 5] }}
-            transition={{ duration: 0.9, ease: "easeOut" }}
-            className="absolute inset-0 bg-radial from-[#D4AF37]/50 via-[#F3E5AB]/25 to-transparent pointer-events-none z-40"
-          />
-        )}
-      </AnimatePresence>
+      {/* 3. RADIAL BACKSTAGE SPOTLIGHT */}
+      <div className="absolute inset-0 z-20 bg-[radial-gradient(circle_at_center,_rgba(223,177,91,0.12)_0%,_transparent_65%)] pointer-events-none" />
 
-      {/* 4. FLOATING PARTICLES */}
-      <div className="absolute inset-0 pointer-events-none z-25 overflow-hidden">
-        {particles.map((p) => (
-          <motion.div
-            key={p.id}
-            initial={{ opacity: 0, y: 0 }}
-            animate={{
-              opacity: isWarping ? 0 : [0.2, 0.7, 0.2],
-              y: isWarping ? -100 : [-15, 15, -15],
-            }}
-            transition={{
-              duration: p.duration,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            style={{
-              position: "absolute",
-              left: `${p.x}%`,
-              top: `${p.y}%`,
-              width: `${p.size}px`,
-              height: `${p.size}px`,
-            }}
-            className="rounded-full bg-[#D4AF37] blur-[0.5px]"
-          />
-        ))}
-      </div>
-
-      {/* 5. MAIN MINIGAME STAGE */}
+      {/* 4. MAIN MINIGAME STAGE */}
       <motion.div
         initial={{ opacity: 0, scale: 0.96 }}
         animate={
@@ -218,12 +232,12 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
         }
         className="relative z-30 flex flex-col items-center text-center px-4 max-w-xl mx-auto w-full"
       >
-        {/* Title Header with clean explanation text */}
-        <div className="space-y-2 mb-6 sm:mb-7">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#D4AF37]/30 bg-[#D4AF37]/[0.06] backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-            <span className="font-mono-swiss text-[10px] sm:text-[11px] uppercase tracking-[0.2em] text-[#E8C872]">
-              La Mezcla de Nuestra Boda
+        {/* Title Header with natural casing */}
+        <div className="space-y-2 mb-5 sm:mb-6">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#dfb15b]/30 bg-[#dfb15b]/[0.08] backdrop-blur-md">
+            <Sparkles className="w-3.5 h-3.5 text-[#dfb15b]" />
+            <span className="font-mono-swiss text-[11px] text-[#dfb15b]">
+              la mezcla de nuestra boda
             </span>
           </div>
 
@@ -232,19 +246,19 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
           </h2>
 
           <p className="font-sans-ui text-xs sm:text-sm text-white/75 max-w-sm sm:max-w-md mx-auto font-light leading-relaxed">
-            Arrastra los tres ingredientes a la licuadora para preparar la mezcla: uvas de <strong className="text-white font-medium">Valdepeñas</strong>, carne de <strong className="text-white font-medium">Argentina</strong> y naranja de <strong className="text-white font-medium">Valencia</strong>.
+            Arrastra los tres ingredientes a la licuadora: uvas de <strong className="text-white font-medium">Valdepeñas</strong>, carne de <strong className="text-white font-medium">Argentina</strong> y naranja de <strong className="text-white font-medium">Valencia</strong>.
           </p>
         </div>
 
-        {/* INTERACTIVE STAGE: BLENDER (BATIDORA DE AUTOR) */}
-        <div className="relative w-full flex flex-col items-center mb-6">
+        {/* REALISTIC BLENDER APPLIANCE */}
+        <div className="relative w-full flex flex-col items-center mb-5">
           <motion.div
             animate={
               isBlending
                 ? {
-                    x: [-3, 3, -3, 3, 0],
-                    y: [-1, 2, -2, 1, 0],
-                    rotate: [-1, 1, -1, 0],
+                    x: [-2.5, 2.5, -2.5, 2.5, 0],
+                    y: [-1, 1.5, -1.5, 1, 0],
+                    rotate: [-0.8, 0.8, -0.8, 0],
                   }
                 : {}
             }
@@ -258,187 +272,208 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
             <div
               className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[45px] pointer-events-none transition-all duration-700 ${
                 isBlending
-                  ? "w-72 h-72 bg-[#D4AF37]/50"
+                  ? "w-72 h-72 bg-[#dfb15b]/50"
                   : isHoveringBlender
-                  ? "w-64 h-64 bg-[#D4AF37]/30"
+                  ? "w-64 h-64 bg-[#dfb15b]/30"
                   : isReadyToBlend
-                  ? "w-56 h-56 bg-[#D4AF37]/20"
+                  ? "w-56 h-56 bg-[#dfb15b]/20"
                   : "w-40 h-40 bg-white/5"
               }`}
             />
 
-            {/* Blender Jar (Glass Vessel & Drop Area) */}
-            <div
-              ref={blenderRef}
-              className={`relative w-40 h-52 sm:w-48 sm:h-56 rounded-t-3xl rounded-b-xl border-2 transition-all duration-300 backdrop-blur-md overflow-hidden shadow-2xl flex flex-col justify-end p-2.5 ${
-                isHoveringBlender
-                  ? "border-[#D4AF37] bg-white/[0.12] shadow-[0_0_40px_rgba(212,175,55,0.4)] scale-102"
-                  : isReadyToBlend
-                  ? "border-[#D4AF37]/60 bg-gradient-to-b from-white/10 via-white/[0.04] to-white/10"
-                  : "border-white/20 bg-gradient-to-b from-white/10 via-white/[0.04] to-white/10"
-              }`}
-            >
-              {/* Glass reflection streak */}
-              <div className="absolute top-0 left-3 w-3 h-full bg-gradient-to-r from-white/20 to-transparent transform -skew-x-12 pointer-events-none" />
-
-              {/* Volume tick markings */}
-              <div className="absolute right-2.5 top-5 bottom-12 flex flex-col justify-between items-end opacity-40 font-mono-swiss text-[8px] text-white pointer-events-none">
-                <span>MAX</span>
-                <span>— 750ml</span>
-                <span>— 500ml</span>
-                <span>— 250ml</span>
-                <span className="text-[7px] text-[#D4AF37]">VENENO</span>
-              </div>
-
-              {/* Drop hint when dragging over */}
-              <AnimatePresence>
-                {isHoveringBlender && !isBlending && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0 }}
-                    className="absolute inset-x-3 top-3 py-1 rounded-xl bg-[#D4AF37]/25 border border-[#D4AF37]/60 text-center font-mono-swiss text-[10px] text-[#F3E5AB] uppercase tracking-wider z-20"
-                  >
-                    ¡Suelta dentro!
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              {/* VORTEX ANIMATION WHEN BLENDING */}
-              {isBlending && (
-                <motion.div
-                  initial={{ opacity: 0, scaleY: 0 }}
-                  animate={{ opacity: 1, scaleY: 1 }}
-                  transition={{ duration: 0.3 }}
-                  className="absolute inset-0 bg-gradient-to-t from-[#D4AF37]/80 via-[#F3E5AB]/60 to-transparent flex items-center justify-center overflow-hidden z-20"
-                >
-                  <motion.div
-                    animate={{ rotate: 1080 }}
-                    transition={{ duration: 1.2, ease: "linear" }}
-                    className="w-40 h-40 rounded-full border-4 border-dashed border-white/60 flex items-center justify-center opacity-80"
-                  >
-                    <div className="w-24 h-24 rounded-full border-2 border-white/40" />
-                  </motion.div>
-                </motion.div>
-              )}
-
-              {/* INGREDIENTS INSIDE THE BLENDER */}
-              <div className="relative z-10 flex items-end justify-center gap-2 pb-2 min-h-[90px]">
-                {/* 1. Grapes (Valdepeñas) */}
-                {added.grapes && (
-                  <motion.div
-                    initial={{ y: -120, opacity: 0, scale: 0.4 }}
-                    animate={
-                      isBlending
-                        ? { scale: [1, 0], opacity: [1, 0], rotate: [0, 360] }
-                        : { y: 0, opacity: 1, scale: 1 }
-                    }
-                    transition={{
-                      type: "spring",
-                      stiffness: 350,
-                      damping: 22,
-                    }}
-                    className="flex flex-col items-center select-none"
-                    title="Uvas de Valdepeñas"
-                  >
-                    <span className="text-3xl sm:text-4xl filter drop-shadow-md">🍇</span>
-                    <span className="font-mono-swiss text-[8px] text-[#A855F7] font-semibold mt-0.5">
-                      Valdepeñas
-                    </span>
-                  </motion.div>
-                )}
-
-                {/* 2. Meat (Argentina) */}
-                {added.meat && (
-                  <motion.div
-                    initial={{ y: -120, opacity: 0, scale: 0.4 }}
-                    animate={
-                      isBlending
-                        ? { scale: [1, 0], opacity: [1, 0], rotate: [0, -360] }
-                        : { y: 0, opacity: 1, scale: 1 }
-                    }
-                    transition={{
-                      type: "spring",
-                      stiffness: 350,
-                      damping: 20,
-                    }}
-                    className="flex flex-col items-center select-none"
-                    title="Carne de Argentina"
-                  >
-                    <span className="text-3xl sm:text-4xl filter drop-shadow-md">🥩</span>
-                    <span className="font-mono-swiss text-[8px] text-[#EF4444] font-semibold mt-0.5">
-                      Argentina
-                    </span>
-                  </motion.div>
-                )}
-
-                {/* 3. Orange (Valencia) */}
-                {added.orange && (
-                  <motion.div
-                    initial={{ y: -120, opacity: 0, scale: 0.4 }}
-                    animate={
-                      isBlending
-                        ? { scale: [1, 0], opacity: [1, 0], rotate: [0, 360] }
-                        : { y: 0, opacity: 1, scale: 1 }
-                    }
-                    transition={{
-                      type: "spring",
-                      stiffness: 350,
-                      damping: 18,
-                    }}
-                    className="flex flex-col items-center select-none"
-                    title="Naranja de Valencia"
-                  >
-                    <span className="text-3xl sm:text-4xl filter drop-shadow-md">🍊</span>
-                    <span className="font-mono-swiss text-[8px] text-[#F97316] font-semibold mt-0.5">
-                      Valencia
-                    </span>
-                  </motion.div>
-                )}
-
-                {/* Empty State Prompt */}
-                {totalAdded === 0 && !isHoveringBlender && (
-                  <span className="font-mono-swiss text-[10px] text-white/40 uppercase tracking-wider pb-3 animate-pulse">
-                    Arrastra aquí dentro
-                  </span>
-                )}
-              </div>
-
-              {/* Rotary Blades at bottom */}
-              <div className="relative z-10 w-full flex items-center justify-center pt-1 border-t border-white/20">
-                <motion.div
-                  animate={isBlending ? { rotate: 1440 } : {}}
-                  transition={{ duration: 1.2, ease: "linear" }}
-                  className="w-6 h-1.5 bg-zinc-300 rounded-full flex items-center justify-center relative shadow-sm"
-                >
-                  <div className="w-1.5 h-3 bg-zinc-400 rounded-sm" />
-                </motion.div>
+            {/* BLENDER TOP LID WITH CENTER FILLER CAP */}
+            <div className="relative z-20 flex flex-col items-center">
+              {/* Removable center plug / feeder cap */}
+              <div className="w-9 h-3.5 rounded-t-md bg-zinc-700 border border-zinc-500 shadow-sm" />
+              {/* Main rubber lid */}
+              <div className="w-44 sm:w-50 h-4 rounded-t-lg bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-900 border border-zinc-600 shadow-md flex items-center justify-between px-3">
+                <div className="w-2 h-1 bg-zinc-600 rounded-full" />
+                <span className="font-mono-swiss text-[7.5px] text-zinc-400">licuadora</span>
+                <div className="w-2 h-1 bg-zinc-600 rounded-full" />
               </div>
             </div>
 
-            {/* Blender Motor Base (Stainless Steel & Dial) */}
-            <div className="relative w-40 sm:w-48 h-14 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-900 rounded-b-2xl border-t-2 border-zinc-500 shadow-xl flex items-center justify-between px-5">
-              <span className="font-serif-editorial text-sm text-[#D4AF37] italic font-semibold">
-                J & L
+            {/* BLENDER GLASS PITCHER (JUG) WITH HANDLE & MEASURING TICKS */}
+            <div className="relative flex items-center">
+              {/* Transparent Glass Jug Body (Tapered shape) */}
+              <div
+                ref={blenderRef}
+                style={{
+                  clipPath: "polygon(0% 0%, 100% 0%, 88% 100%, 12% 100%)",
+                }}
+                className={`relative w-44 h-52 sm:w-50 sm:h-56 border-2 transition-all duration-300 backdrop-blur-md overflow-hidden shadow-2xl flex flex-col justify-end p-3 ${
+                  isHoveringBlender
+                    ? "border-[#dfb15b] bg-white/[0.14] shadow-[0_0_40px_rgba(223,177,91,0.4)]"
+                    : isReadyToBlend
+                    ? "border-[#dfb15b]/60 bg-gradient-to-b from-white/12 via-white/[0.05] to-white/12"
+                    : "border-white/25 bg-gradient-to-b from-white/10 via-white/[0.04] to-white/10"
+                }`}
+              >
+                {/* Spout on top-left lip */}
+                <div className="absolute top-0 left-0 w-3 h-3 bg-white/20 transform -skew-x-12" />
+
+                {/* Curved Glass Reflection Highlight */}
+                <div className="absolute top-0 left-4 w-4 h-full bg-gradient-to-r from-white/25 to-transparent transform -skew-x-6 pointer-events-none" />
+
+                {/* Glass Measurement Ticks */}
+                <div className="absolute right-4 top-4 bottom-14 flex flex-col justify-between items-end opacity-45 font-mono-swiss text-[8px] text-white pointer-events-none">
+                  <span className="text-[7.5px] text-[#dfb15b] font-semibold">max 1.5l</span>
+                  <span>— 1.0l</span>
+                  <span>— 0.5l</span>
+                  <span>— 250ml</span>
+                </div>
+
+                {/* Drop hint when hovering over blender */}
+                <AnimatePresence>
+                  {isHoveringBlender && !isBlending && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      className="absolute inset-x-4 top-4 py-1 rounded-xl bg-[#dfb15b]/25 border border-[#dfb15b]/60 text-center font-mono-swiss text-[10px] text-[#f5d58f] z-20"
+                    >
+                      ¡suelta dentro!
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+
+                {/* VORTEX ANIMATION WHEN BLENDING */}
+                {isBlending && (
+                  <motion.div
+                    initial={{ opacity: 0, scaleY: 0 }}
+                    animate={{ opacity: 1, scaleY: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 bg-gradient-to-t from-[#dfb15b]/85 via-[#fcedc7]/65 to-transparent flex items-center justify-center overflow-hidden z-20"
+                  >
+                    <motion.div
+                      animate={{ rotate: 1440 }}
+                      transition={{ duration: 1.2, ease: "linear" }}
+                      className="w-40 h-40 rounded-full border-4 border-dashed border-white/60 flex items-center justify-center opacity-85"
+                    >
+                      <div className="w-20 h-20 rounded-full border-2 border-white/50" />
+                    </motion.div>
+                  </motion.div>
+                )}
+
+                {/* INGREDIENTS INSIDE THE GLASS JUG */}
+                <div className="relative z-10 flex items-end justify-center gap-2 pb-3 min-h-[90px]">
+                  {/* Grapes */}
+                  {added.grapes && (
+                    <motion.div
+                      initial={{ y: -120, opacity: 0, scale: 0.3 }}
+                      animate={
+                        isBlending
+                          ? { scale: [1, 0], opacity: [1, 0], rotate: [0, 360] }
+                          : { y: 0, opacity: 1, scale: 1 }
+                      }
+                      transition={{ type: "spring", stiffness: 350, damping: 22 }}
+                      className="flex flex-col items-center select-none"
+                    >
+                      <IngredientIcon id="grapes" className="w-10 h-10 drop-shadow-lg" />
+                      <span className="font-mono-swiss text-[8px] text-[#a855f7] font-semibold mt-0.5">
+                        valdepeñas
+                      </span>
+                    </motion.div>
+                  )}
+
+                  {/* Meat */}
+                  {added.meat && (
+                    <motion.div
+                      initial={{ y: -120, opacity: 0, scale: 0.3 }}
+                      animate={
+                        isBlending
+                          ? { scale: [1, 0], opacity: [1, 0], rotate: [0, -360] }
+                          : { y: 0, opacity: 1, scale: 1 }
+                      }
+                      transition={{ type: "spring", stiffness: 350, damping: 20 }}
+                      className="flex flex-col items-center select-none"
+                    >
+                      <IngredientIcon id="meat" className="w-10 h-10 drop-shadow-lg" />
+                      <span className="font-mono-swiss text-[8px] text-[#ef4444] font-semibold mt-0.5">
+                        argentina
+                      </span>
+                    </motion.div>
+                  )}
+
+                  {/* Orange */}
+                  {added.orange && (
+                    <motion.div
+                      initial={{ y: -120, opacity: 0, scale: 0.3 }}
+                      animate={
+                        isBlending
+                          ? { scale: [1, 0], opacity: [1, 0], rotate: [0, 360] }
+                          : { y: 0, opacity: 1, scale: 1 }
+                      }
+                      transition={{ type: "spring", stiffness: 350, damping: 18 }}
+                      className="flex flex-col items-center select-none"
+                    >
+                      <IngredientIcon id="orange" className="w-10 h-10 drop-shadow-lg" />
+                      <span className="font-mono-swiss text-[8px] text-[#f97316] font-semibold mt-0.5">
+                        valencia
+                      </span>
+                    </motion.div>
+                  )}
+
+                  {/* Empty State Prompt */}
+                  {totalAdded === 0 && !isHoveringBlender && (
+                    <span className="font-mono-swiss text-[10px] text-white/40 pb-3 animate-pulse">
+                      echa los 3 ingredientes aquí
+                    </span>
+                  )}
+                </div>
+
+                {/* 4-POINT STEEL ROTATING BLADES AT BOTTOM */}
+                <div className="relative z-10 w-full flex items-center justify-center pt-1 border-t border-white/20">
+                  <motion.div
+                    animate={isBlending ? { rotate: 2160 } : {}}
+                    transition={{ duration: 1.2, ease: "linear" }}
+                    className="relative w-7 h-7 flex items-center justify-center"
+                  >
+                    {/* Horizontal blade */}
+                    <div className="absolute w-7 h-1.5 bg-gradient-to-r from-zinc-400 via-zinc-100 to-zinc-400 rounded-sm shadow-sm" />
+                    {/* Vertical blade */}
+                    <div className="absolute w-1.5 h-7 bg-gradient-to-b from-zinc-400 via-zinc-100 to-zinc-400 rounded-sm shadow-sm" />
+                    {/* Center nut */}
+                    <div className="w-2.5 h-2.5 rounded-full bg-zinc-800 border border-zinc-400 z-10" />
+                  </motion.div>
+                </div>
+              </div>
+
+              {/* ERGONOMIC GLASS HANDLE ON THE RIGHT */}
+              <div
+                className="w-5 sm:w-6 h-32 rounded-r-2xl border-4 border-l-0 border-white/35 bg-white/[0.04] shadow-md pointer-events-none"
+                style={{ marginLeft: "-2px" }}
+              />
+            </div>
+
+            {/* BLENDER MOTOR BASE WITH ANALOG DIAL */}
+            <div className="relative w-38 sm:w-44 h-15 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-950 rounded-b-2xl border-t-2 border-zinc-500 shadow-2xl flex items-center justify-between px-4">
+              <span className="font-serif-editorial text-xs text-[#dfb15b] italic">
+                j & l
               </span>
 
-              {/* Rotary Control Dial */}
-              <motion.div
-                animate={isBlending ? { rotate: 90 } : {}}
-                className="w-7 h-7 rounded-full bg-zinc-950 border border-zinc-600 flex items-center justify-center shadow-inner"
-              >
-                <div className="w-1 h-3 bg-[#D4AF37] rounded-full" />
-              </motion.div>
+              {/* Analog Speed Dial */}
+              <div className="flex flex-col items-center">
+                <motion.div
+                  animate={isBlending ? { rotate: 90 } : {}}
+                  className="w-8 h-8 rounded-full bg-zinc-900 border-2 border-zinc-600 flex items-center justify-center shadow-inner cursor-pointer"
+                >
+                  <div className="w-1 h-3.5 bg-[#dfb15b] rounded-full" />
+                </motion.div>
+                <span className="font-mono-swiss text-[7px] text-zinc-400 mt-0.5">
+                  0 • 1 • 2 • pulse
+                </span>
+              </div>
 
-              <span className="font-mono-swiss text-[9px] text-zinc-400 tracking-widest">
+              <span className="font-mono-swiss text-[8px] text-zinc-400">
                 2027
               </span>
             </div>
           </motion.div>
         </div>
 
-        {/* 3 DRAGGABLE INGREDIENT TILES */}
-        <div className="grid grid-cols-3 gap-3 w-full max-w-md mb-6">
+        {/* 3 DRAGGABLE INGREDIENT TILES (ILLUSTRATED, NO EMOJIS) */}
+        <div className="grid grid-cols-3 gap-2.5 w-full max-w-md mb-5">
           {INGREDIENTS.map((item) => {
             const isAdded = added[item.id];
 
@@ -453,29 +488,29 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                     onDrag={handleDrag}
                     onDragEnd={(e, info) => handleDragEnd(item.id, e, info)}
                     onClick={() => handleAddIngredient(item.id)}
-                    className="w-full p-3 sm:p-4 rounded-2xl border-2 border-white/20 bg-[#18181b]/95 hover:border-[#D4AF37]/60 shadow-xl cursor-grab active:cursor-grabbing flex flex-col items-center gap-1 transition-colors touch-none select-none group"
+                    className="w-full p-2.5 sm:p-3.5 rounded-2xl border border-white/20 bg-[#141418] hover:border-[#dfb15b]/60 shadow-xl cursor-grab active:cursor-grabbing flex flex-col items-center gap-1 transition-colors touch-none select-none group"
                     title={`Arrastra ${item.name} (${item.region}) a la licuadora`}
                   >
-                    <span className="text-3xl sm:text-4xl filter drop-shadow transform group-hover:scale-110 transition-transform">
-                      {item.emoji}
-                    </span>
+                    <div className="transform group-hover:scale-110 transition-transform">
+                      <IngredientIcon id={item.id} className="w-10 h-10 sm:w-11 sm:h-11" />
+                    </div>
                     <span className="font-mono-swiss text-xs font-semibold text-white leading-tight">
                       {item.name}
                     </span>
-                    <span className="font-mono-swiss text-[10px] text-[#D4AF37] font-medium tracking-wide">
+                    <span className="font-mono-swiss text-[10px] text-[#dfb15b]">
                       {item.region}
                     </span>
                   </motion.div>
                 ) : (
-                  <div className="w-full p-3 sm:p-4 rounded-2xl border border-white/10 bg-white/[0.02] opacity-40 flex flex-col items-center gap-1 select-none cursor-default">
-                    <span className="text-3xl sm:text-4xl grayscale opacity-50">
-                      {item.emoji}
-                    </span>
+                  <div className="w-full p-2.5 sm:p-3.5 rounded-2xl border border-white/10 bg-white/[0.02] opacity-40 flex flex-col items-center gap-1 select-none cursor-default">
+                    <div className="grayscale opacity-50">
+                      <IngredientIcon id={item.id} className="w-10 h-10 sm:w-11 sm:h-11" />
+                    </div>
                     <span className="font-mono-swiss text-xs text-white/50 leading-tight">
                       {item.name}
                     </span>
-                    <span className="font-mono-swiss text-[10px] text-emerald-400 font-medium">
-                      ✓ En la licuadora
+                    <span className="font-mono-swiss text-[10px] text-emerald-400">
+                      ✓ en la licuadora
                     </span>
                   </div>
                 )}
@@ -484,23 +519,23 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
           })}
         </div>
 
-        {/* MAIN CTA BUTTON: BLEND & ENTER */}
+        {/* MAIN CTA BUTTON: BLEND & ENTER (NO UPPERCASE) */}
         <div className="w-full max-w-sm">
           <motion.button
             onClick={handleStartBlend}
             disabled={!isReadyToBlend || isBlending || isWarping}
-            whileHover={isReadyToBlend ? { scale: 1.04 } : {}}
-            whileTap={isReadyToBlend ? { scale: 0.96 } : {}}
-            className={`w-full relative flex items-center justify-center gap-3 py-3.5 sm:py-4 px-6 rounded-full font-mono-swiss text-xs sm:text-sm font-bold uppercase tracking-[0.2em] transition-all overflow-hidden ${
+            whileHover={isReadyToBlend ? { scale: 1.03 } : {}}
+            whileTap={isReadyToBlend ? { scale: 0.97 } : {}}
+            className={`w-full relative flex items-center justify-center gap-2.5 py-3 sm:py-3.5 px-6 rounded-full font-mono-swiss text-xs sm:text-sm font-semibold transition-all overflow-hidden ${
               isReadyToBlend
-                ? "bg-gradient-to-r from-[#D4AF37] via-[#F3E5AB] to-[#D4AF37] text-black shadow-[0_0_35px_rgba(212,175,55,0.6)] hover:shadow-[0_0_55px_rgba(212,175,55,0.9)] cursor-pointer"
+                ? "bg-gradient-to-r from-[#dfb15b] via-[#f7e3af] to-[#dfb15b] text-black shadow-[0_0_30px_rgba(223,177,91,0.6)] hover:shadow-[0_0_45px_rgba(223,177,91,0.85)] cursor-pointer"
                 : "bg-zinc-800 text-zinc-500 border border-zinc-700 cursor-not-allowed opacity-60"
             }`}
           >
             {isBlending ? (
               <>
                 <RotateCw className="w-4 h-4 animate-spin text-black" />
-                <span>Batiendo la mezcla...</span>
+                <span>batiendo la mezcla...</span>
               </>
             ) : (
               <>
@@ -512,8 +547,8 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                 />
                 <span>
                   {isReadyToBlend
-                    ? "¡Remover y Entrar!"
-                    : `Arrastra los 3 (${totalAdded}/3)`}
+                    ? "remover y entrar"
+                    : `arrastra los 3 ingredientes (${totalAdded}/3)`}
                 </span>
                 <ArrowRight className="w-4 h-4" />
               </>

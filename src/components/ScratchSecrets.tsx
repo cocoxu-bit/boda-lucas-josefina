@@ -153,7 +153,7 @@ export const ScratchSecrets: React.FC = () => {
     // 5. Elegant Embossed Letterpress Typography on Gold Foil
     ctx.fillStyle = "#352206";
     ctx.font = `600 10.5px monospace`;
-    ctx.fillText("TARJETA RASCA • EDICIÓN LIMITADA", centerX, centerY + 24);
+    ctx.fillText("Tarjeta rasca • Edición limitada", centerX, centerY + 24);
 
     ctx.fillStyle = "#4a320c";
     ctx.font = `italic 14px "Instrument Serif", Georgia, serif`;
@@ -295,7 +295,7 @@ export const ScratchSecrets: React.FC = () => {
     <section className="relative w-full max-w-2xl mx-auto py-12 px-4 sm:px-6 select-none">
       {/* Editorial Header */}
       <div className="text-center space-y-2 mb-6">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[var(--accent-gold)]/25 bg-[var(--accent-gold)]/10 text-[var(--accent-gold)] font-mono text-[11px] uppercase tracking-[0.22em]">
+        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[var(--accent-gold)]/25 bg-[var(--accent-gold)]/10 text-[var(--accent-gold)] font-mono text-[11px] tracking-wider">
           <Sparkles className="w-3 h-3" />
           <span>Rasca & Descubre</span>
         </div>
@@ -332,7 +332,7 @@ export const ScratchSecrets: React.FC = () => {
             ))}
           </div>
 
-          <span className="hidden sm:inline-block font-mono text-[11px] text-[var(--accent-gold)] tracking-wider uppercase font-semibold">
+          <span className="hidden sm:inline-block font-mono text-[11px] text-[var(--accent-gold)] tracking-wider font-semibold">
             {currentSecret.badge}
           </span>
         </div>
@@ -343,10 +343,10 @@ export const ScratchSecrets: React.FC = () => {
           <div className="absolute inset-0 p-5 sm:p-7 flex flex-col justify-between text-left select-none bg-gradient-to-b from-[#141419] to-[#0c0c10]">
             <div>
               <div className="flex items-center justify-between text-[11px] font-mono text-[var(--accent-gold)] pb-2 border-b border-white/10">
-                <span className="tracking-wider uppercase font-semibold">
+                <span className="tracking-wider font-semibold">
                   {currentSecret.tag} // {currentSecret.badge}
                 </span>
-                <span className="text-zinc-500">06.02.2027 • VALENCIA</span>
+                <span className="text-zinc-500">06.02.2027 • Valencia</span>
               </div>
 
               <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic leading-tight mt-3">

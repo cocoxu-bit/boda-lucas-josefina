@@ -62,8 +62,8 @@ export const Hero: React.FC = () => {
             </span>
             <span className="inline-block hover:scale-[1.01] transition-transform">Lucas</span>
           </h1>
-          <p className="font-mono-swiss text-xs sm:text-sm uppercase tracking-[0.25em] text-[var(--fg-muted)] pt-1">
-            06 • 02 • 2027 // VALENCIA
+          <p className="font-mono-swiss text-xs sm:text-sm tracking-[0.2em] text-[var(--fg-muted)] pt-1">
+            06 • 02 • 2027 // Valencia
           </p>
         </motion.div>
 
@@ -84,8 +84,8 @@ export const Hero: React.FC = () => {
                   className="object-cover group-hover:scale-103 transition-transform duration-500"
                   priority
                 />
-                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/65 backdrop-blur-md text-[10px] font-mono-swiss text-white uppercase tracking-widest border border-white/10">
-                  Ceremonia • 13:00 H
+                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/65 backdrop-blur-md text-[10px] font-mono-swiss text-white tracking-wider border border-white/10">
+                  Ceremonia • 13:00 h
                 </div>
               </div>
 
@@ -129,8 +129,8 @@ export const Hero: React.FC = () => {
                   className="object-cover group-hover:scale-103 transition-transform duration-500"
                   priority
                 />
-                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/65 backdrop-blur-md text-[10px] font-mono-swiss text-white uppercase tracking-widest border border-white/10">
-                  Cóctel Largo • 14:45 H
+                <div className="absolute top-3 left-3 px-2.5 py-1 rounded-full bg-black/65 backdrop-blur-md text-[10px] font-mono-swiss text-white tracking-wider border border-white/10">
+                  Cóctel largo • 14:45 h
                 </div>
               </div>
 
@@ -174,7 +174,7 @@ export const Hero: React.FC = () => {
             onClick={scrollToTimeline}
             className="group flex flex-col items-center gap-1.5 text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors cursor-pointer"
           >
-            <span className="font-mono-swiss text-[10px] uppercase tracking-widest">
+            <span className="font-mono-swiss text-[10px] tracking-wider">
               Ver el cronograma completo
             </span>
             <motion.div

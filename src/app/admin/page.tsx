@@ -235,14 +235,14 @@ export default function AdminPage() {
             <h1 className="font-serif-editorial text-4xl text-white italic pt-2">
               Josefina & Lucas
             </h1>
-            <span className="font-mono-swiss text-[11px] uppercase tracking-widest text-zinc-400">
+            <span className="font-mono-swiss text-[11px] tracking-wider text-zinc-400">
               Panel Privado de Gestión RSVP
             </span>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-1.5 text-left">
-              <label className="block font-mono-swiss text-xs uppercase tracking-wider text-zinc-400">
+              <label className="block font-mono-swiss text-xs tracking-wider text-zinc-400">
                 Contraseña de acceso
               </label>
               <div className="relative">
@@ -267,7 +267,7 @@ export default function AdminPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#c28835] via-[#dfb15b] to-[#c28835] text-black font-mono-swiss text-xs font-bold uppercase tracking-widest hover:opacity-95 transition-all shadow-lg active:scale-95 disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#c28835] via-[#dfb15b] to-[#c28835] text-black font-mono-swiss text-xs font-bold tracking-wider hover:opacity-95 transition-all shadow-lg active:scale-95 disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <span>Comprobando acceso...</span>
@@ -299,7 +299,7 @@ export default function AdminPage() {
               <span className="font-serif-editorial text-3xl sm:text-4xl text-white italic">
                 Josefina & Lucas
               </span>
-              <span className="px-2 py-0.5 rounded-full bg-[#dfb15b]/10 border border-[#dfb15b]/30 font-mono-swiss text-[10px] text-[#dfb15b] uppercase tracking-widest">
+              <span className="px-2 py-0.5 rounded-full bg-[#dfb15b]/10 border border-[#dfb15b]/30 font-mono-swiss text-[10px] text-[#dfb15b] tracking-wider">
                 Admin
               </span>
             </div>
@@ -341,7 +341,7 @@ export default function AdminPage() {
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-5">
           {/* Card 1: Total Asistentes Confirmados */}
           <div className="p-4 sm:p-5 rounded-2xl bg-[#141417] border border-[#27272a] space-y-1">
-            <span className="font-mono-swiss text-[10px] uppercase tracking-wider text-zinc-400 block">
+            <span className="font-mono-swiss text-[10px] tracking-wider text-zinc-400 block">
               Total Personas (SÍ)
             </span>
             <div className="flex items-baseline gap-2">
@@ -356,7 +356,7 @@ export default function AdminPage() {
 
           {/* Card 2: No Asisten */}
           <div className="p-4 sm:p-5 rounded-2xl bg-[#141417] border border-[#27272a] space-y-1">
-            <span className="font-mono-swiss text-[10px] uppercase tracking-wider text-zinc-400 block">
+            <span className="font-mono-swiss text-[10px] tracking-wider text-zinc-400 block">
               No pueden venir
             </span>
             <div className="flex items-baseline gap-2">
@@ -369,7 +369,7 @@ export default function AdminPage() {
 
           {/* Card 3: Menús Especiales */}
           <div className="p-4 sm:p-5 rounded-2xl bg-[#141417] border border-[#27272a] space-y-1">
-            <span className="font-mono-swiss text-[10px] uppercase tracking-wider text-zinc-400 block">
+            <span className="font-mono-swiss text-[10px] tracking-wider text-zinc-400 block">
               Alergias / Menús Especiales
             </span>
             <div className="flex items-baseline gap-2">
@@ -382,7 +382,7 @@ export default function AdminPage() {
 
           {/* Card 4: Canciones DJ */}
           <div className="p-4 sm:p-5 rounded-2xl bg-[#141417] border border-[#27272a] space-y-1">
-            <span className="font-mono-swiss text-[10px] uppercase tracking-wider text-zinc-400 block">
+            <span className="font-mono-swiss text-[10px] tracking-wider text-zinc-400 block">
               Temazos para Veneno
             </span>
             <div className="flex items-baseline gap-2">
@@ -538,7 +538,7 @@ export default function AdminPage() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-3 border-t border-[#27272a] text-xs">
                     {/* Dietary */}
                     <div className="space-y-1">
-                      <span className="font-mono-swiss text-[10px] uppercase text-zinc-400 flex items-center gap-1">
+                      <span className="font-mono-swiss text-[10px] text-zinc-400 flex items-center gap-1">
                         <Utensils className="w-3 h-3 text-amber-400" />
                         <span>Restricciones alimentarias:</span>
                       </span>
@@ -550,7 +550,7 @@ export default function AdminPage() {
 
                     {/* Music */}
                     <div className="space-y-1">
-                      <span className="font-mono-swiss text-[10px] uppercase text-zinc-400 flex items-center gap-1">
+                      <span className="font-mono-swiss text-[10px] text-zinc-400 flex items-center gap-1">
                         <Music className="w-3 h-3 text-purple-400" />
                         <span>Canción para la fiesta:</span>
                       </span>

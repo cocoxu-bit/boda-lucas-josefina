@@ -303,7 +303,7 @@ export const DressCodeInspector: React.FC = () => {
           >
             {/* Top Bar: Look Counter & Verdict Badge */}
             <div className="flex items-center justify-between gap-3 pb-3 border-b border-[var(--card-border)]">
-              <span className="font-mono-swiss text-[11px] uppercase tracking-widest text-[var(--fg-muted)]">
+              <span className="font-mono-swiss text-[11px] tracking-wider text-[var(--fg-muted)]">
                 Look {currentIndex + 1} de {OUTFITS.length}
               </span>
 
@@ -350,7 +350,7 @@ export const DressCodeInspector: React.FC = () => {
 
             {/* 3 AVATARS IN A SINGLE LINE ON MOBILE (NO SCROLL) */}
             <div className="pt-3 border-t border-[var(--card-border)]">
-              <span className="font-mono-swiss text-[10px] uppercase tracking-wider text-[var(--fg-muted)] block text-center sm:text-left mb-2.5">
+              <span className="font-mono-swiss text-[10px] tracking-wider text-[var(--fg-muted)] block text-center sm:text-left mb-2.5">
                 El veredicto en directo
               </span>
 

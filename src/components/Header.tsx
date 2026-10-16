@@ -77,8 +77,8 @@ export const Header: React.FC = () => {
               Josefina & Lucas
             </span>
             <span className="h-3 w-px bg-current opacity-20" />
-            <span className="font-mono-swiss text-[11px] uppercase tracking-widest text-[var(--fg-muted)]">
-              06.02.27 • VLC
+            <span className="font-mono-swiss text-[11px] tracking-wider text-[var(--fg-muted)]">
+              06.02.27 • Valencia
             </span>
           </button>
 

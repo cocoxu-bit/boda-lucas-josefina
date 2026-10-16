@@ -107,7 +107,7 @@ export const WhatsAppHelpModal: React.FC = () => {
 
               {/* Header */}
               <div className="space-y-2 text-left">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono-swiss uppercase tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[11px] font-mono-swiss tracking-wider bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
                   <MessageCircle className="w-3.5 h-3.5" />
                   <span>Contacto Directo WhatsApp</span>
                 </div>
@@ -126,7 +126,7 @@ export const WhatsAppHelpModal: React.FC = () => {
                 {/* JOSEFINA */}
                 <div className="p-4 rounded-2xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.03] space-y-3 flex flex-col justify-between hover:border-[var(--accent-gold)]/50 transition-all">
                   <div className="space-y-1 text-left">
-                    <span className="font-mono-swiss text-[10px] uppercase tracking-wider text-[var(--fg-muted)] block">
+                    <span className="font-mono-swiss text-[10px] tracking-wider text-[var(--fg-muted)] block">
                       La Novia
                     </span>
                     <h4 className="font-serif-editorial text-2xl text-[var(--fg-primary)] italic">
@@ -150,7 +150,7 @@ export const WhatsAppHelpModal: React.FC = () => {
                 {/* LUCAS */}
                 <div className="p-4 rounded-2xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.03] space-y-3 flex flex-col justify-between hover:border-[var(--accent-gold)]/50 transition-all">
                   <div className="space-y-1 text-left">
-                    <span className="font-mono-swiss text-[10px] uppercase tracking-wider text-[var(--fg-muted)] block">
+                    <span className="font-mono-swiss text-[10px] tracking-wider text-[var(--fg-muted)] block">
                       El Novio
                     </span>
                     <h4 className="font-serif-editorial text-2xl text-[var(--fg-primary)] italic">

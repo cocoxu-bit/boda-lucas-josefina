@@ -93,9 +93,9 @@ export const EasterEgg: React.FC = () => {
             </button>
 
             {/* Retro Badge */}
-            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/40 text-[10px] font-mono-swiss text-purple-300 uppercase tracking-widest mb-3">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-purple-500/20 border border-purple-500/40 text-[10px] font-mono-swiss text-purple-300 tracking-wider mb-3">
               <Radio className="w-3.5 h-3.5 animate-spin" />
-              <span>EASTER EGG // VENENO AFTER-HOURS MODE</span>
+              <span>Easter egg // Veneno after-hours mode</span>
             </div>
 
             <h3 className="font-serif-editorial text-4xl sm:text-5xl text-white italic tracking-wide">
