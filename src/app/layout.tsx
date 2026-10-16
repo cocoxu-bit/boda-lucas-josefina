@@ -4,7 +4,6 @@ import "./globals.css";
 import { SoundProvider } from "@/context/SoundContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { SmoothScroll } from "@/components/SmoothScroll";
-import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -56,7 +55,6 @@ export default function RootLayout({
               <div className="noise-overlay" aria-hidden="true" />
               <div className="relative flex min-h-screen flex-col overflow-x-hidden">
                 {children}
-                <ThemeSwitcher />
               </div>
             </SmoothScroll>
           </SoundProvider>

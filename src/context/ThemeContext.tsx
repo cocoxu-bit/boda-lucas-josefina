@@ -17,59 +17,26 @@ const ThemeContext = createContext<ThemeContextType>({
 });
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [theme, setThemeState] = useState<ThemeMode>("dark");
-
   useEffect(() => {
-    // Check URL param first (e.g. ?theme=warm)
     if (typeof window !== "undefined") {
-      const params = new URLSearchParams(window.location.search);
-      const urlTheme = params.get("theme");
-      if (urlTheme === "warm" || urlTheme === "dark") {
-        setThemeState(urlTheme);
-        applyThemeClass(urlTheme);
-        return;
-      }
+      // Clean up any legacy localStorage setting and enforce dark mode
+      localStorage.removeItem("wedding-theme-mode");
+      const root = document.documentElement;
+      root.classList.remove("theme-warm");
+      root.classList.add("dark");
 
-      // Check localStorage
-      const savedTheme = localStorage.getItem("wedding-theme-mode") as ThemeMode | null;
-      if (savedTheme === "warm" || savedTheme === "dark") {
-        setThemeState(savedTheme);
-        applyThemeClass(savedTheme);
-      } else {
-        applyThemeClass("dark");
+      // Clean up ?theme= param from URL if present
+      const params = new URLSearchParams(window.location.search);
+      if (params.has("theme")) {
+        const url = new URL(window.location.href);
+        url.searchParams.delete("theme");
+        window.history.replaceState({}, "", url.toString());
       }
     }
   }, []);
 
-  const applyThemeClass = (newTheme: ThemeMode) => {
-    const root = document.documentElement;
-    if (newTheme === "warm") {
-      root.classList.remove("dark");
-      root.classList.add("theme-warm");
-    } else {
-      root.classList.remove("theme-warm");
-      root.classList.add("dark");
-    }
-  };
-
-  const setTheme = (newTheme: ThemeMode) => {
-    setThemeState(newTheme);
-    applyThemeClass(newTheme);
-    if (typeof window !== "undefined") {
-      localStorage.setItem("wedding-theme-mode", newTheme);
-      // Update URL query param smoothly without reloading
-      const url = new URL(window.location.href);
-      url.searchParams.set("theme", newTheme);
-      window.history.replaceState({}, "", url.toString());
-    }
-  };
-
-  const toggleTheme = () => {
-    setTheme(theme === "dark" ? "warm" : "dark");
-  };
-
   return (
-    <ThemeContext.Provider value={{ theme, setTheme, toggleTheme }}>
+    <ThemeContext.Provider value={{ theme: "dark", setTheme: () => {}, toggleTheme: () => {} }}>
       {children}
     </ThemeContext.Provider>
   );
