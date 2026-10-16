@@ -167,15 +167,23 @@ export const RSVPWizard: React.FC = () => {
     })();
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
 
-    setTimeout(() => {
+    try {
+      await fetch("/api/rsvp", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(form),
+      });
+    } catch (err) {
+      console.error("Error submitting RSVP:", err);
+    } finally {
       setIsSubmitting(false);
       setIsCompleted(true);
       triggerConfetti();
-    }, 600);
+    }
   };
 
   // Generate high-resolution Concert/Festival VIP Pass PNG
@@ -526,6 +534,26 @@ export const RSVPWizard: React.FC = () => {
                 >
                   <Calendar className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
                   <span>Apple Calendar</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    const summary = encodeURIComponent(
+                      `¡Hola! Acabo de confirmar mi asistencia a vuestra boda:\n` +
+                      `👤 Nombre: ${form.name}\n` +
+                      `✅ Asistencia: ${form.attendance === "yes" ? "SÍ voy" : "No puedo ir"}\n` +
+                      (form.companion ? `👥 Acompañante: ${form.companion}\n` : "") +
+                      (form.dietary?.length ? `🍽️ Menú/Alergias: ${form.dietary.join(", ")}\n` : "") +
+                      (form.guestRole ? `🎖️ Rol: ${form.guestRole}\n` : "") +
+                      (form.songTitle ? `🎵 Canción: ${form.songTitle} ${form.songArtist ? `- ${form.songArtist}` : ""}\n` : "") +
+                      (form.message ? `💬 Mensaje: "${form.message}"` : "")
+                    );
+                    window.open(`https://wa.me/34606513672?text=${summary}`, "_blank");
+                  }}
+                  className="w-full sm:w-auto px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono-swiss text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>Notificar por WhatsApp</span>
                 </button>
 
                 <button
