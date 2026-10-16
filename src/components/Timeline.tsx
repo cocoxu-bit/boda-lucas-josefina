@@ -4,6 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { MapPin, ExternalLink } from "lucide-react";
+import { getSmartMapUrl, openSmartMap, VenueKey } from "@/lib/maps";
 
 interface TimelineStop {
   time: string;
@@ -11,7 +12,7 @@ interface TimelineStop {
   title: string;
   location: string;
   description: string;
-  mapUrl?: string;
+  venueKey?: VenueKey;
   imageUrl?: string;
   imageAlt?: string;
 }
@@ -23,7 +24,7 @@ const STOPS: TimelineStop[] = [
     title: "Llegada & Encuentro",
     location: "Palacete de los Jardines de Monforte",
     description: "Recepción de invitados entre cipreses y estatuas neoclásicas en uno de los jardines históricos más bonitos de Valencia.",
-    mapUrl: "https://maps.google.com/?q=Jardines+de+Monforte+Valencia",
+    venueKey: "monforte",
     imageUrl: "/images/palacio-monforte.jpg",
     imageAlt: "Palacios de Monforte",
   },
@@ -33,7 +34,7 @@ const STOPS: TimelineStop[] = [
     title: "La Ceremonia Civil",
     location: "Palacios de Monforte",
     description: "Firma civil, votos breves, música y salida con lluvia de confeti.",
-    mapUrl: "https://maps.google.com/?q=Jardines+de+Monforte+Valencia",
+    venueKey: "monforte",
   },
   {
     time: "14:15",
@@ -48,7 +49,7 @@ const STOPS: TimelineStop[] = [
     title: "Apertura del Cóctel Largo",
     location: "Veneno Bar & Club",
     description: "Comida gourmet continua servida por camareros, bebida y cócteles de autor desde el primer minuto. Todo dinámico y de pie.",
-    mapUrl: "https://maps.google.com/?q=Veneno+Valencia",
+    venueKey: "veneno",
     imageUrl: "/images/veneno-bar.jpg",
     imageAlt: "Veneno Bar Valencia",
   },
@@ -58,7 +59,7 @@ const STOPS: TimelineStop[] = [
     title: "Tardeo, DJ & Baile",
     location: "Veneno",
     description: "Luces bajas, buena música (indie, disco, funk) y fiesta continua.",
-    mapUrl: "https://maps.google.com/?q=Veneno+Valencia",
+    venueKey: "veneno",
   },
 ];
 
@@ -120,12 +121,16 @@ export const Timeline: React.FC = () => {
                   </span>
                 </div>
 
-                {stop.mapUrl && (
+                {stop.venueKey && (
                   <a
-                    href={stop.mapUrl}
+                    href={getSmartMapUrl(stop.venueKey)}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      openSmartMap(stop.venueKey!);
+                    }}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-1 font-mono-swiss text-[11px] text-[var(--fg-muted)] hover:text-[var(--accent-gold)] transition-colors"
+                    className="flex items-center gap-1 font-mono-swiss text-[11px] text-[var(--fg-muted)] hover:text-[var(--accent-gold)] transition-colors cursor-pointer"
                   >
                     <MapPin className="w-3 h-3 text-[var(--accent-gold)]" />
                     <span>Mapa</span>

@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { Countdown } from "@/components/Countdown";
 import { ArrowDown, ExternalLink } from "lucide-react";
+import { getSmartMapUrl, openSmartMap } from "@/lib/maps";
 
 export const Hero: React.FC = () => {
   const containerVariants = {
@@ -101,7 +102,11 @@ export const Hero: React.FC = () => {
                 C/ Monforte, 1 • Valencia
               </span>
               <a
-                href="https://maps.google.com/?q=Jardines+de+Monforte+Valencia"
+                href={getSmartMapUrl("monforte")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  openSmartMap("monforte");
+                }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 font-mono-swiss text-xs text-[var(--fg-primary)] hover:text-[var(--accent-gold)] transition-colors cursor-pointer"
@@ -142,7 +147,11 @@ export const Hero: React.FC = () => {
                 Av. Peris y Valero, 124 • Ruzafa
               </span>
               <a
-                href="https://maps.google.com/?q=Veneno+Valencia"
+                href={getSmartMapUrl("veneno")}
+                onClick={(e) => {
+                  e.preventDefault();
+                  openSmartMap("veneno");
+                }}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1 font-mono-swiss text-xs text-[var(--fg-primary)] hover:text-[var(--accent-gold)] transition-colors cursor-pointer"
