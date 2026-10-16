@@ -42,10 +42,19 @@ export const Footer: React.FC = () => {
           Palacios de Monforte (13:00) & Veneno. Cóctel largo, música sin fin y cero formalismos.
         </p>
 
-        {/* Cryptic Easter Egg hint (NO SPOILER) */}
-        <div className="pt-4 flex items-center justify-center gap-2 font-mono-swiss text-[10px] text-[var(--fg-muted)] opacity-60">
-          <Gamepad2 className="w-3.5 h-3.5 animate-pulse text-[var(--accent-gold)]" />
-          <span>Modo Secreto: sólo para quienes jugaron a la Game Boy</span>
+        {/* Actions & Hints */}
+        <div className="pt-4 flex flex-wrap items-center justify-center gap-3 sm:gap-4 font-mono-swiss text-[10px] text-[var(--fg-muted)]">
+          <button
+            onClick={() => window.dispatchEvent(new CustomEvent("replay-epic-intro"))}
+            className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[var(--card-border)] hover:border-[var(--accent-gold)]/40 hover:text-[var(--accent-gold)] transition-colors cursor-pointer"
+          >
+            <span>✦ Revivir Entrada Épica</span>
+          </button>
+
+          <div className="flex items-center gap-1.5 opacity-60">
+            <Gamepad2 className="w-3.5 h-3.5 animate-pulse text-[var(--accent-gold)]" />
+            <span>Modo Secreto: sólo para quienes jugaron a la Game Boy</span>
+          </div>
         </div>
       </div>
     </footer>
