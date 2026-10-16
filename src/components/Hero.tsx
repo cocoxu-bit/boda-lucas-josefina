@@ -3,12 +3,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { Countdown } from "@/components/Countdown";
-import { ArrowDown, Clock, Wine, Sparkles } from "lucide-react";
-import { useSoundEffects } from "@/context/SoundContext";
+import { ArrowDown } from "lucide-react";
 
 export const Hero: React.FC = () => {
-  const { playClick } = useSoundEffects();
-
   const containerVariants = {
     hidden: { opacity: 0 },
     visible: {
@@ -21,7 +18,7 @@ export const Hero: React.FC = () => {
   };
 
   const itemVariants = {
-    hidden: { y: 28, opacity: 0 },
+    hidden: { y: 24, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
@@ -34,7 +31,6 @@ export const Hero: React.FC = () => {
   };
 
   const scrollToTimeline = () => {
-    playClick();
     const el = document.getElementById("timeline-section");
     if (el) {
       el.scrollIntoView({ behavior: "smooth" });
@@ -42,7 +38,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-[92vh] pt-24 pb-16 px-4 sm:px-6 flex flex-col justify-between max-w-4xl mx-auto overflow-hidden">
+    <section className="relative min-h-[88vh] pt-24 pb-14 px-4 sm:px-6 flex flex-col justify-between max-w-4xl mx-auto overflow-hidden">
       {/* Background radial glow */}
       <div 
         className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[500px] sm:h-[500px] bg-[var(--accent-gold)]/[0.08] rounded-full blur-[100px] pointer-events-none transition-colors duration-500" 
@@ -53,81 +49,51 @@ export const Hero: React.FC = () => {
         variants={containerVariants}
         initial="hidden"
         animate="visible"
-        className="flex flex-col items-center text-center space-y-6 pt-4"
+        className="flex flex-col items-center text-center space-y-6 pt-2"
       >
-        {/* Top Editorial Index Tag */}
-        <motion.div variants={itemVariants} className="flex items-center gap-2">
-          <span className="glass-pill px-3 py-1 rounded-full font-mono-swiss text-[11px] tracking-widest uppercase flex items-center gap-1.5 transition-colors">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)]" />
-            EDICIÓN 06 • FEBRERO • 2027
-          </span>
-        </motion.div>
-
-        {/* Names Headline with Kinetic Typography */}
-        <motion.div variants={itemVariants} className="space-y-1 sm:space-y-2">
-          <h1 className="font-serif-editorial text-6xl sm:text-8xl md:text-9xl tracking-tight leading-[0.92] text-[var(--fg-primary)] transition-colors duration-300">
-            <span className="inline-block hover:scale-[1.02] transition-transform duration-300">Lucas</span>
-            <span className="block sm:inline font-sans-ui font-light text-3xl sm:text-5xl md:text-6xl text-[var(--accent-gold)] mx-2 italic">
+        {/* Main Editorial Headline */}
+        <motion.div variants={itemVariants} className="space-y-2">
+          <h1 className="font-serif-editorial text-7xl sm:text-9xl tracking-tight leading-[0.9] text-[var(--fg-primary)] transition-colors duration-300">
+            <span className="inline-block hover:scale-[1.01] transition-transform">Lucas</span>
+            <span className="block sm:inline font-sans-ui font-light text-4xl sm:text-6xl text-[var(--accent-gold)] mx-3 italic">
               &
             </span>
-            <span className="inline-block hover:scale-[1.02] transition-transform duration-300">Josefina</span>
+            <span className="inline-block hover:scale-[1.01] transition-transform">Josefina</span>
           </h1>
-          <p className="font-mono-swiss text-xs sm:text-sm uppercase tracking-[0.25em] text-[var(--fg-muted)] pt-2">
-            VALENCIA // JARDINES DE MONFORTE & VENENO
+          <p className="font-mono-swiss text-xs sm:text-sm uppercase tracking-[0.25em] text-[var(--fg-muted)] pt-1">
+            06 • 02 • 2027 // VALENCIA
           </p>
         </motion.div>
 
-        {/* Expectation Pill Badges */}
+        {/* Clean, Non-Duplicated Manifesto */}
         <motion.div
           variants={itemVariants}
-          className="flex flex-wrap items-center justify-center gap-2 pt-2 max-w-md"
-        >
-          <span className="flex items-center gap-1 px-2.5 py-1 rounded-full glass-pill text-[11px] font-mono-swiss">
-            <Clock className="w-3 h-3 text-[var(--accent-gold)]" />
-            13:00 H Monforte
-          </span>
-          <span className="flex items-center gap-1 px-2.5 py-1 rounded-full glass-pill text-[11px] font-mono-swiss">
-            <Wine className="w-3 h-3 text-[var(--accent-gold)]" />
-            Cóctel Largo en Veneno
-          </span>
-          <span className="flex items-center gap-1 px-2.5 py-1 rounded-full glass-pill text-[11px] font-mono-swiss">
-            <Sparkles className="w-3 h-3 text-[var(--accent-gold)]" />
-            Sin banquete formal
-          </span>
-        </motion.div>
-
-        {/* The Manifest / Clarification Box */}
-        <motion.div
-          variants={itemVariants}
-          className="theme-card relative max-w-xl text-center px-4 py-3 sm:py-4 rounded-2xl transition-all duration-300"
+          className="theme-card max-w-lg mx-auto text-center px-5 py-4 rounded-2xl shadow-sm transition-all"
         >
           <p className="font-sans-ui text-sm sm:text-base text-[var(--fg-primary)] leading-relaxed font-light">
-            Queremos que la disfrutéis tanto como nosotros. Nos casamos por lo civil a la 13:00 en{" "}
-            <span className="font-semibold text-[var(--fg-primary)]">Palacios de Monforte</span> y después nos vamos directos a{" "}
-            <span className="font-semibold text-[var(--fg-primary)]">Veneno</span>. Será una fiesta con un{" "}
-            <strong className="text-[var(--accent-gold)] font-medium">cóctel largo de pie</strong>, bebida continua y buena música.
+            Nos casamos a las 13:00 en <strong>Palacios de Monforte</strong> y lo celebramos en <strong>Veneno</strong> con un <strong>cóctel largo de pie</strong>, copas y música.
           </p>
-          <p className="font-sans-ui text-xs sm:text-xs text-[var(--fg-muted)] mt-2 italic">
-            *Habrá zonas con asientos para nuestros mayores y para quien necesite descansar las piernas cuando lo pida el cuerpo.
+          <p className="font-sans-ui text-xs text-[var(--fg-muted)] mt-2">
+            Habrá asientos para quien lo necesite o quiera descansar. Ven arreglado pero a tu rollo.
           </p>
         </motion.div>
 
         {/* Live Electronic Countdown Clock */}
-        <motion.div variants={itemVariants} className="w-full pt-4">
+        <motion.div variants={itemVariants} className="w-full pt-2">
           <Countdown />
         </motion.div>
 
         {/* Scroll Indicator */}
-        <motion.div variants={itemVariants} className="pt-6">
+        <motion.div variants={itemVariants} className="pt-4">
           <button
             onClick={scrollToTimeline}
-            className="group flex flex-col items-center gap-2 text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors cursor-pointer"
+            className="group flex flex-col items-center gap-1.5 text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors cursor-pointer"
           >
             <span className="font-mono-swiss text-[10px] uppercase tracking-widest">
-              Explorar evento & fotos
+              Ver el día
             </span>
             <motion.div
-              animate={{ y: [0, 5, 0] }}
+              animate={{ y: [0, 4, 0] }}
               transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
             >
               <ArrowDown className="w-4 h-4 text-[var(--fg-muted)] group-hover:text-[var(--fg-primary)] transition-colors" />

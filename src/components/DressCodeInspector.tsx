@@ -346,28 +346,21 @@ export const DressCodeInspector: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full max-w-2xl mx-auto py-12 px-4 sm:px-6">
+    <section className="relative w-full max-w-2xl mx-auto py-10 px-4 sm:px-6">
       {/* Title */}
-      <div className="text-center space-y-2 mb-6">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-pill text-[11px] font-mono-swiss uppercase tracking-widest text-[var(--accent-gold)]">
-          <Sparkles className="w-3.5 h-3.5" />
-          <span>PROBADOR INTERACTIVO // DRESS CODE</span>
-        </div>
+      <div className="text-center space-y-1 mb-5">
         <h2 className="font-serif-editorial text-4xl sm:text-5xl text-[var(--fg-primary)] italic">
-          El Veredicto de los Novios
+          Dress Code
         </h2>
         <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-muted)] max-w-md mx-auto">
-          Pasa los distintos estilos para ver la reacción en directo de Lucas, Josefina y el peque. Cero protocolo estirado, 100% comodidad para disfrutar.
+          Arreglado pero cómodo. Pasa los ejemplos para ver qué nos parece:
         </p>
       </div>
 
       {/* Main Interactive Stage */}
-      <div className="theme-card rounded-3xl p-5 sm:p-7 shadow-2xl overflow-hidden transition-all duration-300">
+      <div className="theme-card rounded-3xl p-5 sm:p-6 shadow-xl overflow-hidden transition-all">
         {/* Animated Recreations Header */}
-        <div className="border-b border-[var(--card-border)] pb-2 mb-4">
-          <div className="text-center font-mono-swiss text-[10px] uppercase tracking-widest text-[var(--fg-muted)]">
-            REACCIÓN EN TIEMPO REAL
-          </div>
+        <div className="border-b border-[var(--card-border)] pb-2 mb-3">
           <FamilyAvatars mood={currentOutfit.mood} />
         </div>
 
@@ -375,21 +368,21 @@ export const DressCodeInspector: React.FC = () => {
         <AnimatePresence mode="wait">
           <motion.div
             key={currentOutfit.id}
-            initial={{ opacity: 0, scale: 0.96, y: 10 }}
+            initial={{ opacity: 0, scale: 0.97, y: 8 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: -10 }}
-            transition={{ duration: 0.25 }}
-            className="space-y-4"
+            exit={{ opacity: 0, scale: 0.97, y: -8 }}
+            transition={{ duration: 0.22 }}
+            className="space-y-3"
           >
             {/* Header info */}
-            <div className="flex flex-wrap items-center justify-between gap-2">
-              <span className="font-mono-swiss text-[11px] uppercase tracking-wider text-[var(--fg-muted)] glass-pill px-2.5 py-0.5 rounded-full">
+            <div className="flex items-center justify-between gap-2">
+              <span className="font-mono-swiss text-[11px] uppercase tracking-wider text-[var(--fg-muted)]">
                 {currentOutfit.category}
               </span>
 
               {/* Score Indicator */}
               <div
-                className={`flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono-swiss font-bold ${
+                className={`flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-xs font-mono-swiss font-bold ${
                   currentOutfit.mood === "love"
                     ? "bg-emerald-500/15 text-emerald-500 border border-emerald-500/30"
                     : currentOutfit.mood === "meh"
@@ -400,40 +393,23 @@ export const DressCodeInspector: React.FC = () => {
                 {currentOutfit.mood === "love" && <CheckCircle2 className="w-3.5 h-3.5" />}
                 {currentOutfit.mood === "meh" && <AlertTriangle className="w-3.5 h-3.5" />}
                 {currentOutfit.mood === "veto" && <XCircle className="w-3.5 h-3.5" />}
-                <span>PUNTUACIÓN: {currentOutfit.score}</span>
+                <span>{currentOutfit.score}</span>
               </div>
             </div>
 
             {/* Title & Emoji */}
-            <div className="flex items-center gap-3 pt-1">
-              <span className="text-3xl sm:text-4xl">{currentOutfit.emoji}</span>
-              <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic">
+            <div className="flex items-center gap-2.5">
+              <span className="text-2xl sm:text-3xl">{currentOutfit.emoji}</span>
+              <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic leading-tight">
                 {currentOutfit.title}
               </h3>
             </div>
 
-            {/* Badges */}
-            <div className="flex flex-wrap gap-1.5">
-              {currentOutfit.badges.map((b, i) => (
-                <span
-                  key={i}
-                  className="px-2.5 py-1 rounded-lg text-[10px] font-mono-swiss bg-black/[0.03] dark:bg-white/[0.04] border border-[var(--card-border)] text-[var(--fg-primary)]/80"
-                >
-                  {b}
-                </span>
-              ))}
-            </div>
-
             {/* The Quote from Lucas & Josefina */}
-            <div className="p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-[var(--card-border)] relative space-y-2">
-              <div>
-                <span className="font-mono-swiss text-[9px] uppercase tracking-widest text-[var(--accent-gold)] block mb-1">
-                  COMENTARIO DE LUCAS & JOSEFINA:
-                </span>
-                <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-primary)]/90 font-light leading-relaxed italic">
-                  &ldquo;{currentOutfit.quote}&rdquo;
-                </p>
-              </div>
+            <div className="p-4 rounded-2xl bg-black/[0.02] dark:bg-white/[0.02] border border-[var(--card-border)] space-y-2">
+              <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-primary)]/90 font-light leading-relaxed italic">
+                &ldquo;{currentOutfit.quote}&rdquo;
+              </p>
 
               <div className="pt-2 border-t border-[var(--card-border)] font-mono-swiss text-[11px] text-[var(--accent-gold)]">
                 {currentOutfit.babyReaction}

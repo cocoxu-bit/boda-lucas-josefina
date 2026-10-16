@@ -321,46 +321,26 @@ export const PhysicsGallery: React.FC = () => {
   };
 
   return (
-    <section className="relative w-full max-w-3xl mx-auto py-12 px-4 sm:px-6">
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-4 gap-2">
+    <section className="relative w-full max-w-3xl mx-auto py-10 px-4 sm:px-6">
+      <div className="flex items-end justify-between mb-3 gap-2">
         <div>
-          <div className="flex items-center gap-1.5 font-mono-swiss text-[11px] uppercase tracking-widest text-[var(--accent-gold)] mb-1">
-            <Sparkles className="w-3.5 h-3.5" />
-            <span>MESA DE TRABAJO // POLAROIDS</span>
-          </div>
-          <h2 className="font-serif-editorial text-3xl sm:text-4xl text-[var(--fg-primary)] italic transition-colors">
-            El Moodboard de la Boda
+          <h2 className="font-serif-editorial text-3xl sm:text-4xl text-[var(--fg-primary)] italic">
+            Moodboard
           </h2>
-          <p className="font-sans-ui text-xs text-[var(--fg-muted)] mt-1 max-w-md">
-            Desordena, apila y lanza las fotos con el dedo. La atmósfera del día a tu antojo.
+          <p className="font-sans-ui text-xs text-[var(--fg-muted)] mt-0.5">
+            Toca, apila y desordena las fotos a tu gusto.
           </p>
         </div>
 
-        {/* Minimal Controls */}
-        <div className="flex items-center gap-2 self-start sm:self-auto">
-          {!hasInteracted && (
-            <div className="flex items-center gap-1 px-2.5 py-1 rounded-full glass-pill text-[10px] font-mono-swiss animate-pulse">
-              <Hand className="w-3 h-3 text-[var(--accent-gold)]" />
-              <span>Arrastra con el dedo</span>
-            </div>
-          )}
-          <button
-            onClick={shufflePolaroids}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-pill hover:opacity-80 active:scale-95 text-xs font-mono-swiss transition-all cursor-pointer"
-            title="Lanzar fotos"
-          >
-            <Shuffle className="w-3 h-3 text-[var(--accent-gold)]" />
-            <span>Lanzar</span>
-          </button>
-          <button
-            onClick={resetPolaroids}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-pill hover:opacity-80 active:scale-95 text-xs font-mono-swiss transition-all cursor-pointer"
-            title="Restaurar orden original"
-          >
-            <RotateCcw className="w-3 h-3 text-[var(--accent-gold)]" />
-            <span>Reset</span>
-          </button>
-        </div>
+        {/* Minimal Reset button */}
+        <button
+          onClick={resetPolaroids}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-pill hover:opacity-80 active:scale-95 text-xs font-mono-swiss transition-all cursor-pointer"
+          title="Restaurar orden original"
+        >
+          <RotateCcw className="w-3 h-3 text-[var(--accent-gold)]" />
+          <span>Reset</span>
+        </button>
       </div>
 
       {/* Physics Canvas Stage */}
@@ -377,10 +357,7 @@ export const PhysicsGallery: React.FC = () => {
           className="absolute inset-0 bg-[linear-gradient(to_right,currentColor_1px,transparent_1px),linear-gradient(to_bottom,currentColor_1px,transparent_1px)] opacity-[0.035] bg-[size:32px_32px] pointer-events-none" 
         />
         
-        {/* Subtle organic micro-copy (replaces debug technical text) */}
-        <div className="absolute bottom-3 left-4 pointer-events-none font-mono-swiss text-[9px] uppercase tracking-widest text-[var(--fg-muted)] opacity-50">
-          [ MESA DE TRABAJO // DESORDENA Y LANZA ]
-        </div>
+
 
         <canvas
           ref={canvasRef}

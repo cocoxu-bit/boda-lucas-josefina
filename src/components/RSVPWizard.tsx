@@ -354,15 +354,11 @@ export const RSVPWizard: React.FC = () => {
     <section id="rsvp-section" className="relative w-full max-w-2xl mx-auto py-16 px-4 sm:px-6">
       {/* Header */}
       <div className="text-center space-y-2 mb-8">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full glass-pill text-[11px] font-mono-swiss uppercase tracking-widest text-[var(--accent-gold)]">
-          <Ticket className="w-3.5 h-3.5" />
-          <span>CONFIRMACIÓN DE ASISTENCIA</span>
-        </div>
         <h2 className="font-serif-editorial text-4xl sm:text-5xl text-[var(--fg-primary)] italic transition-colors">
-          RSVP & Pase de Invitado
+          Confirmación de asistencia
         </h2>
         <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-muted)] max-w-md mx-auto">
-          Confirma tu asistencia para que en Monforte y Veneno esté todo a punto.
+          Por favor, confírmanos antes del 15 de diciembre para tener todo listo.
         </p>
       </div>
 
@@ -432,7 +428,7 @@ export const RSVPWizard: React.FC = () => {
                 <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
                   <div>
                     <span className="font-mono-swiss text-[9px] uppercase tracking-widest text-[#dfb15b] font-semibold">
-                      ALL ACCESS VIP PASS // WRISTBAND
+                      PASE OFICIAL DE ACCESO
                     </span>
                     <h4 className="font-serif-editorial text-2xl text-white italic">
                       Lucas & Josefina
@@ -542,9 +538,6 @@ export const RSVPWizard: React.FC = () => {
                   className="space-y-5"
                 >
                   <div className="border-b border-[var(--card-border)] pb-3">
-                    <span className="font-mono-swiss text-[10px] uppercase text-[var(--accent-gold)]">
-                      PASO 01 // DATOS BÁSICOS
-                    </span>
                     <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic">
                       ¿Nos acompañas el 6 de febrero?
                     </h3>
@@ -643,14 +636,11 @@ export const RSVPWizard: React.FC = () => {
                   className="space-y-5"
                 >
                   <div className="border-b border-[var(--card-border)] pb-3">
-                    <span className="font-mono-swiss text-[10px] uppercase text-[var(--accent-gold)]">
-                      PASO 02 // ALÉRGENOS & DIETA
-                    </span>
                     <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic">
                       ¿Tienes alguna intolerancia o preferencia?
                     </h3>
                     <p className="font-sans-ui text-xs text-[var(--fg-muted)] mt-1">
-                      El cóctel largo contará con múltiples pases adaptados para que todo el mundo coma increíble.
+                      El cóctel contará con opciones adaptadas para que disfrutes al máximo.
                     </p>
                   </div>
 
@@ -721,14 +711,11 @@ export const RSVPWizard: React.FC = () => {
                   className="space-y-5"
                 >
                   <div className="border-b border-[var(--card-border)] pb-3">
-                    <span className="font-mono-swiss text-[10px] uppercase text-[var(--accent-gold)]">
-                      PASO 03 // ELIGE TU ROL DE INVITADO
-                    </span>
                     <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic">
-                      ¿Cuál será tu misión oficial en la boda?
+                      Elige tu rol honorario
                     </h3>
                     <p className="font-sans-ui text-xs text-[var(--fg-muted)] mt-1">
-                      Aparecerá impreso en tu pase VIP de acceso a Veneno.
+                      Aparecerá en tu pase digital personalizado.
                     </p>
                   </div>
 
@@ -793,11 +780,8 @@ export const RSVPWizard: React.FC = () => {
                   className="space-y-5"
                 >
                   <div className="border-b border-[var(--card-border)] pb-3">
-                    <span className="font-mono-swiss text-[10px] uppercase text-[var(--accent-gold)]">
-                      PASO 04 // MÚSICA & MENSAJE
-                    </span>
                     <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic">
-                      El temazo que no puede faltar en Veneno
+                      El temazo que no puede faltar
                     </h3>
                   </div>
 
