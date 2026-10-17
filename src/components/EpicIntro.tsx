@@ -232,21 +232,14 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
         }
         className="relative z-30 flex flex-col items-center text-center px-4 max-w-xl mx-auto w-full"
       >
-        {/* Title Header with natural casing */}
+        {/* Title Header */}
         <div className="space-y-2 mb-5 sm:mb-6">
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#dfb15b]/30 bg-[#dfb15b]/[0.08] backdrop-blur-md">
-            <Sparkles className="w-3.5 h-3.5 text-[#dfb15b]" />
-            <span className="font-mono-swiss text-[11px] text-[#dfb15b]">
-              la mezcla de nuestra boda
-            </span>
-          </div>
-
-          <h2 className="font-serif-editorial text-3xl sm:text-4xl text-white italic">
-            Lo que nos representa
+          <h2 className="font-serif-editorial text-3xl sm:text-5xl text-white italic tracking-tight leading-tight">
+            Bienvenido a la boda de Josefina y Lucas
           </h2>
 
-          <p className="font-sans-ui text-xs sm:text-sm text-white/75 max-w-sm sm:max-w-md mx-auto font-light leading-relaxed">
-            Arrastra los tres ingredientes a la licuadora: uvas de <strong className="text-white font-medium">Valdepeñas</strong>, carne de <strong className="text-white font-medium">Argentina</strong> y naranja de <strong className="text-white font-medium">Valencia</strong>.
+          <p className="font-sans-ui text-xs sm:text-sm text-white/80 max-w-sm sm:max-w-md mx-auto font-light leading-relaxed">
+            Arrastra los ingredientes a la licuadora para entrar
           </p>
         </div>
 
@@ -286,9 +279,8 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
               {/* Removable center plug / feeder cap */}
               <div className="w-9 h-3.5 rounded-t-md bg-zinc-700 border border-zinc-500 shadow-sm" />
               {/* Main rubber lid */}
-              <div className="w-44 sm:w-50 h-4 rounded-t-lg bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-900 border border-zinc-600 shadow-md flex items-center justify-between px-3">
+              <div className="w-44 sm:w-50 h-3.5 rounded-t-lg bg-gradient-to-r from-zinc-900 via-zinc-800 to-zinc-900 border border-zinc-600 shadow-md flex items-center justify-between px-3">
                 <div className="w-2 h-1 bg-zinc-600 rounded-full" />
-                <span className="font-mono-swiss text-[7.5px] text-zinc-400">licuadora</span>
                 <div className="w-2 h-1 bg-zinc-600 rounded-full" />
               </div>
             </div>
@@ -369,10 +361,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                       transition={{ type: "spring", stiffness: 350, damping: 22 }}
                       className="flex flex-col items-center select-none"
                     >
-                      <IngredientIcon id="grapes" className="w-10 h-10 drop-shadow-lg" />
-                      <span className="font-mono-swiss text-[8px] text-[#a855f7] font-semibold mt-0.5">
-                        valdepeñas
-                      </span>
+                      <IngredientIcon id="grapes" className="w-11 h-11 drop-shadow-lg" />
                     </motion.div>
                   )}
 
@@ -388,10 +377,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                       transition={{ type: "spring", stiffness: 350, damping: 20 }}
                       className="flex flex-col items-center select-none"
                     >
-                      <IngredientIcon id="meat" className="w-10 h-10 drop-shadow-lg" />
-                      <span className="font-mono-swiss text-[8px] text-[#ef4444] font-semibold mt-0.5">
-                        argentina
-                      </span>
+                      <IngredientIcon id="meat" className="w-11 h-11 drop-shadow-lg" />
                     </motion.div>
                   )}
 
@@ -407,18 +393,8 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                       transition={{ type: "spring", stiffness: 350, damping: 18 }}
                       className="flex flex-col items-center select-none"
                     >
-                      <IngredientIcon id="orange" className="w-10 h-10 drop-shadow-lg" />
-                      <span className="font-mono-swiss text-[8px] text-[#f97316] font-semibold mt-0.5">
-                        valencia
-                      </span>
+                      <IngredientIcon id="orange" className="w-11 h-11 drop-shadow-lg" />
                     </motion.div>
-                  )}
-
-                  {/* Empty State Prompt */}
-                  {totalAdded === 0 && !isHoveringBlender && (
-                    <span className="font-mono-swiss text-[10px] text-white/40 pb-3 animate-pulse">
-                      echa los 3 ingredientes aquí
-                    </span>
                   )}
                 </div>
 
@@ -489,16 +465,13 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                     onDragEnd={(e, info) => handleDragEnd(item.id, e, info)}
                     onClick={() => handleAddIngredient(item.id)}
                     className="w-full p-2.5 sm:p-3.5 rounded-2xl border border-white/20 bg-[#141418] hover:border-[#dfb15b]/60 shadow-xl cursor-grab active:cursor-grabbing flex flex-col items-center gap-1 transition-colors touch-none select-none group"
-                    title={`Arrastra ${item.name} (${item.region}) a la licuadora`}
+                    title={`Arrastra ${item.name} a la licuadora`}
                   >
                     <div className="transform group-hover:scale-110 transition-transform">
                       <IngredientIcon id={item.id} className="w-10 h-10 sm:w-11 sm:h-11" />
                     </div>
-                    <span className="font-mono-swiss text-xs font-semibold text-white leading-tight">
+                    <span className="font-mono-swiss text-xs font-semibold text-white leading-tight mt-1">
                       {item.name}
-                    </span>
-                    <span className="font-mono-swiss text-[10px] text-[#dfb15b]">
-                      {item.region}
                     </span>
                   </motion.div>
                 ) : (
@@ -506,11 +479,8 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                     <div className="grayscale opacity-50">
                       <IngredientIcon id={item.id} className="w-10 h-10 sm:w-11 sm:h-11" />
                     </div>
-                    <span className="font-mono-swiss text-xs text-white/50 leading-tight">
+                    <span className="font-mono-swiss text-xs text-white/40 leading-tight mt-1">
                       {item.name}
-                    </span>
-                    <span className="font-mono-swiss text-[10px] text-emerald-400">
-                      ✓ en la licuadora
                     </span>
                   </div>
                 )}
