@@ -28,16 +28,16 @@ export async function POST(req: Request) {
   try {
     const body = await req.json();
 
-    if (!body.name || !body.phone || !body.attendance) {
+    if (!body.name || !body.attendance) {
       return NextResponse.json(
-        { error: "Faltan campos obligatorios (nombre, teléfono o asistencia)" },
+        { error: "Faltan campos obligatorios (nombre o asistencia)" },
         { status: 400 }
       );
     }
 
     const saved = await saveSubmission({
       name: String(body.name).trim(),
-      phone: String(body.phone).trim(),
+      phone: body.phone ? String(body.phone).trim() : "-",
       attendance: body.attendance === "yes" ? "yes" : "no",
       companion: body.companion ? String(body.companion).trim() : undefined,
       dietary: Array.isArray(body.dietary) ? body.dietary : [],

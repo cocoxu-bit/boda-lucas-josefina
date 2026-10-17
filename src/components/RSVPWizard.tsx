@@ -28,7 +28,7 @@ interface RSVPFormData {
   companion: string;
   dietary: string[];
   otherDietary: string;
-  guestRole: string;
+  guestRole?: string;
   songTitle: string;
   songArtist: string;
   message: string;
@@ -36,50 +36,12 @@ interface RSVPFormData {
 
 const DIETARY_OPTIONS = [
   "Como de todo (cero restricciones)",
+  "Embarazada",
   "Vegetariano / Vegano",
   "Celíaco / Sin Gluten",
   "Intolerante a la Lactosa",
   "Alérgico al Marisco",
   "Alérgico a Frutos Secos",
-];
-
-const GUEST_ROLES = [
-  {
-    id: "coctel",
-    emoji: "🍸",
-    title: "Estratega del Cóctel",
-    desc: "Primero en catar cada ronda en Veneno",
-  },
-  {
-    id: "pista",
-    emoji: "🕺",
-    title: "Rey / Reina de la Pista",
-    desc: "Inaugurará el tardeo con pasos legendarios",
-  },
-  {
-    id: "canapes",
-    emoji: "🥐",
-    title: "Crítico de Canapés",
-    desc: "Evaluador riguroso de cada bocado gourmet",
-  },
-  {
-    id: "lloron",
-    emoji: "🥹",
-    title: "Llorón/a en la Ceremonia",
-    desc: "Kleenex en mano en los jardines de Monforte",
-  },
-  {
-    id: "conductor",
-    emoji: "🚗",
-    title: "Conductor/a Designado",
-    desc: "Héroe sobrio y guardián de las llaves",
-  },
-  {
-    id: "paparazzi",
-    emoji: "📸",
-    title: "Paparazzi Indiscreto",
-    desc: "Cazador de los mejores momentos y fotos",
-  },
 ];
 
 export const RSVPWizard: React.FC = () => {
@@ -99,7 +61,6 @@ export const RSVPWizard: React.FC = () => {
     companion: "",
     dietary: ["Como de todo (cero restricciones)"],
     otherDietary: "",
-    guestRole: "Estratega del Cóctel",
     songTitle: "",
     songArtist: "",
     message: "",
@@ -133,10 +94,6 @@ export const RSVPWizard: React.FC = () => {
         return { ...prev, dietary: [...filtered, item] };
       }
     });
-  };
-
-  const handleRoleSelect = (roleTitle: string) => {
-    setForm((prev) => ({ ...prev, guestRole: roleTitle }));
   };
 
   const triggerConfetti = () => {
@@ -254,7 +211,7 @@ export const RSVPWizard: React.FC = () => {
         ctx.fillText(`+ Acompañante: ${form.companion}`, 140, 680);
       }
 
-      // Role Box
+      // Dietary / Access Box
       ctx.fillStyle = "rgba(124, 143, 115, 0.12)";
       ctx.strokeStyle = "rgba(124, 143, 115, 0.4)";
       ctx.lineWidth = 2;
@@ -264,10 +221,10 @@ export const RSVPWizard: React.FC = () => {
 
       ctx.fillStyle = "#7c8f73";
       ctx.font = "24px monospace";
-      ctx.fillText("ROL HONORARIO ASIGNADO:", 170, 780);
+      ctx.fillText("PREFERENCIAS / MENÚ:", 170, 780);
       ctx.fillStyle = "#ffffff";
-      ctx.font = "bold 44px sans-serif";
-      ctx.fillText(form.guestRole, 170, 840);
+      ctx.font = "bold 36px sans-serif";
+      ctx.fillText(form.dietary.slice(0, 2).join(" • "), 170, 840);
 
       // Song
       if (form.songTitle) {
@@ -310,7 +267,7 @@ export const RSVPWizard: React.FC = () => {
   const addToGoogleCalendar = () => {
     const title = encodeURIComponent("Boda Josefina & Lucas");
     const details = encodeURIComponent(
-      `Pase de invitado para ${form.name || "Invitado"} (${form.guestRole}). Ceremonia civil en Palacios de Monforte (13:00) y cóctel largo en Veneno (14:45).`
+      `Pase de invitado para ${form.name || "Invitado"}. Ceremonia civil en Palacios de Monforte (13:00) y cóctel largo en Veneno (14:45).`
     );
     const location = encodeURIComponent("Palacete de los Jardines de Monforte & Veneno, Valencia");
     const dates = "20270206T120000Z/20270206T230000Z";
@@ -323,7 +280,7 @@ export const RSVPWizard: React.FC = () => {
   };
 
   const sharePass = () => {
-    const text = `¡Confirmado! Voy a la boda de Josefina & Lucas el 06.02.2027 en Valencia con el rol honorario de "${form.guestRole}".`;
+    const text = `¡Confirmado! Voy a la boda de Josefina & Lucas el 06.02.2027 en Valencia.`;
     if (navigator.share) {
       navigator.share({
         title: "Pase Oficial • Boda Josefina & Lucas",
@@ -376,7 +333,7 @@ export const RSVPWizard: React.FC = () => {
       {/* Step Tracker Indicator */}
       {!isCompleted && (
         <div className="flex items-center justify-between mb-6 px-3">
-          {[1, 2, 3, 4].map((s) => (
+          {[1, 2, 3].map((s) => (
             <div key={s} className="flex items-center flex-1 last:flex-none">
               <div
                 className={`w-7 h-7 rounded-full flex items-center justify-center font-mono-swiss text-xs transition-all ${
@@ -389,7 +346,7 @@ export const RSVPWizard: React.FC = () => {
               >
                 {step > s ? "✓" : s}
               </div>
-              {s < 4 && (
+              {s < 3 && (
                 <div
                   className={`h-0.5 flex-1 mx-2 transition-colors ${
                     step > s ? "bg-[var(--accent-gold)]" : "bg-black/10 dark:bg-white/10"
@@ -467,9 +424,9 @@ export const RSVPWizard: React.FC = () => {
 
                   <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/10">
                     <div>
-                      <span className="font-mono-swiss text-[9px] text-zinc-400">Rol honorario:</span>
-                      <p className="font-mono-swiss text-xs text-[#7c8f73] font-semibold">
-                        {form.guestRole}
+                      <span className="font-mono-swiss text-[9px] text-zinc-400">Menú / Dieta:</span>
+                      <p className="font-mono-swiss text-xs text-[#7c8f73] font-semibold truncate">
+                        {form.dietary.join(", ")}
                       </p>
                     </div>
                     <div>
@@ -542,7 +499,6 @@ export const RSVPWizard: React.FC = () => {
                       `✅ Asistencia: ${form.attendance === "yes" ? "SÍ voy" : "No puedo ir"}\n` +
                       (form.companion ? `👥 Acompañante: ${form.companion}\n` : "") +
                       (form.dietary?.length ? `🍽️ Menú/Alergias: ${form.dietary.join(", ")}\n` : "") +
-                      (form.guestRole ? `🎖️ Rol: ${form.guestRole}\n` : "") +
                       (form.songTitle ? `🎵 Canción: ${form.songTitle} ${form.songArtist ? `- ${form.songArtist}` : ""}\n` : "") +
                       (form.message ? `💬 Mensaje: "${form.message}"` : "")
                     );
@@ -562,7 +518,6 @@ export const RSVPWizard: React.FC = () => {
                       `✅ Asistencia: ${form.attendance === "yes" ? "SÍ voy" : "No puedo ir"}\n` +
                       (form.companion ? `👥 Acompañante: ${form.companion}\n` : "") +
                       (form.dietary?.length ? `🍽️ Menú/Alergias: ${form.dietary.join(", ")}\n` : "") +
-                      (form.guestRole ? `🎖️ Rol: ${form.guestRole}\n` : "") +
                       (form.songTitle ? `🎵 Canción: ${form.songTitle} ${form.songArtist ? `- ${form.songArtist}` : ""}\n` : "") +
                       (form.message ? `💬 Mensaje: "${form.message}"` : "")
                     );
@@ -748,75 +703,6 @@ export const RSVPWizard: React.FC = () => {
                       onClick={nextStep}
                       className="flex-1 py-3.5 rounded-xl bg-[var(--fg-primary)] text-[var(--bg-primary)] font-sans-ui text-sm font-semibold hover:bg-[var(--accent-gold)] hover:text-black transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                     >
-                      <span>Elegir rol honorario</span>
-                      <ArrowRight className="w-4 h-4" />
-                    </button>
-                  </div>
-                </motion.div>
-              )}
-
-              {/* STEP 3: Guest Role Selector */}
-              {step === 3 && (
-                <motion.div
-                  key="step-3"
-                  custom={direction}
-                  variants={stepVariants}
-                  initial="enter"
-                  animate="center"
-                  exit="exit"
-                  className="space-y-5"
-                >
-                  <div className="border-b border-[var(--card-border)] pb-3">
-                    <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic">
-                      Elige tu rol honorario
-                    </h3>
-                    <p className="font-sans-ui text-xs text-[var(--fg-muted)] mt-1">
-                      Aparecerá en tu pase digital personalizado.
-                    </p>
-                  </div>
-
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-                    {GUEST_ROLES.map((role) => {
-                      const isSelected = form.guestRole === role.title;
-                      return (
-                        <button
-                          key={role.id}
-                          type="button"
-                          onClick={() => handleRoleSelect(role.title)}
-                          className={`p-3.5 rounded-2xl border text-left transition-all cursor-pointer ${
-                            isSelected
-                              ? "border-[var(--accent-gold)] bg-[var(--accent-gold)]/15 ring-1 ring-[var(--accent-gold)]"
-                              : "border-[var(--card-border)] bg-black/[0.02] dark:bg-white/[0.02] hover:border-[var(--card-border-hover)]"
-                          }`}
-                        >
-                          <div className="flex items-center gap-2">
-                            <span className="text-xl">{role.emoji}</span>
-                            <span className="font-sans-ui text-xs sm:text-sm font-medium text-[var(--fg-primary)]">
-                              {role.title}
-                            </span>
-                          </div>
-                          <p className="font-sans-ui text-[11px] text-[var(--fg-muted)] mt-1 pl-7">
-                            {role.desc}
-                          </p>
-                        </button>
-                      );
-                    })}
-                  </div>
-
-                  <div className="flex items-center gap-3 pt-3">
-                    <button
-                      type="button"
-                      onClick={prevStep}
-                      className="px-4 py-3 rounded-xl border border-[var(--card-border)] hover:bg-black/5 dark:hover:bg-white/5 text-[var(--fg-primary)] font-sans-ui text-sm flex items-center gap-1.5 cursor-pointer"
-                    >
-                      <ArrowLeft className="w-4 h-4" />
-                      <span>Atrás</span>
-                    </button>
-                    <button
-                      type="button"
-                      onClick={nextStep}
-                      className="flex-1 py-3.5 rounded-xl bg-[var(--fg-primary)] text-[var(--bg-primary)] font-sans-ui text-sm font-semibold hover:bg-[var(--accent-gold)] hover:text-black transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
-                    >
                       <span>Siguiente: Música & Nota</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
@@ -824,10 +710,10 @@ export const RSVPWizard: React.FC = () => {
                 </motion.div>
               )}
 
-              {/* STEP 4: Song Recommendation & Notes */}
-              {step === 4 && (
+              {/* STEP 3: Song Recommendation & Notes */}
+              {step === 3 && (
                 <motion.div
-                  key="step-4"
+                  key="step-3"
                   custom={direction}
                   variants={stepVariants}
                   initial="enter"

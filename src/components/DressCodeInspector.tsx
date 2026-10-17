@@ -21,15 +21,15 @@ export interface LookItem {
 }
 
 const LOOKS: LookItem[] = [
-  // 1. Vestido drapeado con capa (Ellas - referencia usuaria)
+  // 1. Vestido drapeado con capa (Ellas - jardín y arcos)
   {
     id: "vestido-drapeado-teja",
     title: "Vestido drapeado con capa",
     subtitle: "Tono teja, cuello asimétrico y caída fluida",
     category: "ellas",
-    imageUrl: "/images/dresscode/media_1792228730311.webp",
+    imageUrl: "/images/dresscode/women_terracotta_cape.webp",
   },
-  // 2. Blazer camel & pantalón carbón (Ellos - foto usuaria)
+  // 2. Blazer camel & pantalón carbón (Ellos - cóctel con luces festoon)
   {
     id: "blazer-camel-lana",
     title: "Blazer camel & pantalón carbón",
@@ -37,15 +37,15 @@ const LOOKS: LookItem[] = [
     category: "ellos",
     imageUrl: "/images/dresscode/men_camel_blazer.webp",
   },
-  // 3. Mono halter satinado (Ellas - referencia usuaria)
+  // 3. Mono halter satinado (Ellas - patio con fuente y flores)
   {
     id: "mono-halter-petroleo",
     title: "Mono halter satinado",
     subtitle: "Azul petróleo fluido con escote halter",
     category: "ellas",
-    imageUrl: "/images/dresscode/media_1792228726490.webp",
+    imageUrl: "/images/dresscode/women_teal_jumpsuit.webp",
   },
-  // 4. Blazer verde oliva & chinos beige (Ellos - look generado)
+  // 4. Blazer verde oliva & chinos beige (Ellos - patio de piedra y mesas de boda)
   {
     id: "blazer-oliva-chinos",
     title: "Blazer verde oliva & chinos beige",
@@ -53,15 +53,15 @@ const LOOKS: LookItem[] = [
     category: "ellos",
     imageUrl: "/images/dresscode/men_olive_blazer.webp",
   },
-  // 5. Mono fluido mostaza (Ellas - referencia usuaria)
+  // 5. Mono fluido mostaza (Ellas - terraza ajardinada y banquete)
   {
     id: "mono-fluido-mostaza",
     title: "Mono fluido mostaza",
     subtitle: "Corte amplio con mangas kimono",
     category: "ellas",
-    imageUrl: "/images/dresscode/media_1792228734075.webp",
+    imageUrl: "/images/dresscode/women_mustard_jumpsuit.webp",
   },
-  // 6. Blazer tabaco & pantalón crudo (Ellos - look generado)
+  // 6. Blazer tabaco & pantalón crudo (Ellos - finca mediterránea)
   {
     id: "blazer-tabaco-crudo",
     title: "Blazer tabaco & pantalón crudo",
@@ -69,15 +69,15 @@ const LOOKS: LookItem[] = [
     category: "ellos",
     imageUrl: "/images/dresscode/men_tobacco_blazer.webp",
   },
-  // 7. Vestido pañuelo boho paisley (Ellas - referencia usuaria)
+  // 7. Dos piezas negro con capa (Ellas - terraza de cóctel)
   {
-    id: "vestido-panuelo-boho",
-    title: "Vestido pañuelo boho",
-    subtitle: "Estampado paisley con detalle al cuello",
+    id: "dos-piezas-negro",
+    title: "Dos piezas negro con capa",
+    subtitle: "Top chimenea, pantalón palazzo y sobrecapa asimétrica",
     category: "ellas",
-    imageUrl: "/images/dresscode/media_1792228717654.webp",
+    imageUrl: "/images/dresscode/women_black_sheer_set.webp",
   },
-  // 8. Blazer navy desestructurado (Ellos - look generado)
+  // 8. Blazer navy desestructurado (Ellos - cóctel al aire libre)
   {
     id: "blazer-navy-desestructurado",
     title: "Blazer navy desestructurado",
@@ -85,77 +85,45 @@ const LOOKS: LookItem[] = [
     category: "ellos",
     imageUrl: "/images/dresscode/men_navy_blazer.webp",
   },
-  // 9. Dos piezas negro con capa (Ellas - referencia usuaria)
-  {
-    id: "dos-piezas-negro",
-    title: "Dos piezas negro con capa",
-    subtitle: "Top bandeau, falda y sobrecapa asimétrica",
-    category: "ellas",
-    imageUrl: "/images/dresscode/media_1792228737768.webp",
-  },
-  // 10. Palabra de honor chocolate (Ellas - referencia usuaria)
+  // 9. Palabra de honor chocolate (Ellas - palacio histórico con balaustrada)
   {
     id: "palabra-honor-chocolate",
     title: "Palabra de honor chocolate",
     subtitle: "Corte midi con pliegue de gasa fluido",
     category: "ellas",
-    imageUrl: "/images/dresscode/media_1792228752805.webp",
+    imageUrl: "/images/dresscode/women_chocolate_dress.webp",
   },
-  // 11. Chaqueta terciopelo ciruela (Ellas - referencia usuaria)
-  {
-    id: "chaqueta-terciopelo-ciruela",
-    title: "Chaqueta terciopelo ciruela",
-    subtitle: "Combinada con vestido fluido en malva",
-    category: "ellas",
-    imageUrl: "/images/dresscode/media_1792228770094.webp",
-  },
-  // 12. Top corsé & falda vaporosa (Ellas - referencia usuaria)
+  // 10. Top corsé & falda vaporosa (Ellas - mirador con invitados)
   {
     id: "corse-azul-marino",
     title: "Top corsé & falda vaporosa",
     subtitle: "Azul marino con volumen y movimiento",
     category: "ellas",
-    imageUrl: "/images/dresscode/media_1792228766277.webp",
+    imageUrl: "/images/dresscode/women_navy_corset.webp",
   },
-  // 13. Túnica bicolor & palazzo (Ellas - referencia usuaria)
+  // 11. Chaqueta terciopelo ciruela (Ellas - patio señorial con buganvillas)
+  {
+    id: "chaqueta-terciopelo-ciruela",
+    title: "Chaqueta terciopelo ciruela",
+    subtitle: "Combinada con vestido fluido en malva",
+    category: "ellas",
+    imageUrl: "/images/dresscode/women_velvet_plum.webp",
+  },
+  // 12. Túnica bicolor & palazzo (Ellas - calle empedrada camino a la ceremonia)
   {
     id: "tunica-petroleo-palazzo",
     title: "Túnica bicolor & palazzo",
     subtitle: "Azul petróleo y fucsia sobre pantalón fluido",
     category: "ellas",
-    imageUrl: "/images/dresscode/media_1792228777623.webp",
+    imageUrl: "/images/dresscode/women_teal_burgundy.webp",
   },
-  // 14. Top halter & falda satinada (Ellas - referencia usuaria)
-  {
-    id: "top-halter-falda-seda",
-    title: "Top halter & falda satinada",
-    subtitle: "Combinación bicolor teja y crema",
-    category: "ellas",
-    imageUrl: "/images/dresscode/media_1792228800277.webp",
-  },
-  // 15. Túnica burdeos & pantalón blanco (Ellas - referencia usuaria)
-  {
-    id: "tunica-burdeos-blanco",
-    title: "Túnica burdeos & pantalón blanco",
-    subtitle: "Líneas rectas depuradas y contraste nítido",
-    category: "ellas",
-    imageUrl: "/images/dresscode/media_1792228795601.webp",
-  },
-  // 16. Top asimétrico & pantalón ancho (Ellas - referencia usuaria)
+  // 13. Top asimétrico & pantalón ancho (Ellas - patio mediterráneo luminoso)
   {
     id: "top-asimetrico-palazzo",
     title: "Top asimétrico & pantalón ancho",
     subtitle: "Tonos tierra, hombro al descubierto y caída",
     category: "ellas",
-    imageUrl: "/images/dresscode/media_1792228781585.webp",
-  },
-  // 17. Vestido lencero verde oliva (Ellas - referencia usuaria)
-  {
-    id: "vestido-lencero-oliva",
-    title: "Vestido lencero verde oliva",
-    subtitle: "Satinado con sobreprenda transparente",
-    category: "ellas",
-    imageUrl: "/images/dresscode/media_1792228805529.webp",
+    imageUrl: "/images/dresscode/women_draped_top_palazzo.webp",
   },
 ];
 
