@@ -8,7 +8,6 @@ import {
   ChevronRight,
   Maximize2,
   X,
-  Sparkles,
 } from "lucide-react";
 
 export type CategoryType = "todos" | "ellas" | "ellos";
@@ -204,11 +203,6 @@ export const DressCodeInspector: React.FC = () => {
     <section className="relative w-full max-w-6xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="text-center space-y-3 mb-8">
-        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono-swiss tracking-wider text-white/90 bg-white/10 border border-white/20 backdrop-blur-md">
-          <Sparkles className="w-3.5 h-3.5 text-amber-200" />
-          Guía de Estilo & Lookbook
-        </span>
-
         <h2 className="font-serif-editorial text-4xl sm:text-5xl lg:text-6xl text-[var(--fg-primary)] italic tracking-tight">
           Dress Code
         </h2>

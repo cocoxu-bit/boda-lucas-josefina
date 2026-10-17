@@ -33,21 +33,21 @@ const STOPS: TimelineStop[] = [
     stepNumber: "02",
     title: "La Ceremonia Civil",
     location: "Palacios de Monforte",
-    description: "Firma civil, votos breves, música y salida con lluvia de confeti.",
+    description: "Firma civil, votos breves y a hacerse fotos.",
   },
   {
     time: "14:15",
     stepNumber: "03",
     title: "Camino hacia Veneno",
     location: "Centro de Valencia",
-    description: "Paseo a pie o taxi rápido de 8 minutos por el centro de la ciudad. Sin traslados largos ni esperas.",
+    description: "Paseo a pie de media hora o taxi rápido de 8 minutos por el centro de la ciudad.",
   },
   {
     time: "14:45",
     stepNumber: "04",
     title: "Apertura del Cóctel Largo",
     location: "Veneno Bar & Club",
-    description: "Comida gourmet continua servida por camareros, bebida y cócteles de autor desde el primer minuto. Todo dinámico y de pie.",
+    description: "Comida continua servida por camareros, bebida y cócteles desde el primer minuto. Todo dinámico y de pie.",
     venueKey: "veneno",
     imageUrl: "/images/veneno-bar.jpg",
     imageAlt: "Veneno Bar Valencia",
@@ -57,7 +57,7 @@ const STOPS: TimelineStop[] = [
     stepNumber: "05",
     title: "Tardeo, DJ & Baile",
     location: "Veneno",
-    description: "Luces bajas, buena música (indie, disco, funk) y fiesta continua.",
+    description: "Luces bajas, buena música y fiesta continua.",
   },
 ];
 
