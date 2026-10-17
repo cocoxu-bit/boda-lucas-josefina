@@ -221,28 +221,28 @@ export default function AdminPage() {
   // 1. LOGIN SCREEN
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#09090b] text-[#f4f4f5] flex items-center justify-center p-4 selection:bg-[#dfb15b] selection:text-black">
+      <div className="min-h-screen bg-[#0d130e] text-[#f2f6f0] flex items-center justify-center p-4 selection:bg-[#8fae78] selection:text-black">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="w-full max-w-md p-7 sm:p-9 rounded-3xl bg-[#141417] border border-[#27272a] shadow-2xl text-center space-y-6"
+          className="w-full max-w-md p-7 sm:p-9 rounded-3xl bg-[#141d15] border border-[#8fae78]/25 shadow-2xl text-center space-y-6"
         >
           {/* Lock Icon & Monogram */}
           <div className="flex flex-col items-center space-y-2">
-            <div className="w-14 h-14 rounded-full bg-[#dfb15b]/10 border border-[#dfb15b]/30 flex items-center justify-center shadow-lg">
-              <Lock className="w-6 h-6 text-[#dfb15b]" />
+            <div className="w-14 h-14 rounded-full bg-[#8fae78]/10 border border-[#8fae78]/30 flex items-center justify-center shadow-lg">
+              <Lock className="w-6 h-6 text-[#8fae78]" />
             </div>
             <h1 className="font-serif-editorial text-4xl text-white italic pt-2">
               Josefina & Lucas
             </h1>
-            <span className="font-mono-swiss text-[11px] tracking-wider text-zinc-400">
+            <span className="font-mono-swiss text-[11px] tracking-wider text-[#9baea0]">
               Panel Privado de Gestión RSVP
             </span>
           </div>
 
           <form onSubmit={handleLogin} className="space-y-4">
             <div className="space-y-1.5 text-left">
-              <label className="block font-mono-swiss text-xs tracking-wider text-zinc-400">
+              <label className="block font-mono-swiss text-xs tracking-wider text-[#9baea0]">
                 Contraseña de acceso
               </label>
               <div className="relative">
@@ -253,7 +253,7 @@ export default function AdminPage() {
                   placeholder="Introduce la contraseña..."
                   required
                   autoFocus
-                  className="w-full px-4 py-3 rounded-xl bg-black/40 border border-[#3f3f46] text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#dfb15b] transition-colors"
+                  className="w-full px-4 py-3 rounded-xl bg-black/40 border border-[#8fae78]/30 text-sm text-white placeholder-[#9baea0]/60 focus:outline-none focus:border-[#8fae78] transition-colors"
                 />
               </div>
             </div>
@@ -267,7 +267,7 @@ export default function AdminPage() {
             <button
               type="submit"
               disabled={isLoading}
-              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#c28835] via-[#dfb15b] to-[#c28835] text-black font-mono-swiss text-xs font-bold tracking-wider hover:opacity-95 transition-all shadow-lg active:scale-95 disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
+              className="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#6e875a] via-[#bad1a5] to-[#6e875a] text-black font-mono-swiss text-xs font-bold tracking-wider hover:opacity-95 transition-all shadow-lg active:scale-95 disabled:opacity-50 cursor-pointer flex items-center justify-center gap-2"
             >
               {isLoading ? (
                 <span>Comprobando acceso...</span>
@@ -281,7 +281,7 @@ export default function AdminPage() {
           </form>
 
           <p className="font-mono-swiss text-[10px] text-zinc-500">
-            Contraseña por defecto: <code className="text-[#dfb15b]">boda2027</code>
+            Contraseña por defecto: <code className="text-[#8fae78]">boda2027</code>
           </p>
         </motion.div>
       </div>
@@ -290,20 +290,20 @@ export default function AdminPage() {
 
   // 2. MAIN ADMIN DASHBOARD
   return (
-    <div className="min-h-screen bg-[#09090b] text-[#f4f4f5] p-4 sm:p-8 selection:bg-[#dfb15b] selection:text-black">
+    <div className="min-h-screen bg-[#0d130e] text-[#f2f6f0] p-4 sm:p-8 selection:bg-[#8fae78] selection:text-black">
       <div className="max-w-6xl mx-auto space-y-8">
         {/* Top Bar Navigation */}
-        <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-[#27272a]">
+        <header className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pb-6 border-b border-[#8fae78]/20">
           <div>
             <div className="flex items-center gap-2">
               <span className="font-serif-editorial text-3xl sm:text-4xl text-white italic">
                 Josefina & Lucas
               </span>
-              <span className="px-2 py-0.5 rounded-full bg-[#dfb15b]/10 border border-[#dfb15b]/30 font-mono-swiss text-[10px] text-[#dfb15b] tracking-wider">
+              <span className="px-2 py-0.5 rounded-full bg-[#8fae78]/10 border border-[#8fae78]/30 font-mono-swiss text-[10px] text-[#8fae78] tracking-wider">
                 Admin
               </span>
             </div>
-            <p className="font-mono-swiss text-xs text-zinc-400 mt-1">
+            <p className="font-mono-swiss text-xs text-[#9baea0] mt-1">
               Control de asistencia para la boda del 6 de febrero de 2027
             </p>
           </div>
@@ -312,16 +312,16 @@ export default function AdminPage() {
             <button
               onClick={() => fetchSubmissions()}
               disabled={isLoading}
-              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#18181b] border border-[#27272a] hover:border-[#dfb15b]/40 text-xs font-mono-swiss text-zinc-300 transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#141d15] border border-[#8fae78]/25 hover:border-[#8fae78]/60 text-xs font-mono-swiss text-zinc-300 transition-colors cursor-pointer"
               title="Refrescar lista"
             >
-              <RefreshCw className={`w-3.5 h-3.5 text-[#dfb15b] ${isLoading ? "animate-spin" : ""}`} />
+              <RefreshCw className={`w-3.5 h-3.5 text-[#8fae78] ${isLoading ? "animate-spin" : ""}`} />
               <span className="hidden sm:inline">Refrescar</span>
             </button>
 
             <button
               onClick={exportToCSV}
-              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-mono-swiss font-semibold tracking-wide transition-all shadow-md active:scale-95 cursor-pointer"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white text-xs font-mono-swiss font-semibold tracking-wide transition-all shadow-md active:scale-95 cursor-pointer"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Exportar Excel (CSV)</span>
@@ -340,23 +340,23 @@ export default function AdminPage() {
         {/* METRICS OVERVIEW CARDS */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5 sm:gap-5">
           {/* Card 1: Total Asistentes Confirmados */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#141417] border border-[#27272a] space-y-1">
-            <span className="font-mono-swiss text-[10px] tracking-wider text-zinc-400 block">
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#141d15] border border-[#8fae78]/20 space-y-1">
+            <span className="font-mono-swiss text-[10px] tracking-wider text-[#9baea0] block">
               Total Personas (SÍ)
             </span>
             <div className="flex items-baseline gap-2">
-              <span className="font-serif-editorial text-4xl sm:text-5xl text-[#dfb15b]">
+              <span className="font-serif-editorial text-4xl sm:text-5xl text-[#8fae78]">
                 {stats.totalAttendees}
               </span>
-              <span className="font-mono-swiss text-xs text-zinc-400">
+              <span className="font-mono-swiss text-xs text-[#9baea0]">
                 ({stats.confirmedYes} titulares + {stats.totalCompanions} acomp.)
               </span>
             </div>
           </div>
 
           {/* Card 2: No Asisten */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#141417] border border-[#27272a] space-y-1">
-            <span className="font-mono-swiss text-[10px] tracking-wider text-zinc-400 block">
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#141d15] border border-[#8fae78]/20 space-y-1">
+            <span className="font-mono-swiss text-[10px] tracking-wider text-[#9baea0] block">
               No pueden venir
             </span>
             <div className="flex items-baseline gap-2">
@@ -368,34 +368,34 @@ export default function AdminPage() {
           </div>
 
           {/* Card 3: Menús Especiales */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#141417] border border-[#27272a] space-y-1">
-            <span className="font-mono-swiss text-[10px] tracking-wider text-zinc-400 block">
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#141d15] border border-[#8fae78]/20 space-y-1">
+            <span className="font-mono-swiss text-[10px] tracking-wider text-[#9baea0] block">
               Alergias / Menús Especiales
             </span>
             <div className="flex items-baseline gap-2">
               <span className="font-serif-editorial text-4xl sm:text-5xl text-amber-400">
                 {stats.dietaryCount}
               </span>
-              <span className="font-mono-swiss text-xs text-zinc-400">para catering</span>
+              <span className="font-mono-swiss text-xs text-[#9baea0]">para catering</span>
             </div>
           </div>
 
           {/* Card 4: Canciones DJ */}
-          <div className="p-4 sm:p-5 rounded-2xl bg-[#141417] border border-[#27272a] space-y-1">
-            <span className="font-mono-swiss text-[10px] tracking-wider text-zinc-400 block">
+          <div className="p-4 sm:p-5 rounded-2xl bg-[#141d15] border border-[#8fae78]/20 space-y-1">
+            <span className="font-mono-swiss text-[10px] tracking-wider text-[#9baea0] block">
               Temazos para Veneno
             </span>
             <div className="flex items-baseline gap-2">
               <span className="font-serif-editorial text-4xl sm:text-5xl text-emerald-400">
                 {stats.songsCount}
               </span>
-              <span className="font-mono-swiss text-xs text-zinc-400">peticiones</span>
+              <span className="font-mono-swiss text-xs text-[#9baea0]">peticiones</span>
             </div>
           </div>
         </div>
 
         {/* SEARCH AND FILTERS TOOLBAR */}
-        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-3 rounded-2xl bg-[#141417] border border-[#27272a]">
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3 p-3 rounded-2xl bg-[#141d15] border border-[#8fae78]/20">
           {/* Search bar */}
           <div className="relative flex-1">
             <Search className="w-4 h-4 text-zinc-400 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -404,7 +404,7 @@ export default function AdminPage() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Buscar por nombre, teléfono, rol o canción..."
-              className="w-full pl-9 pr-4 py-2 rounded-xl bg-black/40 border border-[#27272a] text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#dfb15b] transition-colors"
+              className="w-full pl-9 pr-4 py-2 rounded-xl bg-black/40 border border-[#8fae78]/25 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#8fae78] transition-colors"
             />
           </div>
 
@@ -413,7 +413,7 @@ export default function AdminPage() {
             <button
               onClick={() => setFilterType("all")}
               className={`px-3 py-1.5 rounded-lg text-xs font-mono-swiss transition-colors cursor-pointer shrink-0 ${
-                filterType === "all" ? "bg-[#dfb15b] text-black font-semibold" : "bg-black/30 text-zinc-400 hover:text-white"
+                filterType === "all" ? "bg-[#8fae78] text-black font-semibold" : "bg-black/30 text-zinc-400 hover:text-white"
               }`}
             >
               Todos ({submissions.length})
@@ -455,12 +455,12 @@ export default function AdminPage() {
 
         {/* SUBMISSIONS LIST / TABLE */}
         {filteredSubmissions.length === 0 ? (
-          <div className="p-12 text-center rounded-3xl bg-[#141417] border border-[#27272a] space-y-2">
+          <div className="p-12 text-center rounded-3xl bg-[#141d15] border border-[#8fae78]/20 space-y-2">
             <Users className="w-8 h-8 text-zinc-500 mx-auto" />
             <h3 className="font-serif-editorial text-2xl text-white italic">
               {submissions.length === 0 ? "Todavía no hay respuestas" : "No hay resultados para este filtro"}
             </h3>
-            <p className="font-mono-swiss text-xs text-zinc-400 max-w-sm mx-auto">
+            <p className="font-mono-swiss text-xs text-[#9baea0] max-w-sm mx-auto">
               {submissions.length === 0
                 ? "En cuanto los invitados completen el formulario RSVP en la web, aparecerán aquí automáticamente."
                 : "Prueba a cambiar o borrar el término de búsqueda."}
@@ -475,7 +475,7 @@ export default function AdminPage() {
               return (
                 <div
                   key={s.id}
-                  className="p-5 rounded-2xl bg-[#141417] border border-[#27272a] hover:border-[#3f3f46] transition-all space-y-4"
+                  className="p-5 rounded-2xl bg-[#141d15] border border-[#8fae78]/20 hover:border-[#8fae78]/40 transition-all space-y-4"
                 >
                   {/* Top Row: Name, Status, Companion & WhatsApp Action */}
                   <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
@@ -497,7 +497,7 @@ export default function AdminPage() {
                         </span>
 
                         {s.guestRole && (
-                          <span className="px-2.5 py-0.5 rounded-full bg-[#dfb15b]/10 border border-[#dfb15b]/30 font-mono-swiss text-[11px] text-[#dfb15b]">
+                          <span className="px-2.5 py-0.5 rounded-full bg-[#8fae78]/10 border border-[#8fae78]/30 font-mono-swiss text-[11px] text-[#8fae78]">
                             {s.guestRole}
                           </span>
                         )}

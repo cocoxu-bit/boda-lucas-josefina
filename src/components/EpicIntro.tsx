@@ -194,9 +194,9 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
         initial={{ y: 0 }}
         animate={{ y: isWarping ? "-100%" : 0 }}
         transition={{ duration: 1.05, ease: [0.77, 0, 0.175, 1] }}
-        className="absolute top-0 left-0 w-full h-1/2 bg-[#09090b] border-b border-[#dfb15b]/20 shadow-2xl z-20"
+        className="absolute top-0 left-0 w-full h-1/2 bg-[#0d130e] border-b border-[#8fae78]/25 shadow-2xl z-20"
       >
-        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#dfb15b_1px,transparent_1px)] [background-size:24px_24px]" />
+        <div className="absolute inset-0 opacity-[0.035] bg-[radial-gradient(#8fae78_1px,transparent_1px)] [background-size:24px_24px]" />
       </motion.div>
 
       {/* 2. BOTTOM SHUTTER PANEL */}
@@ -204,13 +204,13 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
         initial={{ y: 0 }}
         animate={{ y: isWarping ? "100%" : 0 }}
         transition={{ duration: 1.05, ease: [0.77, 0, 0.175, 1] }}
-        className="absolute bottom-0 left-0 w-full h-1/2 bg-[#09090b] border-t border-[#dfb15b]/20 shadow-2xl z-20"
+        className="absolute bottom-0 left-0 w-full h-1/2 bg-[#0d130e] border-t border-[#8fae78]/25 shadow-2xl z-20"
       >
-        <div className="absolute inset-0 opacity-[0.03] bg-[radial-gradient(#dfb15b_1px,transparent_1px)] [background-size:24px_24px]" />
+        <div className="absolute inset-0 opacity-[0.035] bg-[radial-gradient(#8fae78_1px,transparent_1px)] [background-size:24px_24px]" />
       </motion.div>
 
       {/* 3. RADIAL BACKSTAGE SPOTLIGHT */}
-      <div className="absolute inset-0 z-20 bg-[radial-gradient(circle_at_center,_rgba(223,177,91,0.12)_0%,_transparent_65%)] pointer-events-none" />
+      <div className="absolute inset-0 z-20 bg-[radial-gradient(circle_at_center,_rgba(143,174,120,0.16)_0%,_transparent_65%)] pointer-events-none" />
 
       {/* 4. MAIN MINIGAME STAGE */}
       <motion.div
@@ -261,15 +261,15 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
             }}
             className="relative flex flex-col items-center"
           >
-            {/* Ambient golden glow behind jar */}
+            {/* Ambient golden/olive glow behind jar */}
             <div
               className={`absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full blur-[45px] pointer-events-none transition-all duration-700 ${
                 isBlending
-                  ? "w-72 h-72 bg-[#dfb15b]/50"
+                  ? "w-72 h-72 bg-[#8fae78]/50"
                   : isHoveringBlender
-                  ? "w-64 h-64 bg-[#dfb15b]/30"
+                  ? "w-64 h-64 bg-[#8fae78]/30"
                   : isReadyToBlend
-                  ? "w-56 h-56 bg-[#dfb15b]/20"
+                  ? "w-56 h-56 bg-[#8fae78]/20"
                   : "w-40 h-40 bg-white/5"
               }`}
             />
@@ -295,9 +295,9 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                 }}
                 className={`relative w-44 h-52 sm:w-50 sm:h-56 border-2 transition-all duration-300 backdrop-blur-md overflow-hidden shadow-2xl flex flex-col justify-end p-3 ${
                   isHoveringBlender
-                    ? "border-[#dfb15b] bg-white/[0.14] shadow-[0_0_40px_rgba(223,177,91,0.4)]"
+                    ? "border-[#8fae78] bg-white/[0.14] shadow-[0_0_40px_rgba(143,174,120,0.45)]"
                     : isReadyToBlend
-                    ? "border-[#dfb15b]/60 bg-gradient-to-b from-white/12 via-white/[0.05] to-white/12"
+                    ? "border-[#8fae78]/60 bg-gradient-to-b from-white/12 via-white/[0.05] to-white/12"
                     : "border-white/25 bg-gradient-to-b from-white/10 via-white/[0.04] to-white/10"
                 }`}
               >
@@ -309,7 +309,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
 
                 {/* Glass Measurement Ticks */}
                 <div className="absolute right-4 top-4 bottom-14 flex flex-col justify-between items-end opacity-45 font-mono-swiss text-[8px] text-white pointer-events-none">
-                  <span className="text-[7.5px] text-[#dfb15b] font-semibold">max 1.5l</span>
+                  <span className="text-[7.5px] text-[#8fae78] font-semibold">max 1.5l</span>
                   <span>— 1.0l</span>
                   <span>— 0.5l</span>
                   <span>— 250ml</span>
@@ -322,7 +322,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                       initial={{ opacity: 0, y: -8 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0 }}
-                      className="absolute inset-x-4 top-4 py-1 rounded-xl bg-[#dfb15b]/25 border border-[#dfb15b]/60 text-center font-mono-swiss text-[10px] text-[#f5d58f] z-20"
+                      className="absolute inset-x-4 top-4 py-1 rounded-xl bg-[#8fae78]/25 border border-[#8fae78]/60 text-center font-mono-swiss text-[10px] text-[#dce7d6] z-20"
                     >
                       ¡suelta dentro!
                     </motion.div>
@@ -335,7 +335,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                     initial={{ opacity: 0, scaleY: 0 }}
                     animate={{ opacity: 1, scaleY: 1 }}
                     transition={{ duration: 0.3 }}
-                    className="absolute inset-0 bg-gradient-to-t from-[#dfb15b]/85 via-[#fcedc7]/65 to-transparent flex items-center justify-center overflow-hidden z-20"
+                    className="absolute inset-0 bg-gradient-to-t from-[#8fae78]/85 via-[#dce7d6]/65 to-transparent flex items-center justify-center overflow-hidden z-20"
                   >
                     <motion.div
                       animate={{ rotate: 1440 }}
@@ -423,8 +423,8 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
             </div>
 
             {/* BLENDER MOTOR BASE WITH ANALOG DIAL */}
-            <div className="relative w-38 sm:w-44 h-15 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-950 rounded-b-2xl border-t-2 border-zinc-500 shadow-2xl flex items-center justify-between px-4">
-              <span className="font-serif-editorial text-xs text-[#dfb15b] italic">
+            <div className="relative w-38 sm:w-44 h-15 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-950 rounded-b-2xl border-t-2 border-[#8fae78]/40 shadow-2xl flex items-center justify-between px-4">
+              <span className="font-serif-editorial text-xs text-[#8fae78] italic">
                 j & l
               </span>
 
@@ -434,7 +434,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                   animate={isBlending ? { rotate: 90 } : {}}
                   className="w-8 h-8 rounded-full bg-zinc-900 border-2 border-zinc-600 flex items-center justify-center shadow-inner cursor-pointer"
                 >
-                  <div className="w-1 h-3.5 bg-[#dfb15b] rounded-full" />
+                  <div className="w-1 h-3.5 bg-[#8fae78] rounded-full" />
                 </motion.div>
                 <span className="font-mono-swiss text-[7px] text-zinc-400 mt-0.5">
                   0 • 1 • 2 • pulse
@@ -464,7 +464,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                     onDrag={handleDrag}
                     onDragEnd={(e, info) => handleDragEnd(item.id, e, info)}
                     onClick={() => handleAddIngredient(item.id)}
-                    className="w-full p-2.5 sm:p-3.5 rounded-2xl border border-white/20 bg-[#141418] hover:border-[#dfb15b]/60 shadow-xl cursor-grab active:cursor-grabbing flex flex-col items-center gap-1 transition-colors touch-none select-none group"
+                    className="w-full p-2.5 sm:p-3.5 rounded-2xl border border-[#8fae78]/25 bg-[#141d15] hover:border-[#8fae78]/60 shadow-xl cursor-grab active:cursor-grabbing flex flex-col items-center gap-1 transition-colors touch-none select-none group"
                     title={`Arrastra ${item.name} a la licuadora`}
                   >
                     <div className="transform group-hover:scale-110 transition-transform">
@@ -498,7 +498,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
             whileTap={isReadyToBlend ? { scale: 0.97 } : {}}
             className={`w-full relative flex items-center justify-center gap-2.5 py-3 sm:py-3.5 px-6 rounded-full font-mono-swiss text-xs sm:text-sm font-semibold transition-all overflow-hidden ${
               isReadyToBlend
-                ? "bg-gradient-to-r from-[#dfb15b] via-[#f7e3af] to-[#dfb15b] text-black shadow-[0_0_30px_rgba(223,177,91,0.6)] hover:shadow-[0_0_45px_rgba(223,177,91,0.85)] cursor-pointer"
+                ? "bg-gradient-to-r from-[#6e875a] via-[#bad1a5] to-[#6e875a] text-black shadow-[0_0_30px_rgba(143,174,120,0.6)] hover:shadow-[0_0_45px_rgba(143,174,120,0.85)] cursor-pointer"
                 : "bg-zinc-800 text-zinc-500 border border-zinc-700 cursor-not-allowed opacity-60"
             }`}
           >

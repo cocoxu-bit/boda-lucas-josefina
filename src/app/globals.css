@@ -3,42 +3,25 @@
 
 @layer base {
   :root,
-  .dark {
-    --bg-primary: #09090b;
-    --fg-primary: #f4f4f6;
-    --fg-muted: #a1a1aa;
-    --accent-gold: #dfb15b;
-    --accent-gold-hover: #e8c37d;
-    --accent-warm: #f3ece2;
-    --card-bg: rgba(18, 18, 22, 0.72);
-    --card-border: rgba(255, 255, 255, 0.08);
-    --card-border-hover: rgba(255, 255, 255, 0.18);
-    --glass-bg: rgba(18, 18, 22, 0.75);
-    --glass-border: rgba(255, 255, 255, 0.1);
-    --chip-bg: rgba(255, 255, 255, 0.04);
-    --chip-border: rgba(255, 255, 255, 0.1);
-    --chip-text: #e4e4e7;
-    --clock-bg: rgba(10, 10, 12, 0.85);
-    --noise-opacity: 0.038;
-  }
-
+  .dark,
   .theme-warm {
-    --bg-primary: #faf8f5;
-    --fg-primary: #1c1917;
-    --fg-muted: #78716c;
-    --accent-gold: #c28835;
-    --accent-gold-hover: #b45309;
-    --accent-warm: #44403c;
-    --card-bg: rgba(255, 255, 255, 0.88);
-    --card-border: rgba(28, 25, 23, 0.09);
-    --card-border-hover: rgba(194, 136, 53, 0.35);
-    --glass-bg: rgba(250, 248, 245, 0.88);
-    --glass-border: rgba(28, 25, 23, 0.12);
-    --chip-bg: rgba(28, 25, 23, 0.04);
-    --chip-border: rgba(28, 25, 23, 0.1);
-    --chip-text: #292524;
-    --clock-bg: rgba(255, 255, 255, 0.95);
-    --noise-opacity: 0.025;
+    --bg-primary: #0d130e;
+    --fg-primary: #f2f6f0;
+    --fg-muted: #9baea0;
+    --accent-gold: #8fae78;
+    --accent-olive: #8fae78;
+    --accent-gold-hover: #a3c28c;
+    --accent-warm: #dce7d6;
+    --card-bg: rgba(20, 28, 20, 0.74);
+    --card-border: rgba(143, 174, 120, 0.15);
+    --card-border-hover: rgba(163, 194, 140, 0.30);
+    --glass-bg: rgba(18, 26, 18, 0.82);
+    --glass-border: rgba(143, 174, 120, 0.18);
+    --chip-bg: rgba(143, 174, 120, 0.08);
+    --chip-border: rgba(143, 174, 120, 0.22);
+    --chip-text: #e2ede0;
+    --clock-bg: rgba(13, 20, 14, 0.88);
+    --noise-opacity: 0.038;
   }
 
   * {

@@ -68,13 +68,13 @@ export const ScratchSecrets: React.FC = () => {
     // Reset composite operation to draw the foil
     ctx.globalCompositeOperation = "source-over";
 
-    // 1. Rich Metallic Champagne Gold Gradient (45° diagonal sheen)
+    // 1. Rich Metallic Satin Olive & Sage Foil Gradient (45° diagonal sheen)
     const goldGradient = ctx.createLinearGradient(0, 0, width, height);
-    goldGradient.addColorStop(0, "#c28835");
-    goldGradient.addColorStop(0.25, "#e5bc68");
-    goldGradient.addColorStop(0.5, "#f7e3af");
-    goldGradient.addColorStop(0.75, "#dfb15b");
-    goldGradient.addColorStop(1, "#b37626");
+    goldGradient.addColorStop(0, "#556b46");
+    goldGradient.addColorStop(0.25, "#7a9668");
+    goldGradient.addColorStop(0.5, "#bad1a5");
+    goldGradient.addColorStop(0.75, "#8fae78");
+    goldGradient.addColorStop(1, "#445738");
     ctx.fillStyle = goldGradient;
     ctx.fillRect(0, 0, width, height);
 
@@ -92,18 +92,18 @@ export const ScratchSecrets: React.FC = () => {
       }
     }
 
-    // 3. Delicate Inset Gold & White Double Frame
+    // 3. Delicate Inset Olive & White Double Frame
     ctx.strokeStyle = "rgba(255, 255, 255, 0.45)";
     ctx.lineWidth = 1;
     ctx.strokeRect(8, 8, width - 16, height - 16);
 
-    ctx.strokeStyle = "rgba(90, 55, 10, 0.25)";
+    ctx.strokeStyle = "rgba(35, 50, 25, 0.25)";
     ctx.lineWidth = 1;
     ctx.strokeRect(12, 12, width - 24, height - 24);
 
     // Corner decorative accents
     const markLen = 10;
-    ctx.strokeStyle = "rgba(70, 40, 5, 0.4)";
+    ctx.strokeStyle = "rgba(35, 50, 25, 0.4)";
     ctx.lineWidth = 1.5;
     // Top-Left
     ctx.beginPath();
@@ -130,36 +130,36 @@ export const ScratchSecrets: React.FC = () => {
     ctx.lineTo(width - 8, height - 8 - markLen);
     ctx.stroke();
 
-    // 4. Center Gold Foil Monogram Emblem
+    // 4. Center Olive Foil Monogram Emblem
     const centerX = width / 2;
     const centerY = height / 2;
 
-    // Outer subtle gold seal circle
+    // Outer subtle olive seal circle
     ctx.beginPath();
     ctx.arc(centerX, centerY - 14, 26, 0, Math.PI * 2);
-    ctx.fillStyle = "rgba(255, 255, 255, 0.18)";
+    ctx.fillStyle = "rgba(255, 255, 255, 0.22)";
     ctx.fill();
-    ctx.strokeStyle = "rgba(70, 40, 5, 0.35)";
+    ctx.strokeStyle = "rgba(35, 50, 25, 0.35)";
     ctx.lineWidth = 1.5;
     ctx.stroke();
 
     // Inner embossed monogram
-    ctx.fillStyle = "#3d2708";
+    ctx.fillStyle = "#1e2b19";
     ctx.font = `italic 600 18px "Instrument Serif", Georgia, serif`;
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText("J & L", centerX, centerY - 13);
 
-    // 5. Elegant Embossed Letterpress Typography on Gold Foil
-    ctx.fillStyle = "#352206";
+    // 5. Elegant Embossed Letterpress Typography on Olive Foil
+    ctx.fillStyle = "#182414";
     ctx.font = `600 10.5px monospace`;
     ctx.fillText("Tarjeta rasca • Edición limitada", centerX, centerY + 24);
 
-    ctx.fillStyle = "#4a320c";
+    ctx.fillStyle = "#273b20";
     ctx.font = `italic 14px "Instrument Serif", Georgia, serif`;
     ctx.fillText("Rasca con el dedo para desvelar la historia", centerX, centerY + 42);
 
-    ctx.fillStyle = "rgba(70, 45, 10, 0.65)";
+    ctx.fillStyle = "rgba(35, 50, 25, 0.65)";
     ctx.font = `500 9.5px monospace`;
     ctx.fillText("06 • 02 • 2027", centerX, centerY + 58);
 
@@ -219,12 +219,12 @@ export const ScratchSecrets: React.FC = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       }
     }
-    // High-end champagne gold confetti celebration
+    // High-end olive & sage confetti celebration
     confetti({
       particleCount: 30,
       spread: 65,
       origin: { y: 0.65 },
-      colors: ["#dfb15b", "#ffffff", "#c28835", "#e8c37d"],
+      colors: ["#8fae78", "#ffffff", "#bad1a5", "#a3c28c"],
     });
   };
 
@@ -409,7 +409,7 @@ export const ScratchSecrets: React.FC = () => {
 
             <button
               onClick={handleNextSecret}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--accent-gold)] text-black hover:bg-[#e8c37d] active:scale-95 text-xs font-mono font-semibold transition-all shadow-sm cursor-pointer"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--accent-gold)] text-black hover:bg-[#bad1a5] active:scale-95 text-xs font-mono font-semibold transition-all shadow-sm cursor-pointer"
             >
               <RefreshCw className="w-3.5 h-3.5 text-black" />
               <span>Siguiente</span>
