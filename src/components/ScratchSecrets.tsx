@@ -14,19 +14,19 @@ interface SecretCard {
 const SECRETS: SecretCard[] = [
   {
     id: "secret-veneno",
-    number: "01",
+    number: "1ª anécdota",
     title: "¿Por qué Veneno?",
     story: "Visitamos tres sitios tradicionales con solomillo y violín de fondo. Dijimos: 'nosotros no somos esto', y nos fuimos a celebrarlo con cócteles a Veneno. Esa misma tarde supimos que la boda sería aquí.",
   },
   {
     id: "secret-first-date",
-    number: "02",
+    number: "2ª anécdota",
     title: "La primera cita",
     story: "Quedamos para una caña rápida y terminamos a las 04:30 de la mañana debatiendo música indie con los camareros en Ruzafa. Desde ese día no nos hemos separado.",
   },
   {
     id: "secret-pact",
-    number: "03",
+    number: "3ª anécdota",
     title: "El pacto de honor",
     story: "Prohibido preguntar '¿a qué hora nos sentamos?'. La respuesta es: cuando te canses de bailar. Canapé en mano, cóctel frío y a disfrutar.",
   },
@@ -286,16 +286,16 @@ export const ScratchSecrets: React.FC = () => {
 
       {/* Main Scratch Card Box */}
       <div className="theme-card rounded-3xl p-4 sm:p-6 shadow-2xl relative overflow-hidden transition-all border border-[var(--card-border)] bg-[var(--card-bg)]">
-        {/* Píldoras selectoras limpias (01, 02, 03) */}
-        <div className="flex items-center justify-center gap-2 pb-3 mb-3 border-b border-[var(--card-border)]">
+        {/* Píldoras selectoras (1ª anécdota, 2ª anécdota, 3ª anécdota) */}
+        <div className="flex flex-wrap items-center justify-center gap-2 pb-3 mb-3 border-b border-[var(--card-border)]">
           {SECRETS.map((sec, idx) => (
             <button
               key={sec.id}
               onClick={() => handleSelectSecret(idx)}
-              className={`px-3 py-1 rounded-full text-xs font-mono transition-all duration-300 cursor-pointer ${
+              className={`px-3.5 py-1.5 rounded-full text-xs font-sans-ui transition-all duration-300 cursor-pointer ${
                 selectedSecretIdx === idx
-                  ? "bg-white text-black font-bold shadow-sm"
-                  : "bg-white/10 text-white/70 hover:text-white hover:bg-white/15"
+                  ? "bg-white text-black font-semibold shadow-sm"
+                  : "bg-white/10 text-white/80 hover:text-white hover:bg-white/15"
               }`}
             >
               <span>{sec.number}</span>
