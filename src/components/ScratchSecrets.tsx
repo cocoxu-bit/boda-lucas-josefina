@@ -305,7 +305,7 @@ export const ScratchSecrets: React.FC = () => {
         </h2>
 
         <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-muted)] max-w-md mx-auto leading-relaxed">
-          Rasca la tarjeta dorada con el dedo o ratón para descubrir lo que no diremos en la ceremonia.
+          Rasca la tarjeta con el dedo o ratón para descubrir lo que no diremos en la ceremonia.
         </p>
       </div>
 

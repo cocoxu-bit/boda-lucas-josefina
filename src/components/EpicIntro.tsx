@@ -377,9 +377,9 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
         initial={{ y: 0 }}
         animate={{ y: isWarping ? "-100%" : 0 }}
         transition={{ duration: 1.05, ease: [0.77, 0, 0.175, 1] }}
-        className="absolute top-0 left-0 w-full h-1/2 bg-[#0e140f] border-b border-[#7c8f73]/25 shadow-2xl z-20"
+        className="absolute top-0 left-0 w-full h-1/2 bg-[#7c8f73] border-b border-white/20 shadow-2xl z-20"
       >
-        <div className="absolute inset-0 opacity-[0.035] bg-[radial-gradient(#7c8f73_1px,transparent_1px)] [background-size:24px_24px]" />
+        <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]" />
       </motion.div>
 
       {/* 2. BOTTOM SHUTTER PANEL */}
@@ -387,13 +387,13 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
         initial={{ y: 0 }}
         animate={{ y: isWarping ? "100%" : 0 }}
         transition={{ duration: 1.05, ease: [0.77, 0, 0.175, 1] }}
-        className="absolute bottom-0 left-0 w-full h-1/2 bg-[#0e140f] border-t border-[#7c8f73]/25 shadow-2xl z-20"
+        className="absolute bottom-0 left-0 w-full h-1/2 bg-[#7c8f73] border-t border-white/20 shadow-2xl z-20"
       >
-        <div className="absolute inset-0 opacity-[0.035] bg-[radial-gradient(#7c8f73_1px,transparent_1px)] [background-size:24px_24px]" />
+        <div className="absolute inset-0 opacity-[0.04] bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:24px_24px]" />
       </motion.div>
 
       {/* 3. RADIAL BACKSTAGE SPOTLIGHT */}
-      <div className="absolute inset-0 z-20 bg-[radial-gradient(circle_at_center,_rgba(124,143,115,0.18)_0%,_transparent_65%)] pointer-events-none" />
+      <div className="absolute inset-0 z-20 bg-[radial-gradient(circle_at_center,_rgba(255,255,255,0.16)_0%,_transparent_65%)] pointer-events-none" />
 
       {/* 4. MAIN MINIGAME STAGE */}
       <motion.div
@@ -612,7 +612,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                     onDrag={handleDrag}
                     onDragEnd={(e, info) => handleDragEnd(item.id, e, info)}
                     onClick={() => handleAddIngredient(item.id)}
-                    className="w-full p-2.5 sm:p-3.5 rounded-2xl border border-[#7c8f73]/25 bg-[#151c16] hover:border-[#7c8f73]/60 shadow-xl cursor-grab active:cursor-grabbing flex flex-col items-center gap-1 transition-colors touch-none select-none group"
+                    className="w-full p-2.5 sm:p-3.5 rounded-2xl border border-white/20 bg-[#253523]/55 hover:border-white/50 shadow-xl cursor-grab active:cursor-grabbing flex flex-col items-center gap-1 transition-colors touch-none select-none group"
                     title={`Arrastra ${item.name} a la licuadora`}
                   >
                     <div className="transform group-hover:scale-110 transition-transform">
@@ -623,7 +623,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                     </span>
                   </motion.div>
                 ) : (
-                  <div className="w-full p-2.5 sm:p-3.5 rounded-2xl border border-white/10 bg-white/[0.02] opacity-40 flex flex-col items-center gap-1 select-none cursor-default">
+                  <div className="w-full p-2.5 sm:p-3.5 rounded-2xl border border-white/10 bg-white/[0.04] opacity-40 flex flex-col items-center gap-1 select-none cursor-default">
                     <div className="grayscale opacity-50">
                       <IngredientIcon id={item.id} className="w-10 h-10 sm:w-11 sm:h-11" />
                     </div>
@@ -646,8 +646,8 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
             whileTap={isReadyToBlend ? { scale: 0.97 } : {}}
             className={`w-full relative flex items-center justify-center gap-2.5 py-3 sm:py-3.5 px-6 rounded-full font-mono-swiss text-xs sm:text-sm font-semibold transition-all overflow-hidden ${
               isReadyToBlend
-                ? "bg-gradient-to-r from-[#56694e] via-[#a7ba9e] to-[#56694e] text-black shadow-[0_0_30px_rgba(124,143,115,0.6)] hover:shadow-[0_0_45px_rgba(124,143,115,0.85)] cursor-pointer"
-                : "bg-zinc-800 text-zinc-500 border border-zinc-700 cursor-not-allowed opacity-60"
+                ? "bg-white text-[#243322] shadow-[0_0_30px_rgba(255,255,255,0.45)] hover:bg-[#f0f6ed] hover:shadow-[0_0_45px_rgba(255,255,255,0.7)] cursor-pointer"
+                : "bg-black/30 text-white/40 border border-white/10 cursor-not-allowed opacity-60"
             }`}
           >
             {isBlending ? (
