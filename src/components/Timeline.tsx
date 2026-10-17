@@ -34,7 +34,6 @@ const STOPS: TimelineStop[] = [
     title: "La Ceremonia Civil",
     location: "Palacios de Monforte",
     description: "Firma civil, votos breves, música y salida con lluvia de confeti.",
-    venueKey: "monforte",
   },
   {
     time: "14:15",
@@ -59,7 +58,6 @@ const STOPS: TimelineStop[] = [
     title: "Tardeo, DJ & Baile",
     location: "Veneno",
     description: "Luces bajas, buena música (indie, disco, funk) y fiesta continua.",
-    venueKey: "veneno",
   },
 ];
 
