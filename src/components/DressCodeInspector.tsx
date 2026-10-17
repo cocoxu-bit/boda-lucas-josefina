@@ -1,445 +1,574 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
-import { ChevronLeft, ChevronRight, CheckCircle2, AlertTriangle, XCircle } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Maximize2,
+  X,
+  LayoutGrid,
+  Columns3,
+  Sparkles,
+} from "lucide-react";
 
-type MoodType = "love" | "meh" | "veto";
+export type CategoryType = "todos" | "ellas" | "ellos";
 
-interface OutfitExample {
+export interface LookItem {
   id: string;
   title: string;
   subtitle: string;
-  score: string;
-  verdict: string;
-  mood: MoodType;
+  category: "ellas" | "ellos";
   imageUrl: string;
-  lucasQuote: string;
-  josefinaQuote: string;
-  maximoQuote: string;
 }
 
-const OUTFITS: OutfitExample[] = [
+const LOOKS: LookItem[] = [
+  // 1. Vestido drapeado con capa (Ellas - referencia usuaria)
   {
-    id: "smart-sneakers",
-    title: "Traje Informal con Zapatillas Blancas",
-    subtitle: "Blazer relajado, camiseta básica de algodón o camisa abierta y calzado deportivo limpio.",
-    score: "10 / 10",
-    verdict: "Ideal",
-    mood: "love",
-    imageUrl: "/images/sample_casual_man.jpg",
-    josefinaQuote: "¡Aprobado con nota!",
-    lucasQuote: "El uniforme definitivo",
-    maximoQuote: "¡Aba-dá! 👏",
+    id: "vestido-drapeado-teja",
+    title: "Vestido drapeado con capa",
+    subtitle: "Tono teja, cuello asimétrico y caída fluida",
+    category: "ellas",
+    imageUrl: "/images/dresscode/media_1792228730311.webp",
   },
+  // 2. Blazer camel & pantalón carbón (Ellos - foto usuaria)
   {
-    id: "midi-flow",
-    title: "Vestido Midi Fluido o Estampado",
-    subtitle: "Tejidos vaporosos, colores vivos o estampados alegres, combinados con cuñas, botines o bailarinas.",
-    score: "10 / 10",
-    verdict: "Ideal",
-    mood: "love",
-    imageUrl: "/images/dress_green.jpg",
-    josefinaQuote: "¡Mi opción favorita!",
-    lucasQuote: "Perfecto para Monforte",
-    maximoQuote: "¡Agú tatá! 🎉",
+    id: "blazer-camel-lana",
+    title: "Blazer camel & pantalón carbón",
+    subtitle: "Camisa abierta sin corbata y botines",
+    category: "ellos",
+    imageUrl: "/images/dresscode/men_camel_blazer.webp",
   },
+  // 3. Mono halter satinado (Ellas - referencia usuaria)
   {
-    id: "tailoring-chic",
-    title: "Traje de Chaqueta Sastre Femenino",
-    subtitle: "Dos piezas en tonos alegres o neutros, con top lencero o camiseta y calzado cómodo.",
-    score: "10 / 10",
-    verdict: "Ideal",
-    mood: "love",
-    imageUrl: "/images/sample_fashion_look.jpg",
-    josefinaQuote: "Elegancia sin corsés",
-    lucasQuote: "Moderno y de diez",
-    maximoQuote: "¡Da-dá! 👶",
+    id: "mono-halter-petroleo",
+    title: "Mono halter satinado",
+    subtitle: "Azul petróleo fluido con escote halter",
+    category: "ellas",
+    imageUrl: "/images/dresscode/media_1792228726490.webp",
   },
+  // 4. Blazer verde oliva & chinos beige (Ellos - look generado)
   {
-    id: "linen-no-tie",
-    title: "Traje Dos Piezas sin Corbata o Cuello Mao",
-    subtitle: "Corte actual en azul, arena o verde, con camisa abierta o cuello mao sin ataduras.",
-    score: "9 / 10",
-    verdict: "Muy Top",
-    mood: "love",
-    imageUrl: "/images/linen_shirt.jpg",
-    josefinaQuote: "Cercano y guapo",
-    lucasQuote: "¡Cero corbatas!",
-    maximoQuote: "¡Gugú baaa! ✨",
+    id: "blazer-oliva-chinos",
+    title: "Blazer verde oliva & chinos beige",
+    subtitle: "Sastrería relajada en tonos tierra y mocasines",
+    category: "ellos",
+    imageUrl: "/images/dresscode/men_olive_blazer.webp",
   },
+  // 5. Mono fluido mostaza (Ellas - referencia usuaria)
   {
-    id: "rock-chic",
-    title: "Cazadora o Blazer Rock Chic con Botines",
-    subtitle: "Pantalón de pinzas oscuro, prendas de punto fino o camiseta negra y calzado con personalidad.",
-    score: "9 / 10",
-    verdict: "Rollazo",
-    mood: "love",
-    imageUrl: "/images/sample_elegant_woman.jpg",
-    josefinaQuote: "¡Puro rollazo!",
-    lucasQuote: "¡Invito a copa!",
-    maximoQuote: "¡Ooooh fiesta! 🎸",
+    id: "mono-fluido-mostaza",
+    title: "Mono fluido mostaza",
+    subtitle: "Corte amplio con mangas kimono",
+    category: "ellas",
+    imageUrl: "/images/dresscode/media_1792228734075.webp",
   },
+  // 6. Blazer tabaco & pantalón crudo (Ellos - look generado)
   {
-    id: "stiletto-gala",
-    title: "Vestido de Gala Largo con Tacones de Aguja",
-    subtitle: "Vestidos de alfombra roja muy ceñidos con tacones vertiginosos de aguja.",
-    score: "4 / 10",
-    verdict: "Con reservas",
-    mood: "meh",
-    imageUrl: "/images/gala_dress.jpg",
-    josefinaQuote: "Mete zapatillas...",
-    lucasQuote: "Demasiado rígido",
-    maximoQuote: "¡Mmmh duda... 🤔",
+    id: "blazer-tabaco-crudo",
+    title: "Blazer tabaco & pantalón crudo",
+    subtitle: "Tejido lino-lana texturado con camisa de lino",
+    category: "ellos",
+    imageUrl: "/images/dresscode/men_tobacco_blazer.webp",
   },
+  // 7. Vestido pañuelo boho paisley (Ellas - referencia usuaria)
   {
-    id: "chaque-rigido",
-    title: "Chaqué Tradicional de Tres Piezas con Chistera",
-    subtitle: "Chaleco rígido, corbata de nudo ancho y protocolo estricto de etiqueta clásica.",
-    score: "0 / 10",
-    verdict: "Veto",
-    mood: "veto",
-    imageUrl: "/images/tuxedo.jpg",
-    josefinaQuote: "¡Dejad el pingüino!",
-    lucasQuote: "¡Por favor, no!",
-    maximoQuote: "¡Gaaaa-bu! 🙅‍♂️",
+    id: "vestido-panuelo-boho",
+    title: "Vestido pañuelo boho",
+    subtitle: "Estampado paisley con detalle al cuello",
+    category: "ellas",
+    imageUrl: "/images/dresscode/media_1792228717654.webp",
   },
+  // 8. Blazer navy desestructurado (Ellos - look generado)
   {
-    id: "sport-chandal",
-    title: "Chándal o Ropa Deportiva",
-    subtitle: "Prendas puramente de gimnasio o indumentaria de playa.",
-    score: "-5 / 10",
-    verdict: "Veto",
-    mood: "veto",
-    imageUrl: "/images/sample_yellow_chic.jpg",
-    josefinaQuote: "Para el domingo",
-    lucasQuote: "Tampoco tanto...",
-    maximoQuote: "¡Pffft pedorreta! 💨",
+    id: "blazer-navy-desestructurado",
+    title: "Blazer navy desestructurado",
+    subtitle: "Camisa blanca abierta y pantalón sastre",
+    category: "ellos",
+    imageUrl: "/images/dresscode/men_navy_blazer.webp",
+  },
+  // 9. Dos piezas negro con capa (Ellas - referencia usuaria)
+  {
+    id: "dos-piezas-negro",
+    title: "Dos piezas negro con capa",
+    subtitle: "Top bandeau, falda y sobrecapa asimétrica",
+    category: "ellas",
+    imageUrl: "/images/dresscode/media_1792228737768.webp",
+  },
+  // 10. Palabra de honor chocolate (Ellas - referencia usuaria)
+  {
+    id: "palabra-honor-chocolate",
+    title: "Palabra de honor chocolate",
+    subtitle: "Corte midi con pliegue de gasa fluido",
+    category: "ellas",
+    imageUrl: "/images/dresscode/media_1792228752805.webp",
+  },
+  // 11. Chaqueta terciopelo ciruela (Ellas - referencia usuaria)
+  {
+    id: "chaqueta-terciopelo-ciruela",
+    title: "Chaqueta terciopelo ciruela",
+    subtitle: "Combinada con vestido fluido en malva",
+    category: "ellas",
+    imageUrl: "/images/dresscode/media_1792228770094.webp",
+  },
+  // 12. Top corsé & falda vaporosa (Ellas - referencia usuaria)
+  {
+    id: "corse-azul-marino",
+    title: "Top corsé & falda vaporosa",
+    subtitle: "Azul marino con volumen y movimiento",
+    category: "ellas",
+    imageUrl: "/images/dresscode/media_1792228766277.webp",
+  },
+  // 13. Túnica bicolor & palazzo (Ellas - referencia usuaria)
+  {
+    id: "tunica-petroleo-palazzo",
+    title: "Túnica bicolor & palazzo",
+    subtitle: "Azul petróleo y fucsia sobre pantalón fluido",
+    category: "ellas",
+    imageUrl: "/images/dresscode/media_1792228777623.webp",
+  },
+  // 14. Top halter & falda satinada (Ellas - referencia usuaria)
+  {
+    id: "top-halter-falda-seda",
+    title: "Top halter & falda satinada",
+    subtitle: "Combinación bicolor teja y crema",
+    category: "ellas",
+    imageUrl: "/images/dresscode/media_1792228800277.webp",
+  },
+  // 15. Túnica burdeos & pantalón blanco (Ellas - referencia usuaria)
+  {
+    id: "tunica-burdeos-blanco",
+    title: "Túnica burdeos & pantalón blanco",
+    subtitle: "Líneas rectas depuradas y contraste nítido",
+    category: "ellas",
+    imageUrl: "/images/dresscode/media_1792228795601.webp",
+  },
+  // 16. Top asimétrico & pantalón ancho (Ellas - referencia usuaria)
+  {
+    id: "top-asimetrico-palazzo",
+    title: "Top asimétrico & pantalón ancho",
+    subtitle: "Tonos tierra, hombro al descubierto y caída",
+    category: "ellas",
+    imageUrl: "/images/dresscode/media_1792228781585.webp",
+  },
+  // 17. Vestido lencero verde oliva (Ellas - referencia usuaria)
+  {
+    id: "vestido-lencero-oliva",
+    title: "Vestido lencero verde oliva",
+    subtitle: "Satinado con sobreprenda transparente",
+    category: "ellas",
+    imageUrl: "/images/dresscode/media_1792228805529.webp",
   },
 ];
 
-/* Retro Indie Pixel Art Avatar for Josefina */
-const JosefinaAvatar: React.FC<{ mood: MoodType }> = ({ mood }) => {
-  const avatarSrc =
-    mood === "love"
-      ? "/images/avatars/josefina-love.png"
-      : mood === "veto"
-      ? "/images/avatars/josefina-veto.png"
-      : "/images/avatars/josefina-meh.png";
-
-  return (
-    <motion.div
-      key={`josefina-${mood}`}
-      initial={{ scale: 0.92, opacity: 0.85 }}
-      animate={
-        mood === "love"
-          ? { scale: 1, y: [0, -3, 0] }
-          : mood === "veto"
-          ? { scale: 1, x: [-2, 2, -2, 2, 0] }
-          : { scale: 1, rotate: [1, -1, 1] }
-      }
-      transition={{ duration: mood === "veto" ? 0.35 : 2.4, repeat: Infinity, ease: "easeInOut" }}
-      className="relative flex flex-col items-center shrink-0"
-    >
-      <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl p-0.5 bg-gradient-to-b from-[#2b211a] to-[#141210] border-2 border-[var(--accent-gold)]/50 shadow-lg overflow-hidden flex items-center justify-center group">
-        <Image
-          src={avatarSrc}
-          alt="Josefina Pixel Avatar"
-          fill
-          sizes="64px"
-          className="object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
-          style={{ imageRendering: "pixelated" }}
-        />
-        {mood === "love" && (
-          <span className="absolute top-0.5 right-0.5 text-[10px] leading-none drop-shadow">❤️</span>
-        )}
-        {mood === "meh" && (
-          <span className="absolute top-0.5 right-0.5 text-[10px] leading-none drop-shadow">❓</span>
-        )}
-        {mood === "veto" && (
-          <span className="absolute top-0.5 right-0.5 text-[10px] leading-none drop-shadow">❌</span>
-        )}
-      </div>
-      <span className="font-mono-swiss text-[11px] font-semibold text-[var(--accent-gold)] mt-1 tracking-wider">
-        Josefina
-      </span>
-    </motion.div>
-  );
-};
-
-/* Retro Indie Pixel Art Avatar for Lucas */
-const LucasAvatar: React.FC<{ mood: MoodType }> = ({ mood }) => {
-  const avatarSrc =
-    mood === "love"
-      ? "/images/avatars/lucas-love.png"
-      : mood === "veto"
-      ? "/images/avatars/lucas-veto.png"
-      : "/images/avatars/lucas-meh.png";
-
-  return (
-    <motion.div
-      key={`lucas-${mood}`}
-      initial={{ scale: 0.92, opacity: 0.85 }}
-      animate={
-        mood === "love"
-          ? { scale: 1, y: [0, -3, 0] }
-          : mood === "veto"
-          ? { scale: 1, x: [2, -2, 2, -2, 0] }
-          : { scale: 1, rotate: [-1, 1, -1] }
-      }
-      transition={{ duration: mood === "veto" ? 0.35 : 2.4, repeat: Infinity, ease: "easeInOut" }}
-      className="relative flex flex-col items-center shrink-0"
-    >
-      <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl p-0.5 bg-gradient-to-b from-[#1a232b] to-[#101316] border-2 border-[var(--accent-gold)]/50 shadow-lg overflow-hidden flex items-center justify-center group">
-        <Image
-          src={avatarSrc}
-          alt="Lucas Pixel Avatar"
-          fill
-          sizes="64px"
-          className="object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
-          style={{ imageRendering: "pixelated" }}
-        />
-        {mood === "love" && (
-          <span className="absolute top-0.5 right-0.5 text-[10px] leading-none drop-shadow">✨</span>
-        )}
-        {mood === "meh" && (
-          <span className="absolute top-0.5 right-0.5 text-[10px] leading-none drop-shadow">💭</span>
-        )}
-        {mood === "veto" && (
-          <span className="absolute top-0.5 right-0.5 text-[10px] leading-none drop-shadow">⚠️</span>
-        )}
-      </div>
-      <span className="font-mono-swiss text-[11px] font-semibold text-[var(--accent-gold)] mt-1 tracking-wider">
-        Lucas
-      </span>
-    </motion.div>
-  );
-};
-
-/* Retro Indie Pixel Art Avatar for Máximo */
-const MaximoAvatar: React.FC<{ mood: MoodType }> = ({ mood }) => {
-  const avatarSrc =
-    mood === "love"
-      ? "/images/avatars/maximo-love.png"
-      : mood === "veto"
-      ? "/images/avatars/maximo-veto.png"
-      : "/images/avatars/maximo-meh.png";
-
-  return (
-    <motion.div
-      key={`maximo-${mood}`}
-      initial={{ scale: 0.92, opacity: 0.85 }}
-      animate={
-        mood === "love"
-          ? { scale: [1, 1.05, 1], rotate: [-2, 2, -2] }
-          : mood === "veto"
-          ? { scale: [1, 0.96, 1], y: [0, 2, 0] }
-          : { scale: 1, rotate: [2, -2, 2] }
-      }
-      transition={{ duration: mood === "love" ? 1.6 : 2.2, repeat: Infinity, ease: "easeInOut" }}
-      className="relative flex flex-col items-center shrink-0"
-    >
-      <div className="relative w-14 h-14 sm:w-16 sm:h-16 rounded-2xl p-0.5 bg-gradient-to-b from-[#1b263b] to-[#0d131f] border-2 border-sky-400/50 shadow-lg overflow-hidden flex items-center justify-center group">
-        <Image
-          src={avatarSrc}
-          alt="Máximo Pixel Avatar"
-          fill
-          sizes="64px"
-          className="object-cover rounded-xl transition-transform duration-300 group-hover:scale-105"
-          style={{ imageRendering: "pixelated" }}
-        />
-        {mood === "love" && (
-          <span className="absolute top-0.5 right-0.5 text-[10px] leading-none drop-shadow">🎉</span>
-        )}
-        {mood === "meh" && (
-          <span className="absolute top-0.5 right-0.5 text-[10px] leading-none drop-shadow">🍼</span>
-        )}
-        {mood === "veto" && (
-          <span className="absolute top-0.5 right-0.5 text-[10px] leading-none drop-shadow">💨</span>
-        )}
-      </div>
-      <span className="font-mono-swiss text-[11px] font-semibold text-sky-400 mt-1 tracking-wider">
-        Máximo
-      </span>
-    </motion.div>
-  );
-};
-
 export const DressCodeInspector: React.FC = () => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const currentOutfit = OUTFITS[currentIndex];
+  const [selectedCategory, setSelectedCategory] = useState<CategoryType>("todos");
+  const [viewMode, setViewMode] = useState<"carousel" | "grid">("carousel");
+  const [activeModalIndex, setActiveModalIndex] = useState<number | null>(null);
 
-  const nextOutfit = () => {
-    setCurrentIndex((prev) => (prev + 1) % OUTFITS.length);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
+  const filteredLooks = LOOKS.filter((look) => {
+    if (selectedCategory === "todos") return true;
+    return look.category === selectedCategory;
+  });
+
+  const scroll = (direction: "left" | "right") => {
+    if (!scrollContainerRef.current) return;
+    const scrollAmount = Math.min(scrollContainerRef.current.clientWidth * 0.75, 450);
+    scrollContainerRef.current.scrollBy({
+      left: direction === "left" ? -scrollAmount : scrollAmount,
+      behavior: "smooth",
+    });
   };
 
-  const prevOutfit = () => {
-    setCurrentIndex((prev) => (prev - 1 + OUTFITS.length) % OUTFITS.length);
-  };
+  // Keyboard navigation for Lightbox modal
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (activeModalIndex === null) return;
+      if (e.key === "Escape") {
+        setActiveModalIndex(null);
+      } else if (e.key === "ArrowLeft") {
+        setActiveModalIndex((prev) =>
+          prev !== null ? (prev - 1 + filteredLooks.length) % filteredLooks.length : null
+        );
+      } else if (e.key === "ArrowRight") {
+        setActiveModalIndex((prev) =>
+          prev !== null ? (prev + 1) % filteredLooks.length : null
+        );
+      }
+    };
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeModalIndex, filteredLooks.length]);
 
   return (
-    <section className="relative w-full max-w-3xl mx-auto py-12 px-4 sm:px-6">
-      {/* Title */}
-      <div className="text-center space-y-1 mb-6">
-        <h2 className="font-serif-editorial text-4xl sm:text-5xl text-[var(--fg-primary)] italic">
+    <section className="relative w-full max-w-6xl mx-auto py-16 px-4 sm:px-6 lg:px-8">
+      {/* Header */}
+      <div className="text-center space-y-3 mb-8">
+        <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-mono-swiss tracking-wider text-white/90 bg-white/10 border border-white/20 backdrop-blur-md">
+          <Sparkles className="w-3.5 h-3.5 text-amber-200" />
+          Guía de Estilo & Lookbook
+        </span>
+
+        <h2 className="font-serif-editorial text-4xl sm:text-5xl lg:text-6xl text-[var(--fg-primary)] italic tracking-tight">
           Dress Code
         </h2>
-        <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-muted)] max-w-md mx-auto">
-          Arreglado pero a tu rollo. Desliza para ver el veredicto en directo de los tres:
+
+        <p className="font-sans-ui text-sm sm:text-base text-white/90 max-w-xl mx-auto font-light leading-relaxed">
+          Arreglado pero a tu rollo. Colores vivos, tejidos fluidos, sastrería relajada y calzado para darlo todo en la pista.
         </p>
+
+        {/* Clean key highlights */}
+        <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 pt-1 text-xs font-mono-swiss text-white/80">
+          <span className="px-3 py-1 rounded-full bg-black/20 border border-white/15">
+            ✕ Sin corbata obligatoria
+          </span>
+          <span className="px-3 py-1 rounded-full bg-black/20 border border-white/15">
+            ✓ Monos, vestidos y 2 piezas
+          </span>
+          <span className="px-3 py-1 rounded-full bg-black/20 border border-white/15">
+            ✓ Calzado cómodo para bailar
+          </span>
+        </div>
       </div>
 
-      {/* Main Interactive Stage */}
-      <div className="theme-card rounded-3xl p-4 sm:p-7 shadow-2xl overflow-hidden transition-all duration-300">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={currentOutfit.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.22 }}
-            className="space-y-4"
-          >
-            {/* Top Bar: Look Counter & Verdict Badge */}
-            <div className="flex items-center justify-between gap-3 pb-3 border-b border-[var(--card-border)]">
-              <span className="font-mono-swiss text-[11px] tracking-wider text-[var(--fg-muted)]">
-                Look {currentIndex + 1} de {OUTFITS.length}
-              </span>
-
-              <span
-                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full font-mono-swiss text-xs font-semibold border ${
-                  currentOutfit.mood === "love"
-                    ? "bg-emerald-500/10 text-emerald-400 border-emerald-500/30"
-                    : currentOutfit.mood === "meh"
-                    ? "bg-amber-500/10 text-amber-400 border-amber-500/30"
-                    : "bg-red-500/10 text-red-400 border-red-500/30"
-                }`}
-              >
-                {currentOutfit.mood === "love" && <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" />}
-                {currentOutfit.mood === "meh" && <AlertTriangle className="w-3.5 h-3.5 text-amber-400" />}
-                {currentOutfit.mood === "veto" && <XCircle className="w-3.5 h-3.5 text-red-400" />}
-                <span>{currentOutfit.score} • {currentOutfit.verdict}</span>
-              </span>
-            </div>
-
-            {/* Top Grid: Real Photo & Info */}
-            <div className="grid grid-cols-1 sm:grid-cols-12 gap-4 items-center">
-              {/* Left Column: Real Outfit Photo */}
-              <div className="sm:col-span-5 relative h-52 sm:h-64 w-full rounded-2xl overflow-hidden border border-[var(--card-border)] shadow-md group bg-black/5 dark:bg-white/5">
-                <Image
-                  src={currentOutfit.imageUrl}
-                  alt={currentOutfit.title}
-                  fill
-                  sizes="(max-width: 640px) 100vw, 300px"
-                  className="object-cover object-center group-hover:scale-102 transition-transform duration-500"
-                  priority
-                />
-              </div>
-
-              {/* Right Column: Title and Subtitle */}
-              <div className="sm:col-span-7 space-y-2 text-left">
-                <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic leading-snug">
-                  {currentOutfit.title}
-                </h3>
-                <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-muted)] leading-relaxed font-light">
-                  {currentOutfit.subtitle}
-                </p>
-              </div>
-            </div>
-
-            {/* 3 AVATARS IN A SINGLE LINE ON MOBILE (NO SCROLL) */}
-            <div className="pt-3 border-t border-[var(--card-border)]">
-              <span className="font-mono-swiss text-[10px] tracking-wider text-[var(--fg-muted)] block text-center sm:text-left mb-2.5">
-                El veredicto en directo
-              </span>
-
-              {/* 3 Columns: Josefina, Lucas, Máximo side-by-side */}
-              <div className="grid grid-cols-3 gap-2 sm:gap-4 items-start">
-                {/* 1. Josefina */}
-                <motion.div
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2 }}
-                  className="flex flex-col items-center text-center"
-                >
-                  <JosefinaAvatar mood={currentOutfit.mood} />
-                  <div className="w-full mt-2 px-1.5 py-1.5 rounded-xl bg-white/[0.04] border border-[var(--card-border)] shadow-sm min-h-[42px] flex items-center justify-center">
-                    <p className="font-sans-ui text-[11px] sm:text-xs text-[var(--fg-primary)] font-medium leading-tight italic">
-                      &ldquo;{currentOutfit.josefinaQuote}&rdquo;
-                    </p>
-                  </div>
-                </motion.div>
-
-                {/* 2. Lucas */}
-                <motion.div
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2, delay: 0.06 }}
-                  className="flex flex-col items-center text-center"
-                >
-                  <LucasAvatar mood={currentOutfit.mood} />
-                  <div className="w-full mt-2 px-1.5 py-1.5 rounded-xl bg-white/[0.04] border border-[var(--card-border)] shadow-sm min-h-[42px] flex items-center justify-center">
-                    <p className="font-sans-ui text-[11px] sm:text-xs text-[var(--fg-primary)] font-medium leading-tight italic">
-                      &ldquo;{currentOutfit.lucasQuote}&rdquo;
-                    </p>
-                  </div>
-                </motion.div>
-
-                {/* 3. Máximo */}
-                <motion.div
-                  initial={{ opacity: 0, y: 6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.2, delay: 0.12 }}
-                  className="flex flex-col items-center text-center"
-                >
-                  <MaximoAvatar mood={currentOutfit.mood} />
-                  <div className="w-full mt-2 px-1.5 py-1.5 rounded-xl bg-white/[0.04] border border-sky-400/30 shadow-sm min-h-[42px] flex items-center justify-center">
-                    <p className="font-sans-ui text-[11px] sm:text-xs text-sky-300 font-medium leading-tight italic">
-                      &ldquo;{currentOutfit.maximoQuote}&rdquo;
-                    </p>
-                  </div>
-                </motion.div>
-              </div>
-            </div>
-          </motion.div>
-        </AnimatePresence>
-
-        {/* Carousel Navigation Footer */}
-        <div className="flex items-center justify-between pt-4 mt-4 border-t border-[var(--card-border)]">
+      {/* Filter Tabs & Layout Switcher */}
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-4 mb-6 pb-2 border-b border-white/15">
+        {/* Category Pills */}
+        <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-black/30 border border-white/20 backdrop-blur-md">
           <button
-            onClick={prevOutfit}
-            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-[var(--card-border)] hover:bg-black/5 dark:hover:bg-white/5 text-xs font-mono-swiss text-[var(--fg-primary)] transition-all cursor-pointer active:scale-95"
+            onClick={() => {
+              setSelectedCategory("todos");
+              if (scrollContainerRef.current) scrollContainerRef.current.scrollLeft = 0;
+            }}
+            className={`px-4 py-1.5 rounded-xl text-xs font-mono-swiss font-medium transition-all cursor-pointer ${
+              selectedCategory === "todos"
+                ? "bg-white text-zinc-900 shadow-md font-semibold"
+                : "text-white/80 hover:text-white hover:bg-white/10"
+            }`}
           >
-            <ChevronLeft className="w-4 h-4" />
-            <span className="hidden sm:inline">Anterior</span>
+            Todos ({LOOKS.length})
           </button>
+          <button
+            onClick={() => {
+              setSelectedCategory("ellas");
+              if (scrollContainerRef.current) scrollContainerRef.current.scrollLeft = 0;
+            }}
+            className={`px-4 py-1.5 rounded-xl text-xs font-mono-swiss font-medium transition-all cursor-pointer ${
+              selectedCategory === "ellas"
+                ? "bg-white text-zinc-900 shadow-md font-semibold"
+                : "text-white/80 hover:text-white hover:bg-white/10"
+            }`}
+          >
+            Ellas ({LOOKS.filter((l) => l.category === "ellas").length})
+          </button>
+          <button
+            onClick={() => {
+              setSelectedCategory("ellos");
+              if (scrollContainerRef.current) scrollContainerRef.current.scrollLeft = 0;
+            }}
+            className={`px-4 py-1.5 rounded-xl text-xs font-mono-swiss font-medium transition-all cursor-pointer ${
+              selectedCategory === "ellos"
+                ? "bg-white text-zinc-900 shadow-md font-semibold"
+                : "text-white/80 hover:text-white hover:bg-white/10"
+            }`}
+          >
+            Ellos ({LOOKS.filter((l) => l.category === "ellos").length})
+          </button>
+        </div>
 
-          {/* Dots Indicator */}
-          <div className="flex items-center gap-1.5">
-            {OUTFITS.map((_, idx) => (
+        {/* View mode toggle & carousel controls */}
+        <div className="flex items-center gap-2">
+          {viewMode === "carousel" && (
+            <div className="hidden sm:flex items-center gap-1">
               <button
-                key={idx}
-                onClick={() => setCurrentIndex(idx)}
-                className={`h-2 rounded-full transition-all cursor-pointer ${
-                  currentIndex === idx
-                    ? "w-5 bg-[var(--accent-gold)]"
-                    : "w-2 bg-black/20 dark:bg-white/20 hover:bg-black/40 dark:hover:bg-white/40"
-                }`}
-                aria-label={`Ver estilo ${idx + 1}`}
-              />
+                onClick={() => scroll("left")}
+                aria-label="Deslizar a la izquierda"
+                className="w-8 h-8 rounded-full border border-white/20 bg-black/25 hover:bg-white/20 text-white flex items-center justify-center transition-all cursor-pointer active:scale-95"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
+              <button
+                onClick={() => scroll("right")}
+                aria-label="Deslizar a la derecha"
+                className="w-8 h-8 rounded-full border border-white/20 bg-black/25 hover:bg-white/20 text-white flex items-center justify-center transition-all cursor-pointer active:scale-95"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
+            </div>
+          )}
+
+          <div className="flex items-center p-1 rounded-xl bg-black/30 border border-white/20">
+            <button
+              onClick={() => setViewMode("carousel")}
+              title="Vista carrusel"
+              className={`p-1.5 rounded-lg text-xs font-mono-swiss transition-all cursor-pointer flex items-center gap-1.5 ${
+                viewMode === "carousel"
+                  ? "bg-white text-zinc-900 font-semibold shadow-sm"
+                  : "text-white/70 hover:text-white"
+              }`}
+            >
+              <Columns3 className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Deslizar</span>
+            </button>
+            <button
+              onClick={() => setViewMode("grid")}
+              title="Vista cuadrícula"
+              className={`p-1.5 rounded-lg text-xs font-mono-swiss transition-all cursor-pointer flex items-center gap-1.5 ${
+                viewMode === "grid"
+                  ? "bg-white text-zinc-900 font-semibold shadow-sm"
+                  : "text-white/70 hover:text-white"
+              }`}
+            >
+              <LayoutGrid className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Cuadrícula</span>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Main Multi-Card Display: Carousel or Grid */}
+      {viewMode === "carousel" ? (
+        <div className="relative">
+          {/* Scrollable Container */}
+          <div
+            ref={scrollContainerRef}
+            className="flex gap-4 sm:gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 px-1 select-none"
+            style={{
+              scrollbarWidth: "none",
+              msOverflowStyle: "none",
+            }}
+          >
+            {filteredLooks.map((look, idx) => (
+              <motion.div
+                key={look.id}
+                initial={{ opacity: 0, scale: 0.96 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.25, delay: idx * 0.03 }}
+                className="shrink-0 snap-start w-[72vw] sm:w-[270px] md:w-[290px] lg:w-[305px] group cursor-pointer"
+                onClick={() => setActiveModalIndex(idx)}
+              >
+                <div className="relative aspect-[3/4] w-full rounded-2xl sm:rounded-3xl overflow-hidden border border-white/20 bg-black/40 shadow-xl group-hover:border-white/50 group-hover:shadow-2xl transition-all duration-300">
+                  <Image
+                    src={look.imageUrl}
+                    alt={look.title}
+                    fill
+                    sizes="(max-width: 640px) 75vw, 320px"
+                    className="object-cover object-top sm:object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                    priority={idx < 4}
+                  />
+
+                  {/* Top Badge: Ellas / Ellos */}
+                  <div className="absolute top-3 right-3 z-10">
+                    <span className="px-2.5 py-0.5 rounded-full text-[10px] font-mono-swiss font-medium tracking-wider uppercase bg-black/60 text-white/90 border border-white/20 backdrop-blur-md">
+                      {look.category === "ellas" ? "Ellas" : "Ellos"}
+                    </span>
+                  </div>
+
+                  {/* Bottom Vignette & Captions */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent flex flex-col justify-end p-4 sm:p-5 text-left transition-opacity duration-300">
+                    <div className="flex items-end justify-between gap-2">
+                      <div className="space-y-0.5">
+                        <h3 className="font-serif-editorial text-lg sm:text-xl text-white italic leading-snug drop-shadow-sm">
+                          {look.title}
+                        </h3>
+                        <p className="font-sans-ui text-xs text-white/80 line-clamp-1 font-light drop-shadow">
+                          {look.subtitle}
+                        </p>
+                      </div>
+                      <div className="w-7 h-7 rounded-full bg-white/20 backdrop-blur-md border border-white/30 flex items-center justify-center text-white shrink-0 opacity-80 group-hover:opacity-100 group-hover:scale-110 transition-all">
+                        <Maximize2 className="w-3.5 h-3.5" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
             ))}
           </div>
 
+          {/* Floating Mobile/Desktop edge controls */}
           <button
-            onClick={nextOutfit}
-            className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-[var(--fg-primary)] text-[var(--bg-primary)] hover:bg-[var(--accent-gold)] hover:text-black text-xs font-mono-swiss font-medium transition-all cursor-pointer shadow-sm active:scale-95"
+            onClick={() => scroll("left")}
+            aria-label="Deslizar anterior"
+            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-3 w-10 h-10 rounded-full bg-black/70 hover:bg-black/90 text-white border border-white/30 backdrop-blur-md hidden md:flex items-center justify-center shadow-2xl transition-all cursor-pointer z-10"
           >
-            <span>Siguiente</span>
-            <ChevronRight className="w-4 h-4" />
+            <ChevronLeft className="w-5 h-5" />
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            aria-label="Deslizar siguiente"
+            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-3 w-10 h-10 rounded-full bg-black/70 hover:bg-black/90 text-white border border-white/30 backdrop-blur-md hidden md:flex items-center justify-center shadow-2xl transition-all cursor-pointer z-10"
+          >
+            <ChevronRight className="w-5 h-5" />
           </button>
         </div>
+      ) : (
+        /* Grid Display */
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.3 }}
+          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5"
+        >
+          {filteredLooks.map((look, idx) => (
+            <div
+              key={look.id}
+              onClick={() => setActiveModalIndex(idx)}
+              className="group cursor-pointer"
+            >
+              <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden border border-white/20 bg-black/40 shadow-lg group-hover:border-white/50 group-hover:shadow-2xl transition-all duration-300">
+                <Image
+                  src={look.imageUrl}
+                  alt={look.title}
+                  fill
+                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+                  className="object-cover object-top sm:object-center group-hover:scale-105 transition-transform duration-500 ease-out"
+                />
+
+                <div className="absolute top-2.5 right-2.5 z-10">
+                  <span className="px-2 py-0.5 rounded-full text-[9px] font-mono-swiss uppercase bg-black/60 text-white/90 border border-white/20 backdrop-blur-md">
+                    {look.category === "ellas" ? "Ellas" : "Ellos"}
+                  </span>
+                </div>
+
+                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-3 sm:p-4 text-left">
+                  <h3 className="font-serif-editorial text-base sm:text-lg text-white italic leading-snug drop-shadow-sm">
+                    {look.title}
+                  </h3>
+                  <p className="font-sans-ui text-[11px] text-white/80 line-clamp-1 font-light drop-shadow">
+                    {look.subtitle}
+                  </p>
+                </div>
+              </div>
+            </div>
+          ))}
+        </motion.div>
+      )}
+
+      {/* Helpful & Warm Footer Note with Lucas & Josefina avatars */}
+      <div className="mt-10 p-5 rounded-2xl bg-black/25 border border-white/15 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
+        <div className="flex items-center gap-3">
+          <div className="flex -space-x-2">
+            <div className="relative w-10 h-10 rounded-full border-2 border-white/40 overflow-hidden bg-black/40">
+              <Image
+                src="/images/avatars/josefina-love.png"
+                alt="Josefina"
+                fill
+                sizes="40px"
+                className="object-cover"
+                style={{ imageRendering: "pixelated" }}
+              />
+            </div>
+            <div className="relative w-10 h-10 rounded-full border-2 border-white/40 overflow-hidden bg-black/40">
+              <Image
+                src="/images/avatars/lucas-love.png"
+                alt="Lucas"
+                fill
+                sizes="40px"
+                className="object-cover"
+                style={{ imageRendering: "pixelated" }}
+              />
+            </div>
+          </div>
+          <div>
+            <p className="font-sans-ui text-xs sm:text-sm text-white font-medium">
+              ¿Dudas sobre qué ponerte?
+            </p>
+            <p className="font-sans-ui text-xs text-white/80 font-light">
+              Lo más importante es que vengas cómodo/a y a disfrutar a tope con nosotros.
+            </p>
+          </div>
+        </div>
+
+        <span className="font-mono-swiss text-xs text-white/90 bg-white/10 px-3 py-1 rounded-full border border-white/20 shrink-0">
+          Toca cualquier foto para ampliarla
+        </span>
       </div>
+
+      {/* Lightbox / Zoom Modal */}
+      <AnimatePresence>
+        {activeModalIndex !== null && filteredLooks[activeModalIndex] && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/85 backdrop-blur-xl"
+            onClick={() => setActiveModalIndex(null)}
+          >
+            {/* Modal Content */}
+            <motion.div
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.95, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative max-w-lg w-full max-h-[92vh] flex flex-col rounded-3xl overflow-hidden bg-[#1c261a] border border-white/30 shadow-2xl"
+              onClick={(e) => e.stopPropagation()}
+            >
+              {/* Close Button */}
+              <button
+                onClick={() => setActiveModalIndex(null)}
+                aria-label="Cerrar vista completa"
+                className="absolute top-4 right-4 z-20 w-9 h-9 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/30 flex items-center justify-center transition-all cursor-pointer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+
+              {/* Prev / Next Buttons in Modal */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveModalIndex(
+                    (activeModalIndex - 1 + filteredLooks.length) % filteredLooks.length
+                  );
+                }}
+                aria-label="Look anterior"
+                className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/30 flex items-center justify-center transition-all cursor-pointer"
+              >
+                <ChevronLeft className="w-5 h-5" />
+              </button>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setActiveModalIndex((activeModalIndex + 1) % filteredLooks.length);
+                }}
+                aria-label="Look siguiente"
+                className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/60 hover:bg-black/90 text-white border border-white/30 flex items-center justify-center transition-all cursor-pointer"
+              >
+                <ChevronRight className="w-5 h-5" />
+              </button>
+
+              {/* Image */}
+              <div className="relative w-full aspect-[3/4] sm:aspect-[4/5] bg-black/40 overflow-hidden">
+                <Image
+                  src={filteredLooks[activeModalIndex].imageUrl}
+                  alt={filteredLooks[activeModalIndex].title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 550px"
+                  className="object-contain sm:object-cover"
+                />
+              </div>
+
+              {/* Modal Details */}
+              <div className="p-4 sm:p-5 bg-[#172015] border-t border-white/20 text-left flex items-center justify-between gap-3">
+                <div>
+                  <span className="font-mono-swiss text-[10px] uppercase text-white/70 tracking-wider">
+                    Look {activeModalIndex + 1} de {filteredLooks.length} •{" "}
+                    {filteredLooks[activeModalIndex].category === "ellas" ? "Ellas" : "Ellos"}
+                  </span>
+                  <h4 className="font-serif-editorial text-xl sm:text-2xl text-white italic">
+                    {filteredLooks[activeModalIndex].title}
+                  </h4>
+                  <p className="font-sans-ui text-xs sm:text-sm text-white/80 font-light mt-0.5">
+                    {filteredLooks[activeModalIndex].subtitle}
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </section>
   );
 };
