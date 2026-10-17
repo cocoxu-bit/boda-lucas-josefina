@@ -8,8 +8,6 @@ import {
   ChevronRight,
   Maximize2,
   X,
-  LayoutGrid,
-  Columns3,
   Sparkles,
 } from "lucide-react";
 
@@ -164,7 +162,6 @@ const LOOKS: LookItem[] = [
 
 export const DressCodeInspector: React.FC = () => {
   const [selectedCategory, setSelectedCategory] = useState<CategoryType>("todos");
-  const [viewMode, setViewMode] = useState<"carousel" | "grid">("carousel");
   const [activeModalIndex, setActiveModalIndex] = useState<number | null>(null);
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -279,61 +276,31 @@ export const DressCodeInspector: React.FC = () => {
           </button>
         </div>
 
-        {/* View mode toggle & carousel controls */}
-        <div className="flex items-center gap-2">
-          {viewMode === "carousel" && (
-            <div className="hidden sm:flex items-center gap-1">
-              <button
-                onClick={() => scroll("left")}
-                aria-label="Deslizar a la izquierda"
-                className="w-8 h-8 rounded-full border border-white/20 bg-black/25 hover:bg-white/20 text-white flex items-center justify-center transition-all cursor-pointer active:scale-95"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-              <button
-                onClick={() => scroll("right")}
-                aria-label="Deslizar a la derecha"
-                className="w-8 h-8 rounded-full border border-white/20 bg-black/25 hover:bg-white/20 text-white flex items-center justify-center transition-all cursor-pointer active:scale-95"
-              >
-                <ChevronRight className="w-4 h-4" />
-              </button>
-            </div>
-          )}
-
-          <div className="flex items-center p-1 rounded-xl bg-black/30 border border-white/20">
-            <button
-              onClick={() => setViewMode("carousel")}
-              title="Vista carrusel"
-              className={`p-1.5 rounded-lg text-xs font-mono-swiss transition-all cursor-pointer flex items-center gap-1.5 ${
-                viewMode === "carousel"
-                  ? "bg-white text-zinc-900 font-semibold shadow-sm"
-                  : "text-white/70 hover:text-white"
-              }`}
-            >
-              <Columns3 className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Deslizar</span>
-            </button>
-            <button
-              onClick={() => setViewMode("grid")}
-              title="Vista cuadrícula"
-              className={`p-1.5 rounded-lg text-xs font-mono-swiss transition-all cursor-pointer flex items-center gap-1.5 ${
-                viewMode === "grid"
-                  ? "bg-white text-zinc-900 font-semibold shadow-sm"
-                  : "text-white/70 hover:text-white"
-              }`}
-            >
-              <LayoutGrid className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Cuadrícula</span>
-            </button>
-          </div>
+        {/* Carousel controls */}
+        <div className="flex items-center gap-1.5">
+          <button
+            onClick={() => scroll("left")}
+            aria-label="Deslizar a la izquierda"
+            className="flex items-center gap-1 px-3 py-1.5 rounded-xl border border-white/20 bg-black/30 hover:bg-white/20 text-white text-xs font-mono-swiss transition-all cursor-pointer active:scale-95"
+          >
+            <ChevronLeft className="w-4 h-4" />
+            <span className="hidden sm:inline">Anterior</span>
+          </button>
+          <button
+            onClick={() => scroll("right")}
+            aria-label="Deslizar a la derecha"
+            className="flex items-center gap-1 px-3 py-1.5 rounded-xl border border-white/20 bg-black/30 hover:bg-white/20 text-white text-xs font-mono-swiss transition-all cursor-pointer active:scale-95"
+          >
+            <span className="hidden sm:inline">Siguiente</span>
+            <ChevronRight className="w-4 h-4" />
+          </button>
         </div>
       </div>
 
-      {/* Main Multi-Card Display: Carousel or Grid */}
-      {viewMode === "carousel" ? (
-        <div className="relative">
-          {/* Scrollable Container */}
-          <div
+      {/* Main Multi-Card Display: Carousel */}
+      <div className="relative">
+        {/* Scrollable Container */}
+        <div
             ref={scrollContainerRef}
             className="flex gap-4 sm:gap-5 overflow-x-auto snap-x snap-mandatory scroll-smooth pb-4 px-1 select-none"
             style={{
@@ -404,48 +371,6 @@ export const DressCodeInspector: React.FC = () => {
             <ChevronRight className="w-5 h-5" />
           </button>
         </div>
-      ) : (
-        /* Grid Display */
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.3 }}
-          className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-5"
-        >
-          {filteredLooks.map((look, idx) => (
-            <div
-              key={look.id}
-              onClick={() => setActiveModalIndex(idx)}
-              className="group cursor-pointer"
-            >
-              <div className="relative aspect-[3/4] w-full rounded-2xl overflow-hidden border border-white/20 bg-black/40 shadow-lg group-hover:border-white/50 group-hover:shadow-2xl transition-all duration-300">
-                <Image
-                  src={look.imageUrl}
-                  alt={look.title}
-                  fill
-                  sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
-                  className="object-cover object-top sm:object-center group-hover:scale-105 transition-transform duration-500 ease-out"
-                />
-
-                <div className="absolute top-2.5 right-2.5 z-10">
-                  <span className="px-2 py-0.5 rounded-full text-[9px] font-mono-swiss uppercase bg-black/60 text-white/90 border border-white/20 backdrop-blur-md">
-                    {look.category === "ellas" ? "Ellas" : "Ellos"}
-                  </span>
-                </div>
-
-                <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent flex flex-col justify-end p-3 sm:p-4 text-left">
-                  <h3 className="font-serif-editorial text-base sm:text-lg text-white italic leading-snug drop-shadow-sm">
-                    {look.title}
-                  </h3>
-                  <p className="font-sans-ui text-[11px] text-white/80 line-clamp-1 font-light drop-shadow">
-                    {look.subtitle}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))}
-        </motion.div>
-      )}
 
       {/* Helpful & Warm Footer Note with Lucas & Josefina avatars */}
       <div className="mt-10 p-5 rounded-2xl bg-black/25 border border-white/15 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
