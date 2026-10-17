@@ -214,13 +214,13 @@ export const DressCodeInspector: React.FC = () => {
         {/* Clean key highlights */}
         <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-4 pt-1 text-xs font-mono-swiss text-white/80">
           <span className="px-3 py-1 rounded-full bg-black/20 border border-white/15">
-            ✕ Sin corbata obligatoria
+            Sin corbata
           </span>
           <span className="px-3 py-1 rounded-full bg-black/20 border border-white/15">
-            ✓ Monos, vestidos y 2 piezas
+            Monos, vestidos y 2 piezas
           </span>
           <span className="px-3 py-1 rounded-full bg-black/20 border border-white/15">
-            ✓ Calzado cómodo para bailar
+            Calzado cómodo para bailar
           </span>
         </div>
       </div>
