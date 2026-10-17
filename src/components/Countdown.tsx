@@ -67,10 +67,10 @@ export const Countdown: React.FC = () => {
   const formatNumber = (n: number) => n.toString().padStart(2, "0");
 
   const units = [
-    { label: "días", value: formatNumber(timeLeft.days), index: "01" },
-    { label: "horas", value: formatNumber(timeLeft.hours), index: "02" },
-    { label: "minutos", value: formatNumber(timeLeft.minutes), index: "03" },
-    { label: "segundos", value: formatNumber(timeLeft.seconds), index: "04" },
+    { label: "días", value: formatNumber(timeLeft.days) },
+    { label: "horas", value: formatNumber(timeLeft.hours) },
+    { label: "minutos", value: formatNumber(timeLeft.minutes) },
+    { label: "segundos", value: formatNumber(timeLeft.seconds) },
   ];
 
   return (
@@ -84,9 +84,6 @@ export const Countdown: React.FC = () => {
               key={unit.label}
               className="flex flex-col items-center justify-center rounded-xl bg-black/[0.02] dark:bg-white/[0.03] border border-[var(--card-border)] py-3 px-1 transition-colors hover:bg-black/[0.04] dark:hover:bg-white/[0.06]"
             >
-              <div className="font-mono-swiss text-[9px] text-[var(--fg-muted)] mb-1">
-                {unit.index}
-              </div>
               <span className="font-mono-swiss text-2xl sm:text-3xl font-semibold tracking-tight text-[var(--fg-primary)] tabular-nums">
                 {unit.value}
               </span>
