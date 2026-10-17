@@ -645,8 +645,7 @@ export const RSVPWizard: React.FC = () => {
                       required
                       value={form.name}
                       onChange={(e) => setForm({ ...form, name: e.target.value })}
-                      placeholder="Ej. Josefina Gómez o Lucas García"
-                      className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-4 py-3 text-sm text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:border-[var(--accent-gold)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-gold)]"
+                      className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-4 py-3 text-sm text-[var(--fg-primary)] focus:border-[var(--accent-gold)] focus:outline-none focus:ring-1 focus:ring-[var(--accent-gold)]"
                     />
                   </div>
 
@@ -658,8 +657,7 @@ export const RSVPWizard: React.FC = () => {
                       type="text"
                       value={form.companion}
                       onChange={(e) => setForm({ ...form, companion: e.target.value })}
-                      placeholder="Nombre de tu acompañante si aplica"
-                      className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-4 py-3 text-sm text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:border-[var(--accent-gold)] focus:outline-none"
+                      className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-4 py-3 text-sm text-[var(--fg-primary)] focus:border-[var(--accent-gold)] focus:outline-none"
                     />
                   </div>
 
@@ -732,8 +730,7 @@ export const RSVPWizard: React.FC = () => {
                       type="text"
                       value={form.otherDietary}
                       onChange={(e) => setForm({ ...form, otherDietary: e.target.value })}
-                      placeholder="Ej. Alergia al sésamo o marisco..."
-                      className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-4 py-2.5 text-sm text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:border-[var(--accent-gold)] focus:outline-none"
+                      className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-4 py-2.5 text-sm text-[var(--fg-primary)] focus:border-[var(--accent-gold)] focus:outline-none"
                     />
                   </div>
 
@@ -853,8 +850,7 @@ export const RSVPWizard: React.FC = () => {
                         type="text"
                         value={form.songTitle}
                         onChange={(e) => setForm({ ...form, songTitle: e.target.value })}
-                        placeholder="Ej. One More Time"
-                        className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-3 py-2.5 text-xs text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:border-[var(--accent-gold)] focus:outline-none"
+                        className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-3 py-2.5 text-xs text-[var(--fg-primary)] focus:border-[var(--accent-gold)] focus:outline-none"
                       />
                     </div>
                     <div className="space-y-1">
@@ -865,8 +861,7 @@ export const RSVPWizard: React.FC = () => {
                         type="text"
                         value={form.songArtist}
                         onChange={(e) => setForm({ ...form, songArtist: e.target.value })}
-                        placeholder="Ej. Daft Punk"
-                        className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-3 py-2.5 text-xs text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:border-[var(--accent-gold)] focus:outline-none"
+                        className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-3 py-2.5 text-xs text-[var(--fg-primary)] focus:border-[var(--accent-gold)] focus:outline-none"
                       />
                     </div>
                   </div>
@@ -895,8 +890,7 @@ export const RSVPWizard: React.FC = () => {
                       rows={2}
                       value={form.message}
                       onChange={(e) => setForm({ ...form, message: e.target.value })}
-                      placeholder="Déjales un mensaje o amenaza cariñosa para el 6 de febrero..."
-                      className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-3 py-2.5 text-xs text-[var(--fg-primary)] placeholder-[var(--fg-muted)] focus:border-[var(--accent-gold)] focus:outline-none resize-none"
+                      className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-3 py-2.5 text-xs text-[var(--fg-primary)] focus:border-[var(--accent-gold)] focus:outline-none resize-none"
                     />
                   </div>
 
