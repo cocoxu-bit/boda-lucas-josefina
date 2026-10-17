@@ -40,7 +40,7 @@ export const Hero: React.FC = () => {
   };
 
   return (
-    <section className="relative min-h-[92vh] pt-24 pb-14 px-4 sm:px-6 flex flex-col justify-between max-w-4xl mx-auto overflow-hidden">
+    <section className="relative min-h-[92vh] pt-10 sm:pt-14 pb-14 px-4 sm:px-6 flex flex-col justify-between max-w-4xl mx-auto overflow-hidden">
       {/* Background radial glow */}
       <div 
         className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[340px] h-[340px] sm:w-[500px] sm:h-[500px] bg-[var(--accent-gold)]/[0.08] rounded-full blur-[100px] pointer-events-none transition-colors duration-500" 

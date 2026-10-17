@@ -76,19 +76,7 @@ export const Countdown: React.FC = () => {
   return (
     <div className="w-full max-w-lg mx-auto">
       {/* Swiss grid digital clock container */}
-      <div className="relative rounded-2xl border border-[var(--card-border)] bg-[var(--clock-bg)] p-4 sm:p-5 backdrop-blur-xl shadow-xl transition-all duration-300">
-        <div className="flex items-center justify-between pb-3 mb-3 border-b border-[var(--card-border)]">
-          <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-[var(--accent-gold)] animate-ping" />
-            <span className="font-mono-swiss text-[10px] tracking-wider text-[var(--fg-muted)]">
-              cuenta atrás // t-minus
-            </span>
-          </div>
-          <span className="font-mono-swiss text-[10px] text-[var(--fg-muted)]">
-            06.02.2027 • 13:00 h
-          </span>
-        </div>
-
+      <div className="relative rounded-2xl border border-[var(--card-border)] bg-[var(--clock-bg)] p-3.5 sm:p-4 backdrop-blur-xl shadow-xl transition-all duration-300">
         {/* 4-digit grid */}
         <div className="grid grid-cols-4 gap-2 text-center">
           {units.map((unit) => (

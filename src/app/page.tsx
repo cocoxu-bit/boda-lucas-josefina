@@ -2,7 +2,6 @@
 
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { Header } from "@/components/Header";
 import { Hero } from "@/components/Hero";
 import { ScratchSecrets } from "@/components/ScratchSecrets";
 import { Timeline } from "@/components/Timeline";
@@ -57,9 +56,6 @@ export default function Home() {
         transition={{ duration: 1.05, ease: [0.77, 0, 0.175, 1] }}
         className="relative min-h-screen bg-[var(--bg-primary)] text-[var(--fg-primary)] selection:bg-[var(--accent-gold)] selection:text-black transition-colors duration-500"
       >
-        {/* Top Glassmorphic Navigation */}
-        <Header />
-
         {/* Hero Section with Kinetic Typography & Live Countdown */}
         <Hero />
 
