@@ -37,7 +37,7 @@ export const WhatsAppHelpModal: React.FC = () => {
         initial={{ opacity: 0, scale: 0.85, y: 15 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
         transition={{ delay: 1.2, duration: 0.4 }}
-        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center p-1.5 gap-1.5 rounded-full bg-[#141d15]/95 border border-[var(--accent-gold)]/40 shadow-2xl backdrop-blur-md text-white"
+        className="fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center p-1.5 gap-1.5 rounded-full bg-[#151c16]/95 border border-[var(--accent-gold)]/40 shadow-2xl backdrop-blur-md text-white"
         role="region"
         aria-label="Contacto directo por WhatsApp con Josefina o Lucas"
       >

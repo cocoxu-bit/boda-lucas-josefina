@@ -75,7 +75,7 @@ export const EasterEgg: React.FC = () => {
           {/* Animated retro disco lights background */}
           <div className="absolute inset-0 pointer-events-none opacity-25">
             <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-600 rounded-full blur-[120px] animate-pulse" />
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#8fae78] rounded-full blur-[120px] animate-pulse [animation-delay:1s]" />
+            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-[#7c8f73] rounded-full blur-[120px] animate-pulse [animation-delay:1s]" />
           </div>
 
           <motion.div
@@ -109,7 +109,7 @@ export const EasterEgg: React.FC = () => {
             {/* Secret Polaroids Strip */}
             <div className="grid grid-cols-2 gap-3 my-6 text-left">
               <div className="p-3 rounded-2xl bg-white/[0.04] border border-white/10 space-y-1">
-                <div className="flex items-center gap-1.5 text-[#8fae78] font-mono-swiss text-xs font-semibold">
+                <div className="flex items-center gap-1.5 text-[#7c8f73] font-mono-swiss text-xs font-semibold">
                   <Flame className="w-3.5 h-3.5" />
                   <span>Regla #1 de Veneno</span>
                 </div>
@@ -137,7 +137,7 @@ export const EasterEgg: React.FC = () => {
 
             <button
               onClick={closeParty}
-              className="mt-6 w-full py-3.5 rounded-full bg-white text-black font-sans-ui text-sm font-semibold hover:bg-[#8fae78] transition-all cursor-pointer shadow-lg"
+              className="mt-6 w-full py-3.5 rounded-full bg-white text-black font-sans-ui text-sm font-semibold hover:bg-[#7c8f73] transition-all cursor-pointer shadow-lg"
             >
               Volver a la invitación
             </button>

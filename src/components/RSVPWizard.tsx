@@ -141,7 +141,7 @@ export const RSVPWizard: React.FC = () => {
 
   const triggerConfetti = () => {
     const end = Date.now() + 1400;
-    const colors = ["#8fae78", "#ffffff", "#bad1a5", "#a3c28c", "#6e875a"];
+    const colors = ["#7c8f73", "#ffffff", "#a7ba9e", "#95a88c", "#56694e"];
 
     (function frame() {
       confetti({
@@ -194,29 +194,29 @@ export const RSVPWizard: React.FC = () => {
       const ctx = canvas.getContext("2d");
       if (!ctx) return;
 
-      // Dark olive festival background
-      ctx.fillStyle = "#0d130e";
+      // Dark eucalyptus festival background
+      ctx.fillStyle = "#0e140f";
       ctx.fillRect(0, 0, 1200, 1600);
 
       // Card boundary
-      ctx.fillStyle = "#141d15";
+      ctx.fillStyle = "#151c16";
       ctx.roundRect(80, 80, 1040, 1440, 36);
       ctx.fill();
 
-      ctx.strokeStyle = "rgba(143, 174, 120, 0.4)";
+      ctx.strokeStyle = "rgba(124, 143, 115, 0.4)";
       ctx.lineWidth = 3;
       ctx.stroke();
 
-      // Top olive festival holographic bar
+      // Top eucalyptus festival holographic bar
       const grad = ctx.createLinearGradient(80, 80, 1120, 180);
-      grad.addColorStop(0, "#6e875a");
-      grad.addColorStop(0.5, "#8fae78");
-      grad.addColorStop(1, "#6e875a");
+      grad.addColorStop(0, "#56694e");
+      grad.addColorStop(0.5, "#7c8f73");
+      grad.addColorStop(1, "#56694e");
       ctx.fillStyle = grad;
       ctx.fillRect(80, 80, 1040, 24);
 
       // Festival Title
-      ctx.fillStyle = "#8fae78";
+      ctx.fillStyle = "#7c8f73";
       ctx.font = "bold 28px monospace";
       ctx.fillText("FESTIVAL ACCESS PASS // ALL AREAS", 140, 170);
 
@@ -224,24 +224,24 @@ export const RSVPWizard: React.FC = () => {
       ctx.font = 'italic 86px "Instrument Serif", Georgia, serif';
       ctx.fillText("Josefina & Lucas", 140, 270);
 
-      ctx.fillStyle = "#9baea0";
+      ctx.fillStyle = "#9cb097";
       ctx.font = "28px monospace";
       ctx.fillText("VALENCIA • 06 DE FEBRERO DE 2027", 140, 325);
 
       // Route
-      ctx.fillStyle = "#1d291f";
+      ctx.fillStyle = "#1e281f";
       ctx.roundRect(140, 370, 920, 120, 18);
       ctx.fill();
 
-      ctx.fillStyle = "#8fae78";
+      ctx.fillStyle = "#7c8f73";
       ctx.font = "bold 26px monospace";
       ctx.fillText("ITINERARIO OFICIAL:", 170, 420);
-      ctx.fillStyle = "#f2f6f0";
+      ctx.fillStyle = "#f3f7f2";
       ctx.font = "26px sans-serif";
       ctx.fillText("13:00 H Monforte (Ceremonia) ➔ 14:45 H Veneno (Cóctel Largo)", 170, 460);
 
       // Guest Details Section
-      ctx.fillStyle = "#9baea0";
+      ctx.fillStyle = "#9cb097";
       ctx.font = "24px monospace";
       ctx.fillText("TITULAR DEL PASE:", 140, 560);
       ctx.fillStyle = "#ffffff";
@@ -249,20 +249,20 @@ export const RSVPWizard: React.FC = () => {
       ctx.fillText(form.name || "Invitado Especial", 140, 630);
 
       if (form.companion) {
-        ctx.fillStyle = "#9baea0";
+        ctx.fillStyle = "#9cb097";
         ctx.font = "28px sans-serif";
         ctx.fillText(`+ Acompañante: ${form.companion}`, 140, 680);
       }
 
       // Role Box
-      ctx.fillStyle = "rgba(143, 174, 120, 0.12)";
-      ctx.strokeStyle = "rgba(143, 174, 120, 0.4)";
+      ctx.fillStyle = "rgba(124, 143, 115, 0.12)";
+      ctx.strokeStyle = "rgba(124, 143, 115, 0.4)";
       ctx.lineWidth = 2;
       ctx.roundRect(140, 730, 920, 150, 20);
       ctx.fill();
       ctx.stroke();
 
-      ctx.fillStyle = "#8fae78";
+      ctx.fillStyle = "#7c8f73";
       ctx.font = "24px monospace";
       ctx.fillText("ROL HONORARIO ASIGNADO:", 170, 780);
       ctx.fillStyle = "#ffffff";
@@ -427,18 +427,18 @@ export const RSVPWizard: React.FC = () => {
               </div>
 
               {/* FESTIVAL / CONCERT TICKET PASS */}
-              <div className="relative mx-auto max-w-md rounded-2xl border border-[var(--card-border)] bg-gradient-to-b from-[#141d15] to-[#0d130e] text-white p-6 text-left shadow-2xl overflow-hidden">
+              <div className="relative mx-auto max-w-md rounded-2xl border border-[var(--card-border)] bg-gradient-to-b from-[#151c16] to-[#0e140f] text-white p-6 text-left shadow-2xl overflow-hidden">
                 {/* Semicircular Ticket Notches on edges */}
                 <div className="absolute -left-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[var(--bg-primary)] border-r border-[var(--card-border)]" />
                 <div className="absolute -right-3 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full bg-[var(--bg-primary)] border-l border-[var(--card-border)]" />
 
                 {/* Holographic metallic header strip */}
-                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#6e875a] via-[#bad1a5] to-[#6e875a]" />
+                <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#56694e] via-[#a7ba9e] to-[#56694e]" />
 
                 {/* Top header */}
                 <div className="flex items-center justify-between pb-3 mb-3 border-b border-white/10">
                   <div>
-                    <span className="font-mono-swiss text-[9px] tracking-wider text-[#8fae78] font-semibold">
+                    <span className="font-mono-swiss text-[9px] tracking-wider text-[#7c8f73] font-semibold">
                       Pase oficial de acceso
                     </span>
                     <h4 className="font-serif-editorial text-2xl text-white italic">
@@ -446,7 +446,7 @@ export const RSVPWizard: React.FC = () => {
                     </h4>
                   </div>
                   <div className="text-right">
-                    <span className="font-mono-swiss text-[11px] text-[#8fae78] font-bold">
+                    <span className="font-mono-swiss text-[11px] text-[#7c8f73] font-bold">
                       06.02.2027
                     </span>
                     <div className="font-mono-swiss text-[9px] text-zinc-400">13:00 h</div>
@@ -468,7 +468,7 @@ export const RSVPWizard: React.FC = () => {
                   <div className="grid grid-cols-2 gap-2 pt-2 border-t border-white/10">
                     <div>
                       <span className="font-mono-swiss text-[9px] text-zinc-400">Rol honorario:</span>
-                      <p className="font-mono-swiss text-xs text-[#8fae78] font-semibold">
+                      <p className="font-mono-swiss text-xs text-[#7c8f73] font-semibold">
                         {form.guestRole}
                       </p>
                     </div>

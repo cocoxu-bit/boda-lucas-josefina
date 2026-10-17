@@ -68,13 +68,13 @@ export const ScratchSecrets: React.FC = () => {
     // Reset composite operation to draw the foil
     ctx.globalCompositeOperation = "source-over";
 
-    // 1. Rich Metallic Satin Olive & Sage Foil Gradient (45° diagonal sheen)
+    // 1. Rich Metallic Satin Eucalyptus & Sage Foil Gradient (45° diagonal sheen)
     const goldGradient = ctx.createLinearGradient(0, 0, width, height);
-    goldGradient.addColorStop(0, "#556b46");
-    goldGradient.addColorStop(0.25, "#7a9668");
-    goldGradient.addColorStop(0.5, "#bad1a5");
-    goldGradient.addColorStop(0.75, "#8fae78");
-    goldGradient.addColorStop(1, "#445738");
+    goldGradient.addColorStop(0, "#485942");
+    goldGradient.addColorStop(0.25, "#667a5e");
+    goldGradient.addColorStop(0.5, "#a7ba9e");
+    goldGradient.addColorStop(0.75, "#7c8f73");
+    goldGradient.addColorStop(1, "#3c4a37");
     ctx.fillStyle = goldGradient;
     ctx.fillRect(0, 0, width, height);
 
@@ -219,12 +219,12 @@ export const ScratchSecrets: React.FC = () => {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
       }
     }
-    // High-end olive & sage confetti celebration
+    // High-end eucalyptus & sage confetti celebration
     confetti({
       particleCount: 30,
       spread: 65,
       origin: { y: 0.65 },
-      colors: ["#8fae78", "#ffffff", "#bad1a5", "#a3c28c"],
+      colors: ["#7c8f73", "#ffffff", "#a7ba9e", "#95a88c"],
     });
   };
 
@@ -409,7 +409,7 @@ export const ScratchSecrets: React.FC = () => {
 
             <button
               onClick={handleNextSecret}
-              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--accent-gold)] text-black hover:bg-[#bad1a5] active:scale-95 text-xs font-mono font-semibold transition-all shadow-sm cursor-pointer"
+              className="flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[var(--accent-gold)] text-black hover:bg-[#a7ba9e] active:scale-95 text-xs font-mono font-semibold transition-all shadow-sm cursor-pointer"
             >
               <RefreshCw className="w-3.5 h-3.5 text-black" />
               <span>Siguiente</span>
