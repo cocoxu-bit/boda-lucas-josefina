@@ -5,6 +5,7 @@ import { motion } from "framer-motion";
 import { Hero } from "@/components/Hero";
 import { ScratchSecrets } from "@/components/ScratchSecrets";
 import { Timeline } from "@/components/Timeline";
+import { StoryCarousel } from "@/components/StoryCarousel";
 import { DressCodeInspector } from "@/components/DressCodeInspector";
 import { RSVPWizard } from "@/components/RSVPWizard";
 import { EasterEgg } from "@/components/EasterEgg";
@@ -61,6 +62,9 @@ export default function Home() {
 
         {/* Playful Chronogram with Venue Photos (Monforte & Veneno) */}
         <Timeline />
+
+        {/* Story Carousel: Nuestro camino hasta la boda... */}
+        <StoryCarousel />
 
         {/* Interactive Dress Code Inspector with Animated Josefina & Lucas Avatars */}
         <DressCodeInspector />
