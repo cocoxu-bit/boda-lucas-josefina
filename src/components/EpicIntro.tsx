@@ -653,7 +653,7 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
             {isBlending ? (
               <>
                 <RotateCw className="w-4 h-4 animate-spin text-black" />
-                <span>batiendo la mezcla...</span>
+                <span>Batiendo la mezcla...</span>
               </>
             ) : (
               <>
@@ -665,8 +665,8 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                 />
                 <span>
                   {isReadyToBlend
-                    ? "remover y entrar"
-                    : `arrastra los 3 ingredientes (${totalAdded}/3)`}
+                    ? "Remover y entrar"
+                    : `Arrastra los 3 ingredientes (${totalAdded}/3)`}
                 </span>
                 <ArrowRight className="w-4 h-4" />
               </>

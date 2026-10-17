@@ -67,10 +67,10 @@ export const Countdown: React.FC = () => {
   const formatNumber = (n: number) => n.toString().padStart(2, "0");
 
   const units = [
-    { label: "días", value: formatNumber(timeLeft.days) },
-    { label: "horas", value: formatNumber(timeLeft.hours) },
-    { label: "minutos", value: formatNumber(timeLeft.minutes) },
-    { label: "segundos", value: formatNumber(timeLeft.seconds) },
+    { label: "Días", value: formatNumber(timeLeft.days) },
+    { label: "Horas", value: formatNumber(timeLeft.hours) },
+    { label: "Minutos", value: formatNumber(timeLeft.minutes) },
+    { label: "Segundos", value: formatNumber(timeLeft.seconds) },
   ];
 
   return (
