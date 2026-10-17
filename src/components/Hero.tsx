@@ -97,9 +97,6 @@ export const Hero: React.FC = () => {
               <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic">
                 Palacios de Monforte
               </h3>
-              <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-muted)] mt-1 font-light leading-relaxed">
-                Ceremonia civil en el palacete neoclásico del siglo XIX y jardines históricos. Encuentro a las 12:45, firma y salida con confeti.
-              </p>
             </div>
 
             <div className="pt-3 mt-4 border-t border-[var(--card-border)] flex items-center justify-between">
@@ -142,9 +139,6 @@ export const Hero: React.FC = () => {
               <h3 className="font-serif-editorial text-2xl sm:text-3xl text-[var(--fg-primary)] italic">
                 Veneno Concept
               </h3>
-              <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-muted)] mt-1 font-light leading-relaxed">
-                Nave industrial y brutalista en Ruzafa. Cóctel largo de pie, bebida sin fin, copas, zona de descanso con sofás y tardeo con música.
-              </p>
             </div>
 
             <div className="pt-3 mt-4 border-t border-[var(--card-border)] flex items-center justify-between">
