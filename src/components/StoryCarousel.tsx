@@ -87,21 +87,21 @@ const STORY_MOMENTS: StoryMoment[] = [
   {
     id: "gala",
     chapter: "07",
-    tag: "Elegancia & Ilusión",
+    tag: "La Dulce Espera",
     location: "Noche de gala",
-    title: "Celebrando cada etapa",
+    title: "La mayor de las ilusiones",
     caption:
-      "Elegantes, felices y con la emoción más grande latiendo en nuestro interior. Cada celebración nos confirmaba lo afortunados que somos.",
+      "Elegantes, felices y con la emoción más bonita latiendo en nuestro interior: la dulce espera de nuestro pequeño.",
     image: "/images/story/07-gala.webp",
   },
   {
     id: "pedida",
     chapter: "08",
     tag: "El Gran Momento",
-    location: "La pedida de mano",
-    title: "¡El momento del 'Sí'!",
+    location: "Ryokan tradicional, Japón",
+    title: "¡Dijo que sí!",
     caption:
-      "Sorpresa absoluta, lágrimas de alegría y un anillo que selló la promesa más bonita. El día en que este gran viaje hacia la boda se hizo oficial.",
+      "Sorpresa absoluta, lágrimas de alegría y un anillo que selló la promesa más bonita durante nuestro viaje por Japón. ¡Nos casamos!",
     image: "/images/story/08-pedida.webp",
   },
   {
