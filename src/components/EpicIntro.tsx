@@ -38,69 +38,252 @@ const INGREDIENTS: IngredientInfo[] = [
   },
 ];
 
-/* Custom Vector Illustrated Ingredients (No generic emojis) */
+/* Semi-Realistic Volumetric Ingredients (Editorial 3D sheen, no cartoon strokes) */
 const GrapesIllustration: React.FC<{ className?: string }> = ({ className = "w-10 h-10" }) => (
   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-    <path d="M24 5 C24 9, 25 11, 27 13" stroke="#78350f" strokeWidth="2.5" strokeLinecap="round" />
-    <path d="M26 8 C30 6, 36 7, 38 11 C34 13, 29 12, 26 10 Z" fill="#15803d" stroke="#14532d" strokeWidth="1" />
-    <circle cx="19" cy="18" r="5" fill="#9333ea" stroke="#581c87" strokeWidth="1" />
-    <circle cx="17.5" cy="16.5" r="1.5" fill="#f3e8ff" opacity="0.9" />
-    <circle cx="28" cy="18" r="5" fill="#a855f7" stroke="#581c87" strokeWidth="1" />
-    <circle cx="26.5" cy="16.5" r="1.5" fill="#f3e8ff" opacity="0.9" />
-    <circle cx="14" cy="25" r="5" fill="#7e22ce" stroke="#4c1d95" strokeWidth="1" />
-    <circle cx="12.5" cy="23.5" r="1.5" fill="#e9d5ff" opacity="0.8" />
-    <circle cx="23.5" cy="24" r="5" fill="#9333ea" stroke="#581c87" strokeWidth="1" />
-    <circle cx="22" cy="22.5" r="1.5" fill="#f3e8ff" opacity="0.9" />
-    <circle cx="33" cy="25" r="5" fill="#7e22ce" stroke="#4c1d95" strokeWidth="1" />
-    <circle cx="31.5" cy="23.5" r="1.5" fill="#e9d5ff" opacity="0.8" />
-    <circle cx="19" cy="32" r="4.5" fill="#6b21a8" stroke="#3b0764" strokeWidth="1" />
-    <circle cx="17.5" cy="31" r="1.2" fill="#e9d5ff" opacity="0.8" />
-    <circle cx="28" cy="32" r="4.5" fill="#7e22ce" stroke="#4c1d95" strokeWidth="1" />
-    <circle cx="26.5" cy="31" r="1.2" fill="#f3e8ff" opacity="0.8" />
-    <circle cx="23.5" cy="39" r="4" fill="#581c87" stroke="#2e1065" strokeWidth="1" />
-    <circle cx="22.5" cy="38" r="1" fill="#f3e8ff" opacity="0.8" />
+    <defs>
+      <radialGradient id="grape_front" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stopColor="#d8b4fe" />
+        <stop offset="25%" stopColor="#a855f7" />
+        <stop offset="70%" stopColor="#6b21a8" />
+        <stop offset="100%" stopColor="#3b0764" />
+      </radialGradient>
+      <radialGradient id="grape_mid" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stopColor="#c084fc" />
+        <stop offset="30%" stopColor="#9333ea" />
+        <stop offset="75%" stopColor="#581c87" />
+        <stop offset="100%" stopColor="#2e1065" />
+      </radialGradient>
+      <radialGradient id="grape_back" cx="35%" cy="30%" r="65%">
+        <stop offset="0%" stopColor="#9333ea" />
+        <stop offset="40%" stopColor="#6b21a8" />
+        <stop offset="85%" stopColor="#3b0764" />
+        <stop offset="100%" stopColor="#1e0538" />
+      </radialGradient>
+      <linearGradient id="grape_stem" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#92400e" />
+        <stop offset="100%" stopColor="#451a03" />
+      </linearGradient>
+      <linearGradient id="grape_leaf_grad" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#4ade80" />
+        <stop offset="60%" stopColor="#16a34a" />
+        <stop offset="100%" stopColor="#14532d" />
+      </linearGradient>
+    </defs>
+
+    {/* Botanical leaf with subtle vein */}
+    <path
+      d="M26 9 C31 5, 39 7, 41 12 C36 14, 29 13, 26 9 Z"
+      fill="url(#grape_leaf_grad)"
+    />
+    <path d="M27 9.5 Q33 10, 39 12" stroke="#86efac" strokeWidth="0.8" strokeLinecap="round" opacity="0.6" />
+
+    {/* Natural wooden stalk */}
+    <path
+      d="M24 6 C24 10, 25 12, 26 14"
+      stroke="url(#grape_stem)"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+    />
+
+    {/* Back layer grapes (depth & occlusion) */}
+    <circle cx="16" cy="20" r="4.8" fill="url(#grape_back)" />
+    <circle cx="31" cy="20" r="4.8" fill="url(#grape_back)" />
+    <circle cx="13" cy="27" r="4.6" fill="url(#grape_back)" />
+    <circle cx="34" cy="27" r="4.6" fill="url(#grape_back)" />
+    <circle cx="17" cy="34" r="4.2" fill="url(#grape_back)" />
+    <circle cx="30" cy="34" r="4.2" fill="url(#grape_back)" />
+
+    {/* Mid layer grapes */}
+    <circle cx="21" cy="18" r="5.2" fill="url(#grape_mid)" />
+    <circle cx="27" cy="18" r="5.2" fill="url(#grape_mid)" />
+    <circle cx="18" cy="26" r="5.2" fill="url(#grape_mid)" />
+    <circle cx="29" cy="26" r="5.2" fill="url(#grape_mid)" />
+    <circle cx="20" cy="33" r="4.6" fill="url(#grape_mid)" />
+    <circle cx="27" cy="33" r="4.6" fill="url(#grape_mid)" />
+    <circle cx="23.5" cy="40" r="4" fill="url(#grape_mid)" />
+
+    {/* Foreground central grapes with realistic soft specular light */}
+    <circle cx="23.5" cy="24" r="5.6" fill="url(#grape_front)" />
+    <ellipse cx="22" cy="22.5" rx="1.6" ry="1" fill="#ffffff" opacity="0.65" transform="rotate(-25 22 22.5)" />
+    <ellipse cx="17" cy="24.5" rx="1.3" ry="0.8" fill="#ffffff" opacity="0.55" transform="rotate(-25 17 24.5)" />
+    <ellipse cx="28" cy="24.5" rx="1.3" ry="0.8" fill="#ffffff" opacity="0.55" transform="rotate(-25 28 24.5)" />
+    <circle cx="23.5" cy="32" r="5.1" fill="url(#grape_front)" />
+    <ellipse cx="22.5" cy="30.5" rx="1.4" ry="0.8" fill="#ffffff" opacity="0.6" transform="rotate(-25 22.5 30.5)" />
   </svg>
 );
 
 const MeatIllustration: React.FC<{ className?: string }> = ({ className = "w-10 h-10" }) => (
   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
+    <defs>
+      {/* 3D Meat Cut Side (Thickness) */}
+      <linearGradient id="meat_side_grad" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stopColor="#7f1d1d" />
+        <stop offset="100%" stopColor="#450a0a" />
+      </linearGradient>
+
+      {/* Fresh Prime Beef Top Surface */}
+      <radialGradient id="meat_top_grad" cx="42%" cy="38%" r="65%">
+        <stop offset="0%" stopColor="#ef4444" />
+        <stop offset="35%" stopColor="#dc2626" />
+        <stop offset="75%" stopColor="#b91c1c" />
+        <stop offset="100%" stopColor="#7f1d1d" />
+      </radialGradient>
+
+      {/* Outer Fat Cap */}
+      <linearGradient id="fat_outer" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#fff1f2" />
+        <stop offset="60%" stopColor="#fecdd3" />
+        <stop offset="100%" stopColor="#f43f5e" />
+      </linearGradient>
+
+      {/* Marrow Bone */}
+      <radialGradient id="marrow_bone" cx="35%" cy="35%" r="65%">
+        <stop offset="0%" stopColor="#ffffff" />
+        <stop offset="70%" stopColor="#e2e8f0" />
+        <stop offset="100%" stopColor="#94a3b8" />
+      </radialGradient>
+    </defs>
+
+    {/* 3D Extruded Bottom Edge (Thickness shadow) */}
     <path
-      d="M10 21 C10 13, 21 10, 33 12 C41 13, 42 22, 38 31 C34 38, 25 40, 16 38 C9 36, 10 28, 10 21 Z"
-      fill="#b91c1c"
-      stroke="#7f1d1d"
-      strokeWidth="2"
+      d="M10 24 C10 16, 21 13, 34 15 C42 16, 44 24, 40 33 C36 41, 26 43, 16 41 C9 39, 10 31, 10 24 Z"
+      fill="url(#meat_side_grad)"
+    />
+
+    {/* Outer Fat Ribbon (Borde de grasa natural) */}
+    <path
+      d="M9 22 C9 14, 20 11, 33 13 C41 14, 43 22, 39 31 C35 39, 25 41, 15 39 C8 37, 9 29, 9 22 Z"
+      fill="url(#fat_outer)"
+      opacity="0.95"
+    />
+
+    {/* Main Steak Cut Flesh */}
+    <path
+      d="M11 22 C11 15, 21 13, 32 15 C39 16, 40 23, 37 30 C33 37, 24 39, 16 37 C11 35, 11 28, 11 22 Z"
+      fill="url(#meat_top_grad)"
+    />
+
+    {/* Organic Marbling Veins (Veteado realista de grasa) */}
+    <path
+      d="M15 19 Q20 23, 26 19 T33 22"
+      stroke="#fee2e2"
+      strokeWidth="1.6"
+      strokeLinecap="round"
+      opacity="0.85"
     />
     <path
-      d="M13 22 C13 16, 22 13, 31 15 C37 16, 38 23, 35 29 C32 35, 24 37, 17 35 C12 33, 13 27, 13 22 Z"
-      fill="#dc2626"
+      d="M17 26 Q23 25, 29 28"
+      stroke="#fecaca"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      opacity="0.8"
     />
-    <path d="M16 19 Q21 23, 27 19 T34 23" stroke="#fecaca" strokeWidth="1.8" strokeLinecap="round" opacity="0.9" />
-    <path d="M18 27 Q24 26, 29 30" stroke="#fecaca" strokeWidth="1.6" strokeLinecap="round" opacity="0.85" />
-    <path d="M21 33 Q26 31, 31 34" stroke="#fecaca" strokeWidth="1.4" strokeLinecap="round" opacity="0.75" />
     <path
-      d="M31 12 C36 13, 41 17, 40 24 C37 23, 33 18, 31 12 Z"
-      fill="#f8fafc"
-      stroke="#cbd5e1"
-      strokeWidth="1"
+      d="M19 32 Q25 30, 31 33"
+      stroke="#fee2e2"
+      strokeWidth="1.2"
+      strokeLinecap="round"
+      opacity="0.75"
+    />
+    <path
+      d="M24 16 Q27 21, 26 26"
+      stroke="#fff1f2"
+      strokeWidth="1.1"
+      strokeLinecap="round"
+      opacity="0.7"
+    />
+
+    {/* Small Center-Side Bone (Hueso chuletón) */}
+    <ellipse cx="32" cy="19" rx="4.5" ry="3.8" fill="url(#marrow_bone)" />
+    <ellipse cx="32" cy="19" rx="2.2" ry="1.8" fill="#78350f" opacity="0.85" />
+
+    {/* Fresh meat surface sheen reflection */}
+    <path
+      d="M14 21 Q19 16, 26 16"
+      stroke="#ffffff"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+      opacity="0.5"
     />
   </svg>
 );
 
 const OrangeIllustration: React.FC<{ className?: string }> = ({ className = "w-10 h-10" }) => (
   <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg" className={className}>
-    <circle cx="24" cy="26" r="16" fill="#f97316" stroke="#c2410c" strokeWidth="2" />
-    <circle cx="21" cy="23" r="13" fill="#fb923c" opacity="0.7" />
-    <circle cx="18" cy="22" r="0.9" fill="#9a3412" opacity="0.4" />
-    <circle cx="27" cy="24" r="0.9" fill="#9a3412" opacity="0.4" />
-    <circle cx="22" cy="30" r="0.9" fill="#9a3412" opacity="0.4" />
-    <circle cx="29" cy="29" r="0.9" fill="#9a3412" opacity="0.4" />
-    <path d="M15 19 A12 12 0 0 1 24 13" stroke="#ffedd5" strokeWidth="2" strokeLinecap="round" opacity="0.85" />
-    <path d="M24 11 C24 8, 25 6, 26 5" stroke="#78350f" strokeWidth="2.5" strokeLinecap="round" />
+    <defs>
+      {/* 3D Volumetric Citrus Sphere */}
+      <radialGradient id="orange_volume" cx="34%" cy="30%" r="68%">
+        <stop offset="0%" stopColor="#fef08a" />
+        <stop offset="18%" stopColor="#fdba74" />
+        <stop offset="45%" stopColor="#fb923c" />
+        <stop offset="75%" stopColor="#ea580c" />
+        <stop offset="92%" stopColor="#c2410c" />
+        <stop offset="100%" stopColor="#7c2d12" />
+      </radialGradient>
+
+      {/* Fresh Green Leaf */}
+      <linearGradient id="citrus_leaf" x1="0%" y1="0%" x2="100%" y2="100%">
+        <stop offset="0%" stopColor="#4ade80" />
+        <stop offset="50%" stopColor="#16a34a" />
+        <stop offset="100%" stopColor="#052e16" />
+      </linearGradient>
+
+      {/* Soft Ambient Ground Shadow */}
+      <radialGradient id="ambient_shadow" cx="50%" cy="50%" r="50%">
+        <stop offset="0%" stopColor="#000000" stopOpacity="0.35" />
+        <stop offset="100%" stopColor="#000000" stopOpacity="0" />
+      </radialGradient>
+    </defs>
+
+    {/* Ambient base shadow */}
+    <ellipse cx="24" cy="43" rx="14" ry="3" fill="url(#ambient_shadow)" />
+
+    {/* Main Orange 3D Sphere */}
+    <circle cx="24" cy="27" r="16" fill="url(#orange_volume)" />
+
+    {/* Subtle Citrus Skin Pores / Dimples Texture */}
+    <circle cx="18" cy="22" r="0.8" fill="#c2410c" opacity="0.3" />
+    <circle cx="28" cy="23" r="0.8" fill="#c2410c" opacity="0.3" />
+    <circle cx="22" cy="31" r="0.8" fill="#c2410c" opacity="0.3" />
+    <circle cx="30" cy="30" r="0.8" fill="#c2410c" opacity="0.3" />
+    <circle cx="16" cy="29" r="0.8" fill="#c2410c" opacity="0.3" />
+    <circle cx="25" cy="36" r="0.8" fill="#7c2d12" opacity="0.3" />
+
+    {/* Specular Sunlit Crescent Glint */}
     <path
-      d="M25 8 C29 5, 36 6, 38 10 C34 11, 28 11, 25 8 Z"
-      fill="#16a34a"
-      stroke="#14532d"
-      strokeWidth="1"
+      d="M16 20 C18 15, 23 13, 27 13"
+      stroke="#ffffff"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+      opacity="0.65"
+    />
+
+    {/* Natural Botanical Stem */}
+    <path
+      d="M24 12 C24 8, 25 6, 27 4.5"
+      stroke="#78350f"
+      strokeWidth="2.2"
+      strokeLinecap="round"
+    />
+
+    {/* Star-shaped Calyx (Corona de la naranja) */}
+    <path
+      d="M24 11.5 L22 13 L23 11 L21.5 9.5 L23.5 10 L24 8 L24.5 10 L26.5 9.5 L25 11 L26 13 Z"
+      fill="#15803d"
+    />
+
+    {/* Fresh Green Citrus Leaf */}
+    <path
+      d="M25 8.5 C29 4.5, 38 6, 40 10.5 C35 12, 28 11.5, 25 8.5 Z"
+      fill="url(#citrus_leaf)"
+    />
+    <path
+      d="M26 8.5 Q32 9, 38 10.5"
+      stroke="#86efac"
+      strokeWidth="0.8"
+      strokeLinecap="round"
+      opacity="0.6"
     />
   </svg>
 );
@@ -307,28 +490,6 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
                 {/* Curved Glass Reflection Highlight */}
                 <div className="absolute top-0 left-4 w-4 h-full bg-gradient-to-r from-white/25 to-transparent transform -skew-x-6 pointer-events-none" />
 
-                {/* Glass Measurement Ticks */}
-                <div className="absolute right-4 top-4 bottom-14 flex flex-col justify-between items-end opacity-45 font-mono-swiss text-[8px] text-white pointer-events-none">
-                  <span className="text-[7.5px] text-[#8fae78] font-semibold">max 1.5l</span>
-                  <span>— 1.0l</span>
-                  <span>— 0.5l</span>
-                  <span>— 250ml</span>
-                </div>
-
-                {/* Drop hint when hovering over blender */}
-                <AnimatePresence>
-                  {isHoveringBlender && !isBlending && (
-                    <motion.div
-                      initial={{ opacity: 0, y: -8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0 }}
-                      className="absolute inset-x-4 top-4 py-1 rounded-xl bg-[#8fae78]/25 border border-[#8fae78]/60 text-center font-mono-swiss text-[10px] text-[#dce7d6] z-20"
-                    >
-                      ¡suelta dentro!
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-
                 {/* VORTEX ANIMATION WHEN BLENDING */}
                 {isBlending && (
                   <motion.div
@@ -422,28 +583,15 @@ export const EpicIntro: React.FC<EpicIntroProps> = ({ onEnter }) => {
               />
             </div>
 
-            {/* BLENDER MOTOR BASE WITH ANALOG DIAL */}
-            <div className="relative w-38 sm:w-44 h-15 bg-gradient-to-b from-zinc-700 via-zinc-800 to-zinc-950 rounded-b-2xl border-t-2 border-[#8fae78]/40 shadow-2xl flex items-center justify-between px-4">
-              <span className="font-serif-editorial text-xs text-[#8fae78] italic">
-                j & l
-              </span>
-
-              {/* Analog Speed Dial */}
-              <div className="flex flex-col items-center">
-                <motion.div
-                  animate={isBlending ? { rotate: 90 } : {}}
-                  className="w-8 h-8 rounded-full bg-zinc-900 border-2 border-zinc-600 flex items-center justify-center shadow-inner cursor-pointer"
-                >
-                  <div className="w-1 h-3.5 bg-[#8fae78] rounded-full" />
-                </motion.div>
-                <span className="font-mono-swiss text-[7px] text-zinc-400 mt-0.5">
-                  0 • 1 • 2 • pulse
-                </span>
-              </div>
-
-              <span className="font-mono-swiss text-[8px] text-zinc-400">
-                2027
-              </span>
+            {/* MINIMALIST BLENDER MOTOR BASE (NO TEXT, NO NUMBERS) */}
+            <div className="relative w-38 sm:w-44 h-14 bg-gradient-to-b from-zinc-800 via-zinc-900 to-zinc-950 rounded-b-2xl border-t-2 border-[#8fae78]/40 shadow-2xl flex items-center justify-center">
+              {/* Minimalist Dial with Olive Glow Indicator */}
+              <motion.div
+                animate={isBlending ? { rotate: 90 } : {}}
+                className="relative w-8 h-8 rounded-full bg-gradient-to-b from-zinc-700 to-zinc-900 border border-zinc-600 shadow-inner flex items-center justify-center cursor-pointer"
+              >
+                <div className="w-1 h-3 rounded-full bg-[#8fae78] shadow-[0_0_8px_rgba(143,174,120,0.85)]" />
+              </motion.div>
             </div>
           </motion.div>
         </div>
