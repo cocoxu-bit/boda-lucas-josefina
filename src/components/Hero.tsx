@@ -4,7 +4,7 @@ import React from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Countdown } from "@/components/Countdown";
-import { ArrowDown, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { getSmartMapUrl, openSmartMap } from "@/lib/maps";
 
 export const Hero: React.FC = () => {
@@ -30,13 +30,6 @@ export const Hero: React.FC = () => {
         damping: 28,
       },
     },
-  };
-
-  const scrollToTimeline = () => {
-    const el = document.getElementById("timeline-section");
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
-    }
   };
 
   return (
@@ -160,24 +153,6 @@ export const Hero: React.FC = () => {
               </a>
             </div>
           </div>
-        </motion.div>
-
-        {/* Scroll Indicator */}
-        <motion.div variants={itemVariants} className="pt-2">
-          <button
-            onClick={scrollToTimeline}
-            className="group flex flex-col items-center gap-1.5 text-[var(--fg-muted)] hover:text-[var(--fg-primary)] transition-colors cursor-pointer"
-          >
-            <span className="font-mono-swiss text-[10px] tracking-wider">
-              Ver el cronograma completo
-            </span>
-            <motion.div
-              animate={{ y: [0, 4, 0] }}
-              transition={{ repeat: Infinity, duration: 1.8, ease: "easeInOut" }}
-            >
-              <ArrowDown className="w-4 h-4 text-[var(--fg-muted)] group-hover:text-[var(--fg-primary)] transition-colors" />
-            </motion.div>
-          </button>
         </motion.div>
       </motion.div>
     </section>
