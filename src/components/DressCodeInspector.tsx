@@ -21,7 +21,7 @@ export interface LookItem {
 }
 
 const LOOKS: LookItem[] = [
-  // 1. Vestido drapeado con capa (Ellas - jardín y arcos)
+  // 1. Vestido drapeado con capa (Ellas - Veneno cóctel)
   {
     id: "vestido-drapeado-teja",
     title: "Vestido drapeado con capa",
@@ -29,7 +29,7 @@ const LOOKS: LookItem[] = [
     category: "ellas",
     imageUrl: "/images/dresscode/women_terracotta_cape.webp",
   },
-  // 2. Blazer camel & pantalón carbón (Ellos - cóctel con luces festoon)
+  // 2. Blazer camel & pantalón carbón (Ellos - Veneno cóctel)
   {
     id: "blazer-camel-lana",
     title: "Blazer camel & pantalón carbón",
@@ -37,7 +37,7 @@ const LOOKS: LookItem[] = [
     category: "ellos",
     imageUrl: "/images/dresscode/men_camel_blazer.webp",
   },
-  // 3. Mono halter satinado (Ellas - patio con fuente y flores)
+  // 3. Mono halter satinado (Ellas - Veneno cóctel)
   {
     id: "mono-halter-petroleo",
     title: "Mono halter satinado",
@@ -45,7 +45,7 @@ const LOOKS: LookItem[] = [
     category: "ellas",
     imageUrl: "/images/dresscode/women_teal_jumpsuit.webp",
   },
-  // 4. Blazer verde oliva & chinos beige (Ellos - patio de piedra y mesas de boda)
+  // 4. Blazer verde oliva & chinos beige (Ellos - Veneno cóctel)
   {
     id: "blazer-oliva-chinos",
     title: "Blazer verde oliva & chinos beige",
@@ -53,7 +53,7 @@ const LOOKS: LookItem[] = [
     category: "ellos",
     imageUrl: "/images/dresscode/men_olive_blazer.webp",
   },
-  // 5. Mono fluido mostaza (Ellas - terraza ajardinada y banquete)
+  // 5. Mono fluido mostaza (Ellas - Veneno cóctel)
   {
     id: "mono-fluido-mostaza",
     title: "Mono fluido mostaza",
@@ -61,7 +61,7 @@ const LOOKS: LookItem[] = [
     category: "ellas",
     imageUrl: "/images/dresscode/women_mustard_jumpsuit.webp",
   },
-  // 6. Blazer tabaco & pantalón crudo (Ellos - finca mediterránea)
+  // 6. Blazer tabaco & pantalón crudo (Ellos - Veneno cóctel)
   {
     id: "blazer-tabaco-crudo",
     title: "Blazer tabaco & pantalón crudo",
@@ -69,7 +69,7 @@ const LOOKS: LookItem[] = [
     category: "ellos",
     imageUrl: "/images/dresscode/men_tobacco_blazer.webp",
   },
-  // 7. Dos piezas negro con capa (Ellas - terraza de cóctel)
+  // 7. Dos piezas negro con capa (Ellas - Veneno cóctel)
   {
     id: "dos-piezas-negro",
     title: "Dos piezas negro con capa",
@@ -77,7 +77,7 @@ const LOOKS: LookItem[] = [
     category: "ellas",
     imageUrl: "/images/dresscode/women_black_sheer_set.webp",
   },
-  // 8. Blazer navy desestructurado (Ellos - cóctel al aire libre)
+  // 8. Blazer navy desestructurado (Ellos - Veneno cóctel)
   {
     id: "blazer-navy-desestructurado",
     title: "Blazer navy desestructurado",
@@ -85,7 +85,7 @@ const LOOKS: LookItem[] = [
     category: "ellos",
     imageUrl: "/images/dresscode/men_navy_blazer.webp",
   },
-  // 9. Palabra de honor chocolate (Ellas - palacio histórico con balaustrada)
+  // 9. Palabra de honor chocolate (Ellas - Veneno cóctel)
   {
     id: "palabra-honor-chocolate",
     title: "Palabra de honor chocolate",
@@ -93,7 +93,7 @@ const LOOKS: LookItem[] = [
     category: "ellas",
     imageUrl: "/images/dresscode/women_chocolate_dress.webp",
   },
-  // 10. Top corsé & falda vaporosa (Ellas - mirador con invitados)
+  // 10. Top corsé & falda vaporosa (Ellas - Veneno cóctel)
   {
     id: "corse-azul-marino",
     title: "Top corsé & falda vaporosa",
@@ -101,7 +101,7 @@ const LOOKS: LookItem[] = [
     category: "ellas",
     imageUrl: "/images/dresscode/women_navy_corset.webp",
   },
-  // 11. Chaqueta terciopelo ciruela (Ellas - patio señorial con buganvillas)
+  // 11. Chaqueta terciopelo ciruela (Ellas - Veneno cóctel)
   {
     id: "chaqueta-terciopelo-ciruela",
     title: "Chaqueta terciopelo ciruela",
@@ -109,7 +109,7 @@ const LOOKS: LookItem[] = [
     category: "ellas",
     imageUrl: "/images/dresscode/women_velvet_plum.webp",
   },
-  // 12. Túnica bicolor & palazzo (Ellas - calle empedrada camino a la ceremonia)
+  // 12. Túnica bicolor & palazzo (Ellas - Veneno cóctel)
   {
     id: "tunica-petroleo-palazzo",
     title: "Túnica bicolor & palazzo",
@@ -117,7 +117,7 @@ const LOOKS: LookItem[] = [
     category: "ellas",
     imageUrl: "/images/dresscode/women_teal_burgundy.webp",
   },
-  // 13. Top asimétrico & pantalón ancho (Ellas - patio mediterráneo luminoso)
+  // 13. Top asimétrico & pantalón ancho (Ellas - Veneno cóctel)
   {
     id: "top-asimetrico-palazzo",
     title: "Top asimétrico & pantalón ancho",
