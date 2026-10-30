@@ -403,7 +403,7 @@ export default function AdminPage() {
               type="text"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              placeholder="Buscar por nombre, teléfono, rol o canción..."
+              placeholder="Buscar por nombre, teléfono o canción..."
               className="w-full pl-9 pr-4 py-2 rounded-xl bg-black/40 border border-[#7c8f73]/25 text-xs text-white placeholder-zinc-500 focus:outline-none focus:border-[#7c8f73] transition-colors"
             />
           </div>

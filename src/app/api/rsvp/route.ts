@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 import { getSubmissions, saveSubmission, deleteSubmission } from "@/lib/rsvpStorage";
+import { sendRSVPNotification } from "@/lib/emailNotifier";
 
 const VALID_PASSWORDS = [
   (process.env.ADMIN_PASSWORD || "boda2027").trim().toLowerCase(),
@@ -46,6 +47,11 @@ export async function POST(req: Request) {
       songTitle: body.songTitle ? String(body.songTitle).trim() : undefined,
       songArtist: body.songArtist ? String(body.songArtist).trim() : undefined,
       message: body.message ? String(body.message).trim() : undefined,
+    });
+
+    // Notify Lucas & Josefina via email
+    sendRSVPNotification(saved).catch((err) => {
+      console.error("Error triggering RSVP email notification:", err);
     });
 
     return NextResponse.json({ success: true, data: saved }, { status: 201 });
