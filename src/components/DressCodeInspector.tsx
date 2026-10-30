@@ -334,45 +334,7 @@ export const DressCodeInspector: React.FC = () => {
           </button>
         </div>
 
-      {/* Helpful & Warm Footer Note with Lucas & Josefina avatars */}
-      <div className="mt-10 p-5 rounded-2xl bg-black/25 border border-white/15 backdrop-blur-md flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-        <div className="flex items-center gap-3">
-          <div className="flex -space-x-2">
-            <div className="relative w-10 h-10 rounded-full border-2 border-white/40 overflow-hidden bg-black/40">
-              <Image
-                src="/images/avatars/josefina-love.png"
-                alt="Josefina"
-                fill
-                sizes="40px"
-                className="object-cover"
-                style={{ imageRendering: "pixelated" }}
-              />
-            </div>
-            <div className="relative w-10 h-10 rounded-full border-2 border-white/40 overflow-hidden bg-black/40">
-              <Image
-                src="/images/avatars/lucas-love.png"
-                alt="Lucas"
-                fill
-                sizes="40px"
-                className="object-cover"
-                style={{ imageRendering: "pixelated" }}
-              />
-            </div>
-          </div>
-          <div>
-            <p className="font-sans-ui text-xs sm:text-sm text-white font-medium">
-              ¿Dudas sobre qué ponerte?
-            </p>
-            <p className="font-sans-ui text-xs text-white/80 font-light">
-              Lo más importante es que vengas cómodo/a y a disfrutar a tope con nosotros.
-            </p>
-          </div>
-        </div>
 
-        <span className="font-mono-swiss text-xs text-white/90 bg-white/10 px-3 py-1 rounded-full border border-white/20 shrink-0">
-          Toca cualquier foto para ampliarla
-        </span>
-      </div>
 
       {/* Lightbox / Zoom Modal */}
       <AnimatePresence>
