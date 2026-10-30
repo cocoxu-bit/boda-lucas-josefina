@@ -75,8 +75,8 @@ export const Hero: React.FC = () => {
             <div>
               <div className="relative h-44 sm:h-52 w-full rounded-2xl overflow-hidden mb-4 border border-[var(--card-border)] bg-black/5 dark:bg-white/5">
                 <Image
-                  src="/images/monforte-dibujo.jpg"
-                  alt="Dibujo arquitectónico de los Palacios de Monforte"
+                  src="/images/palacio-monforte.jpg"
+                  alt="Palacete de los Jardines de Monforte"
                   fill
                   sizes="(max-width: 640px) 100vw, 360px"
                   className="object-cover group-hover:scale-103 transition-transform duration-500"
@@ -117,8 +117,8 @@ export const Hero: React.FC = () => {
             <div>
               <div className="relative h-44 sm:h-52 w-full rounded-2xl overflow-hidden mb-4 border border-[var(--card-border)] bg-black/5 dark:bg-white/5">
                 <Image
-                  src="/images/veneno-dibujo.jpg"
-                  alt="Dibujo arquitectónico de Veneno Concept Bar"
+                  src="/images/veneno-bar.jpg"
+                  alt="Veneno Concept Bar Valencia"
                   fill
                   sizes="(max-width: 640px) 100vw, 360px"
                   className="object-cover group-hover:scale-103 transition-transform duration-500"
