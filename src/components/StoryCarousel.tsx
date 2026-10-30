@@ -1,14 +1,17 @@
 "use client";
 
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import {
   ChevronLeft,
   ChevronRight,
   Sparkles,
-  X,
   Heart,
+  Maximize2,
+  X,
+  Pause,
+  Play,
 } from "lucide-react";
 
 interface StoryPhoto {
@@ -65,65 +68,41 @@ const STORY_PHOTOS: StoryPhoto[] = [
   },
 ];
 
+const SLIDE_DURATION = 4200; // 4.2 seconds per photo
+
 export function StoryCarousel() {
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(true);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(true);
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Update scroll navigation buttons state
-  const checkScroll = useCallback(() => {
-    const el = scrollContainerRef.current;
-    if (!el) return;
-    const { scrollLeft, scrollWidth, clientWidth } = el;
-    setCanScrollLeft(scrollLeft > 10);
-    setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 10);
-
-    const cardWidth = el.firstElementChild
-      ? (el.firstElementChild as HTMLElement).offsetWidth + 24
-      : 340;
-    const current = Math.min(
-      STORY_PHOTOS.length - 1,
-      Math.max(0, Math.round(scrollLeft / cardWidth))
-    );
-    setActiveIndex(current);
+  const nextSlide = useCallback(() => {
+    setCurrentIndex((prev) => (prev + 1) % STORY_PHOTOS.length);
   }, []);
 
-  useEffect(() => {
-    const el = scrollContainerRef.current;
-    if (!el) return;
+  const prevSlide = useCallback(() => {
+    setCurrentIndex(
+      (prev) => (prev - 1 + STORY_PHOTOS.length) % STORY_PHOTOS.length
+    );
+  }, []);
 
-    checkScroll();
-    el.addEventListener("scroll", checkScroll, { passive: true });
-    window.addEventListener("resize", checkScroll);
+  // Autoplay slideshow timer
+  useEffect(() => {
+    if (!isPlaying || lightboxIndex !== null) {
+      if (timerRef.current) clearInterval(timerRef.current);
+      return;
+    }
+
+    timerRef.current = setInterval(() => {
+      nextSlide();
+    }, SLIDE_DURATION);
 
     return () => {
-      el.removeEventListener("scroll", checkScroll);
-      window.removeEventListener("resize", checkScroll);
+      if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [checkScroll]);
+  }, [isPlaying, lightboxIndex, nextSlide, currentIndex]);
 
-  const scrollTo = (direction: "left" | "right") => {
-    const el = scrollContainerRef.current;
-    if (!el) return;
-    const cardWidth = el.firstElementChild
-      ? (el.firstElementChild as HTMLElement).offsetWidth + 24
-      : 340;
-    const offset = direction === "left" ? -cardWidth * 1.2 : cardWidth * 1.2;
-    el.scrollBy({ left: offset, behavior: "smooth" });
-  };
-
-  const scrollToIndex = (idx: number) => {
-    const el = scrollContainerRef.current;
-    if (!el) return;
-    const cardWidth = el.firstElementChild
-      ? (el.firstElementChild as HTMLElement).offsetWidth + 24
-      : 340;
-    el.scrollTo({ left: idx * cardWidth, behavior: "smooth" });
-  };
-
-  // Keyboard controls for lightbox
+  // Keyboard navigation for lightbox
   useEffect(() => {
     if (lightboxIndex === null) return;
 
@@ -150,20 +129,19 @@ export function StoryCarousel() {
   return (
     <section
       id="nuestro-camino"
-      className="relative py-20 md:py-28 px-4 md:px-8 max-w-7xl mx-auto overflow-hidden"
+      className="relative py-16 md:py-24 px-4 sm:px-6 max-w-5xl mx-auto overflow-hidden select-none"
     >
-      {/* Subtle ambient botanical glow */}
-      <div className="absolute top-1/2 left-1/4 -translate-y-1/2 w-96 h-96 bg-[var(--accent-gold)]/10 rounded-full blur-3xl pointer-events-none -z-10" />
-      <div className="absolute top-1/3 right-10 w-80 h-80 bg-emerald-900/15 rounded-full blur-3xl pointer-events-none -z-10" />
+      {/* Ambient background glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-96 h-96 bg-[var(--accent-gold)]/10 rounded-full blur-3xl pointer-events-none -z-10" />
 
-      {/* Header section: Only Title & Navigation Controls */}
-      <div className="text-center max-w-3xl mx-auto mb-10 md:mb-12">
+      {/* Header */}
+      <div className="text-center max-w-2xl mx-auto mb-8">
         <motion.div
           initial={{ opacity: 0, y: 15 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[rgba(28,38,26,0.65)] border border-[var(--accent-gold)]/30 backdrop-blur-md text-[var(--accent-gold)] text-xs md:text-sm font-medium tracking-wide uppercase shadow-sm mb-4"
+          className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[rgba(28,38,26,0.65)] border border-[var(--accent-gold)]/30 backdrop-blur-md text-[var(--accent-gold)] text-xs sm:text-sm font-medium tracking-wide uppercase shadow-sm mb-3"
         >
           <Sparkles className="w-3.5 h-3.5 text-[var(--accent-gold)] animate-pulse" />
           <span>Nuestra Historia</span>
@@ -175,96 +153,161 @@ export function StoryCarousel() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, delay: 0.1 }}
-          className="font-serif text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[var(--fg-primary)] tracking-tight font-normal leading-[1.15]"
+          className="font-serif text-3xl sm:text-4xl md:text-5xl text-[var(--fg-primary)] tracking-tight font-normal leading-[1.15]"
         >
           Nuestro camino hacia la boda...
         </motion.h2>
+      </div>
 
-        {/* Navigation Buttons & Counter */}
-        <div className="mt-8 flex items-center justify-center gap-4">
-          <button
-            onClick={() => scrollTo("left")}
-            disabled={!canScrollLeft}
+      {/* Single Dynamic Slideshow Card */}
+      <div className="relative max-w-sm sm:max-w-md mx-auto">
+        {/* Main Card Container */}
+        <div
+          className="relative aspect-[3/4] sm:aspect-[4/5] w-full rounded-3xl overflow-hidden bg-[#151c14] border border-white/20 shadow-2xl shadow-black/60 group"
+          onMouseEnter={() => setIsPlaying(false)}
+          onMouseLeave={() => setIsPlaying(true)}
+        >
+          {/* Photos Layer with Fade Transition */}
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={STORY_PHOTOS[currentIndex].id}
+              initial={{ opacity: 0, scale: 1.03 }}
+              animate={{ opacity: 1, scale: 1 }}
+              exit={{ opacity: 0, scale: 0.98 }}
+              transition={{ duration: 0.65, ease: [0.25, 1, 0.5, 1] }}
+              className="absolute inset-0 cursor-pointer"
+              onClick={() => setLightboxIndex(currentIndex)}
+            >
+              <Image
+                src={STORY_PHOTOS[currentIndex].image}
+                alt={STORY_PHOTOS[currentIndex].alt}
+                fill
+                sizes="(max-width: 640px) 92vw, 450px"
+                className="object-cover"
+                priority
+              />
+            </motion.div>
+          </AnimatePresence>
+
+          {/* Top Story-Style Segmented Progress Bars */}
+          <div className="absolute top-0 inset-x-0 z-20 p-3 sm:p-4 bg-gradient-to-b from-black/70 via-black/30 to-transparent flex items-center gap-1.5">
+            {STORY_PHOTOS.map((photo, idx) => (
+              <div
+                key={photo.id}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setCurrentIndex(idx);
+                }}
+                className="h-1 flex-1 rounded-full bg-white/25 overflow-hidden cursor-pointer"
+              >
+                {idx < currentIndex && (
+                  <div className="h-full w-full bg-[var(--accent-gold)]" />
+                )}
+                {idx === currentIndex && (
+                  <motion.div
+                    key={`progress-${currentIndex}-${isPlaying}`}
+                    initial={{ width: "0%" }}
+                    animate={{ width: isPlaying ? "100%" : "50%" }}
+                    transition={{
+                      duration: isPlaying ? SLIDE_DURATION / 1000 : 0,
+                      ease: "linear",
+                    }}
+                    className="h-full bg-[var(--accent-gold)]"
+                  />
+                )}
+                {idx > currentIndex && <div className="h-full w-0" />}
+              </div>
+            ))}
+          </div>
+
+          {/* Touch navigation zones (Left 35% goes prev, Right 35% goes next) */}
+          <div
+            className="absolute inset-y-12 left-0 w-[30%] z-10 cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              prevSlide();
+            }}
             aria-label="Foto anterior"
-            className={`w-11 h-11 rounded-full flex items-center justify-center border transition-all duration-300 ${
-              canScrollLeft
-                ? "bg-[rgba(28,38,26,0.7)] hover:bg-[rgba(28,38,26,0.95)] border-[var(--accent-gold)]/40 text-[var(--fg-primary)] hover:scale-105 active:scale-95 shadow-lg cursor-pointer"
-                : "bg-white/5 border-white/10 text-white/20 cursor-not-allowed opacity-50"
-            }`}
+          />
+          <div
+            className="absolute inset-y-12 right-0 w-[30%] z-10 cursor-pointer"
+            onClick={(e) => {
+              e.stopPropagation();
+              nextSlide();
+            }}
+            aria-label="Foto siguiente"
+          />
+
+          {/* Floating Floating Nav Buttons */}
+          <button
+            onClick={(e) => {
+              e.stopPropagation();
+              prevSlide();
+            }}
+            aria-label="Foto anterior"
+            className="absolute left-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/50 hover:bg-black/80 text-white border border-white/20 backdrop-blur-md flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer shadow-lg"
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
 
-          <span className="font-serif text-sm md:text-base text-[var(--accent-gold)] tracking-widest px-3.5 py-1 rounded-full bg-[rgba(20,28,18,0.5)] border border-white/10">
-            {String(activeIndex + 1).padStart(2, "0")} /{" "}
-            {String(STORY_PHOTOS.length).padStart(2, "0")}
-          </span>
-
           <button
-            onClick={() => scrollTo("right")}
-            disabled={!canScrollRight}
+            onClick={(e) => {
+              e.stopPropagation();
+              nextSlide();
+            }}
             aria-label="Foto siguiente"
-            className={`w-11 h-11 rounded-full flex items-center justify-center border transition-all duration-300 ${
-              canScrollRight
-                ? "bg-[rgba(28,38,26,0.7)] hover:bg-[rgba(28,38,26,0.95)] border-[var(--accent-gold)]/40 text-[var(--fg-primary)] hover:scale-105 active:scale-95 shadow-lg cursor-pointer"
-                : "bg-white/5 border-white/10 text-white/20 cursor-not-allowed opacity-50"
-            }`}
+            className="absolute right-3 top-1/2 -translate-y-1/2 z-20 w-10 h-10 rounded-full bg-black/50 hover:bg-black/80 text-white border border-white/20 backdrop-blur-md flex items-center justify-center transition-all opacity-80 group-hover:opacity-100 hover:scale-105 active:scale-95 cursor-pointer shadow-lg"
           >
             <ChevronRight className="w-5 h-5" />
           </button>
+
+          {/* Bottom Card Overlay: Counter, Play/Pause & Expand */}
+          <div className="absolute bottom-0 inset-x-0 z-20 p-4 bg-gradient-to-t from-black/85 via-black/40 to-transparent flex items-center justify-between pointer-events-auto">
+            {/* Counter pill */}
+            <span className="font-mono-swiss text-xs text-[var(--accent-gold)] px-3 py-1 rounded-full bg-black/60 border border-white/15 backdrop-blur-md">
+              {String(currentIndex + 1).padStart(2, "0")} /{" "}
+              {String(STORY_PHOTOS.length).padStart(2, "0")}
+            </span>
+
+            {/* Controls on the right */}
+            <div className="flex items-center gap-2">
+              {/* Play / Pause Toggle */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsPlaying((prev) => !prev);
+                }}
+                aria-label={isPlaying ? "Pausar presentación" : "Reanudar presentación"}
+                className="w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 text-white border border-white/20 backdrop-blur-md flex items-center justify-center transition-all cursor-pointer"
+                title={isPlaying ? "Pausar" : "Reanudar"}
+              >
+                {isPlaying ? (
+                  <Pause className="w-3.5 h-3.5" />
+                ) : (
+                  <Play className="w-3.5 h-3.5 ml-0.5" />
+                )}
+              </button>
+
+              {/* Expand Lightbox */}
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setLightboxIndex(currentIndex);
+                }}
+                aria-label="Ver a pantalla completa"
+                className="w-8 h-8 rounded-full bg-black/60 hover:bg-black/80 text-white border border-white/20 backdrop-blur-md flex items-center justify-center transition-all cursor-pointer"
+                title="Ampliar foto"
+              >
+                <Maximize2 className="w-3.5 h-3.5" />
+              </button>
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Horizontal Carousel Track: Pure Clean Photos */}
-      <div
-        ref={scrollContainerRef}
-        className="flex gap-5 md:gap-7 overflow-x-auto pb-8 pt-2 px-2 scroll-smooth snap-x snap-mandatory no-scrollbar cursor-grab active:cursor-grabbing select-none"
-        style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
-      >
-        {STORY_PHOTOS.map((item, idx) => {
-          return (
-            <motion.div
-              key={item.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-40px" }}
-              transition={{ duration: 0.6, delay: Math.min(idx * 0.07, 0.35) }}
-              onClick={() => setLightboxIndex(idx)}
-              className="flex-shrink-0 snap-center group relative w-[280px] sm:w-[320px] md:w-[360px] h-[420px] sm:h-[460px] md:h-[500px] rounded-2xl md:rounded-3xl overflow-hidden cursor-pointer bg-[rgba(22,30,20,0.6)] border border-white/10 hover:border-[var(--accent-gold)]/70 transition-all duration-500 shadow-xl hover:shadow-2xl hover:shadow-black/50"
-            >
-              {/* Image filling the entire card */}
-              <div className="absolute inset-0 overflow-hidden">
-                <Image
-                  src={item.image}
-                  alt={item.alt}
-                  fill
-                  sizes="(max-width: 768px) 320px, 400px"
-                  className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-                  priority={idx < 2}
-                />
-              </div>
-
-              {/* Subtle hover vignette effect */}
-              <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300 pointer-events-none" />
-            </motion.div>
-          );
-        })}
-      </div>
-
-      {/* Progress Dots Indicator */}
-      <div className="mt-4 flex items-center justify-center gap-1.5">
-        {STORY_PHOTOS.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => scrollToIndex(i)}
-            aria-label={`Ir a la foto ${i + 1}`}
-            className={`transition-all duration-300 rounded-full ${
-              activeIndex === i
-                ? "w-7 h-2 bg-[var(--accent-gold)]"
-                : "w-2 h-2 bg-white/20 hover:bg-white/40"
-            }`}
-          />
-        ))}
+        {/* Subtitle / Tip below card */}
+        <p className="text-center font-sans-ui text-xs text-white/60 mt-3 font-light">
+          Toca los laterales para cambiar o haz clic para ver a pantalla completa
+        </p>
       </div>
 
       {/* Full-Screen Pure Photo Lightbox Modal */}
