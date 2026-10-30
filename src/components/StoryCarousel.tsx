@@ -63,11 +63,6 @@ const STORY_PHOTOS: StoryPhoto[] = [
     image: "/images/story/09-maximo-llegada.webp",
     alt: "La llegada de Máximo",
   },
-  {
-    id: "familia",
-    image: "/images/story/10-familia.webp",
-    alt: "Los tres juntos en Valencia",
-  },
 ];
 
 export function StoryCarousel() {
