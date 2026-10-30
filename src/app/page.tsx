@@ -9,7 +9,6 @@ import { DressCodeInspector } from "@/components/DressCodeInspector";
 import { RSVPWizard } from "@/components/RSVPWizard";
 import { EasterEgg } from "@/components/EasterEgg";
 import { EpicIntro } from "@/components/EpicIntro";
-import { WhatsAppHelpModal } from "@/components/WhatsAppHelpModal";
 
 export default function Home() {
   const [showIntro, setShowIntro] = useState(true);
@@ -73,9 +72,6 @@ export default function Home() {
 
         {/* Retro Konami Code & Mobile Secret Easter Egg */}
         <EasterEgg />
-
-        {/* Global WhatsApp Help & Direct Contact Floating Modal */}
-        <WhatsAppHelpModal />
       </motion.main>
     </>
   );
