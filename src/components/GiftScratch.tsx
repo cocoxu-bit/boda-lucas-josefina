@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useRef, useState, useEffect, useCallback } from "react";
-import { Copy, Check, Eye, RefreshCw, Heart, Sparkles } from "lucide-react";
+import { Copy, Check, RefreshCw, Heart, Sparkles } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 
@@ -123,12 +123,8 @@ export const GiftScratch: React.FC = () => {
 
     // Instruction caption
     ctx.fillStyle = "#1f3019";
-    ctx.font = `italic 600 15px "Instrument Serif", Georgia, serif`;
-    ctx.fillText("Rasca con el dedo o ratón 🪙", centerX, centerY + 32);
-
-    ctx.fillStyle = "rgba(31, 48, 25, 0.8)";
-    ctx.font = `11px monospace`;
-    ctx.fillText("DESCUBRIR NÚMERO DE CUENTA", centerX, centerY + 50);
+    ctx.font = `italic 600 16px "Instrument Serif", Georgia, serif`;
+    ctx.fillText("Rasca con el dedo o ratón 🪙", centerX, centerY + 35);
 
     setIsRevealed(false);
     setScratchProgress(0);
@@ -348,30 +344,20 @@ export const GiftScratch: React.FC = () => {
         </div>
 
         {/* Card Footer Controls */}
-        <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs font-mono-swiss text-[var(--fg-muted)]">
-          {/* Scratch Progress Pill */}
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[var(--accent-gold)] animate-pulse" />
-            <span>
-              {isRevealed
-                ? "¡Tarjeta descubierta! 🎉"
-                : scratchProgress > 0
-                ? `Rascado: ${scratchProgress}%`
-                : "Desliza el dedo o ratón"}
-            </span>
-          </div>
+        {(scratchProgress > 0 || isRevealed) && (
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 text-xs font-mono-swiss text-[var(--fg-muted)]">
+            {/* Scratch Progress Pill */}
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[var(--accent-gold)] animate-pulse" />
+              <span>
+                {isRevealed
+                  ? "¡Tarjeta descubierta! 🎉"
+                  : `Rascado: ${scratchProgress}%`}
+              </span>
+            </div>
 
-          {/* Reveal or Re-cover Action Buttons */}
-          <div className="flex items-center gap-2">
-            {!isRevealed ? (
-              <button
-                onClick={triggerReveal}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/15 text-white/90 border border-white/20 transition-all cursor-pointer active:scale-95"
-              >
-                <Eye className="w-3.5 h-3.5 text-[var(--accent-gold)]" />
-                <span>Revelar con 1 clic</span>
-              </button>
-            ) : (
+            {/* Re-cover Action Button */}
+            {isRevealed && (
               <button
                 onClick={initScratchCanvas}
                 className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/10 hover:bg-white/15 text-white/90 border border-white/20 transition-all cursor-pointer active:scale-95"
@@ -381,7 +367,7 @@ export const GiftScratch: React.FC = () => {
               </button>
             )}
           </div>
-        </div>
+        )}
       </div>
     </section>
   );

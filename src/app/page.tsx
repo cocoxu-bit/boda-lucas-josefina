@@ -3,7 +3,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Hero } from "@/components/Hero";
-import { ScratchSecrets } from "@/components/ScratchSecrets";
 import { Timeline } from "@/components/Timeline";
 import { StoryCarousel } from "@/components/StoryCarousel";
 import { DressCodeInspector } from "@/components/DressCodeInspector";
@@ -69,9 +68,6 @@ export default function Home() {
 
         {/* Interactive Dress Code Inspector with Animated Josefina & Lucas Avatars */}
         <DressCodeInspector />
-
-        {/* Scratch Card Minigame: Secret Backstories & Anecdotes */}
-        <ScratchSecrets />
 
         {/* Interactive Scratch-Off Card: Gift info & IBAN */}
         <GiftScratch />
