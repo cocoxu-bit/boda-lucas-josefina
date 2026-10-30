@@ -8,6 +8,7 @@ import { Timeline } from "@/components/Timeline";
 import { StoryCarousel } from "@/components/StoryCarousel";
 import { DressCodeInspector } from "@/components/DressCodeInspector";
 import { RSVPWizard } from "@/components/RSVPWizard";
+import { GiftScratch } from "@/components/GiftScratch";
 import { EasterEgg } from "@/components/EasterEgg";
 import { EpicIntro } from "@/components/EpicIntro";
 import { WhatsAppHelpModal } from "@/components/WhatsAppHelpModal";
@@ -71,6 +72,9 @@ export default function Home() {
 
         {/* Scratch Card Minigame: Secret Backstories & Anecdotes */}
         <ScratchSecrets />
+
+        {/* Interactive Scratch-Off Card: Gift info & IBAN */}
+        <GiftScratch />
 
         {/* Gamified Multi-Step RSVP Form & Festival VIP Pass Generator */}
         <RSVPWizard />
