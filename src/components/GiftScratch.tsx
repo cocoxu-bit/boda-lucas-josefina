@@ -278,17 +278,8 @@ export const GiftScratch: React.FC = () => {
               <Heart className="w-5 h-5 fill-[var(--accent-gold)]/30" />
             </div>
 
-            <div className="space-y-1">
-              <span className="font-mono-swiss text-[11px] uppercase text-white/60 tracking-wider">
-                Titulares de la cuenta
-              </span>
-              <p className="font-serif-editorial text-2xl text-white italic">
-                {GIFT_INFO.holders}
-              </p>
-            </div>
-
             {/* Formatted IBAN Box */}
-            <div className="w-full max-w-md bg-black/40 border border-white/20 rounded-2xl p-3 sm:p-4 backdrop-blur-md space-y-2">
+            <div className="w-full max-w-md bg-black/40 border border-white/20 rounded-2xl p-4 sm:p-5 backdrop-blur-md space-y-2">
               <span className="font-mono-swiss text-[10px] uppercase text-white/50 tracking-widest block">
                 Número de Cuenta (IBAN)
               </span>
@@ -297,11 +288,11 @@ export const GiftScratch: React.FC = () => {
               </p>
             </div>
 
-            {/* Quick Actions: Copy IBAN Button */}
-            <div className="flex flex-col sm:flex-row items-center gap-3 pt-1">
+            {/* Quick Actions: Centered Copy IBAN Button */}
+            <div className="flex items-center justify-center pt-1">
               <button
                 onClick={handleCopyIban}
-                className={`flex items-center gap-2 px-5 py-2.5 rounded-full font-mono-swiss text-xs font-semibold transition-all cursor-pointer shadow-lg active:scale-95 ${
+                className={`flex items-center gap-2 px-6 py-2.5 rounded-full font-mono-swiss text-xs font-semibold transition-all cursor-pointer shadow-lg active:scale-95 ${
                   hasCopied
                     ? "bg-emerald-500 text-white shadow-emerald-500/25"
                     : "bg-white text-zinc-900 hover:bg-white/90"
@@ -319,13 +310,6 @@ export const GiftScratch: React.FC = () => {
                   </>
                 )}
               </button>
-
-              <div className="text-left font-sans-ui text-xs text-white/70">
-                <span className="text-white/40 block text-[10px] font-mono-swiss uppercase">
-                  Concepto sugerido
-                </span>
-                <span className="italic">{GIFT_INFO.concept}</span>
-              </div>
             </div>
           </div>
 
