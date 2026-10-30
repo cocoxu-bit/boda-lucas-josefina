@@ -175,8 +175,8 @@ export const DressCodeInspector: React.FC = () => {
           Dress Code
         </h2>
 
-        <p className="font-sans-ui text-sm sm:text-base text-white/90 max-w-xl mx-auto font-light leading-relaxed">
-          Arreglado pero a tu rollo. Colores vivos, tejidos fluidos, sastrería relajada y calzado para darlo todo en la pista.
+        <p className="font-sans-ui text-sm sm:text-base text-white/90 max-w-2xl mx-auto font-light leading-relaxed">
+          Arreglado pero a tu rollo. Colores vivos, tejidos fluidos, sastrería relajada y calzado para darlo todo en la pista. La novia no va a llevar vestido y el novio no llevará chaqué: esto es una boda para relajarse y disfrutar.
         </p>
 
         {/* Clean key highlights */}
