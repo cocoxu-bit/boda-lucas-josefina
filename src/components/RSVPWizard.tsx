@@ -397,34 +397,7 @@ export const RSVPWizard: React.FC = () => {
                 </p>
               </div>
 
-              {/* Direct WhatsApp Buttons */}
-              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
-                <button
-                  onClick={() => {
-                    const text = encodeURIComponent(
-                      `¡Hola Josefina! Te he avisado por la web de que no podré ir el 6 de febrero. ¡Os deseo lo mejor y os mando un abrazo enorme! Ya buscaremos un hueco para vernos y celebrarlo ❤️`
-                    );
-                    window.open(`https://wa.me/34603494678?text=${text}`, "_blank");
-                  }}
-                  className="px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono-swiss text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
-                >
-                  <MessageCircle className="w-3.5 h-3.5" />
-                  <span>Mandar un abrazo a Josefina</span>
-                </button>
 
-                <button
-                  onClick={() => {
-                    const text = encodeURIComponent(
-                      `¡Hola Lucas! Te he avisado por la web de que no podré ir a la boda. ¡Que disfrutéis al máximo y nos vemos pronto para celebrarlo con calma! Un abrazo fuerte ❤️`
-                    );
-                    window.open(`https://wa.me/34674737672?text=${text}`, "_blank");
-                  }}
-                  className="px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono-swiss text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
-                >
-                  <MessageCircle className="w-3.5 h-3.5" />
-                  <span>Mandar un abrazo a Lucas</span>
-                </button>
-              </div>
 
               {/* Option to change mind */}
               <div className="pt-2">
