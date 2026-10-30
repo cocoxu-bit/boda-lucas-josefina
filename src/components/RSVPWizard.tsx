@@ -326,7 +326,7 @@ export const RSVPWizard: React.FC = () => {
           Confirmación de asistencia
         </h2>
         <p className="font-sans-ui text-xs sm:text-sm text-[var(--fg-muted)] max-w-md mx-auto">
-          Por favor, confírmanos antes del 15 de diciembre para tener todo listo.
+          Por favor, confírmanos antes del 10 de enero o cuanto antes, para poder tener todo listo.
         </p>
       </div>
 
