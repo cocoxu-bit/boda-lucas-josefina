@@ -17,7 +17,8 @@ import {
   Download,
   Calendar,
   Sparkle,
-  MessageCircle
+  MessageCircle,
+  Heart
 } from "lucide-react";
 import { useTheme } from "@/context/ThemeContext";
 
@@ -137,7 +138,9 @@ export const RSVPWizard: React.FC = () => {
     } finally {
       setIsSubmitting(false);
       setIsCompleted(true);
-      triggerConfetti();
+      if (form.attendance === "yes") {
+        triggerConfetti();
+      }
     }
   };
 
@@ -331,7 +334,7 @@ export const RSVPWizard: React.FC = () => {
       </div>
 
       {/* Step Tracker Indicator */}
-      {!isCompleted && (
+      {!isCompleted && form.attendance !== "no" && (
         <div className="flex items-center justify-between mb-6 px-3">
           {[1, 2, 3].map((s) => (
             <div key={s} className="flex items-center flex-1 last:flex-none">
@@ -361,8 +364,82 @@ export const RSVPWizard: React.FC = () => {
       {/* Main Form Box */}
       <div className="theme-card relative rounded-3xl p-5 sm:p-8 shadow-2xl overflow-hidden transition-all duration-300">
         <AnimatePresence mode="wait" custom={direction}>
-          {/* COMPLETED: Festival / Concert VIP Access Pass */}
-          {isCompleted ? (
+          {/* COMPLETED: Non-attendance Thank You Card */}
+          {isCompleted && form.attendance === "no" ? (
+            <motion.div
+              key="completed-no"
+              initial={{ scale: 0.95, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              transition={{ type: "spring", stiffness: 300, damping: 25 }}
+              className="space-y-6 text-center py-4"
+            >
+              <div className="w-16 h-16 rounded-full bg-[var(--accent-gold)]/15 border border-[var(--accent-gold)]/30 flex items-center justify-center mx-auto text-[var(--accent-gold)] shadow-lg">
+                <Heart className="w-8 h-8 fill-[var(--accent-gold)]/30 text-[var(--accent-gold)]" />
+              </div>
+
+              <div className="space-y-1.5">
+                <span className="font-mono-swiss text-[11px] text-[var(--accent-gold)] tracking-wider font-semibold uppercase">
+                  Respuesta registrada
+                </span>
+                <h3 className="font-serif-editorial text-3xl sm:text-4xl text-[var(--fg-primary)] italic">
+                  ¡Muchas gracias por avisarnos!
+                </h3>
+              </div>
+
+              {/* Heartfelt note */}
+              <div className="max-w-md mx-auto p-6 rounded-2xl border border-[var(--card-border)] bg-black/30 backdrop-blur-md text-center space-y-4 shadow-xl">
+                <p className="font-sans-ui text-sm sm:text-base text-[var(--fg-primary)] font-light leading-relaxed">
+                  Te echaremos muchísimo de menos el 6 de febrero, pero entendemos perfectamente que no puedas venir. Brindaremos por ti desde Veneno y buscaremos muy pronto otra ocasión para vernos con calma y celebrarlo juntos como se merece.
+                </p>
+
+                <p className="font-serif-editorial text-lg text-[var(--accent-gold)] italic pt-1">
+                  ¡Un abrazo enorme de parte de Josefina y Lucas! ❤️
+                </p>
+              </div>
+
+              {/* Direct WhatsApp Buttons */}
+              <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
+                <button
+                  onClick={() => {
+                    const text = encodeURIComponent(
+                      `¡Hola Josefina! Te he avisado por la web de que no podré ir el 6 de febrero. ¡Os deseo lo mejor y os mando un abrazo enorme! Ya buscaremos un hueco para vernos y celebrarlo ❤️`
+                    );
+                    window.open(`https://wa.me/34603494678?text=${text}`, "_blank");
+                  }}
+                  className="px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono-swiss text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>Mandar un abrazo a Josefina</span>
+                </button>
+
+                <button
+                  onClick={() => {
+                    const text = encodeURIComponent(
+                      `¡Hola Lucas! Te he avisado por la web de que no podré ir a la boda. ¡Que disfrutéis al máximo y nos vemos pronto para celebrarlo con calma! Un abrazo fuerte ❤️`
+                    );
+                    window.open(`https://wa.me/34674737672?text=${text}`, "_blank");
+                  }}
+                  className="px-4 py-2.5 rounded-full bg-emerald-600 hover:bg-emerald-500 text-white font-mono-swiss text-xs font-semibold transition-all flex items-center justify-center gap-1.5 cursor-pointer shadow-md"
+                >
+                  <MessageCircle className="w-3.5 h-3.5" />
+                  <span>Mandar un abrazo a Lucas</span>
+                </button>
+              </div>
+
+              {/* Option to change mind */}
+              <div className="pt-2">
+                <button
+                  onClick={() => {
+                    setIsCompleted(false);
+                    setStep(1);
+                  }}
+                  className="text-xs font-mono-swiss text-[var(--fg-muted)] hover:text-white underline transition-colors cursor-pointer"
+                >
+                  ¿Ha cambiado algo? Modificar mi respuesta
+                </button>
+              </div>
+            </motion.div>
+          ) : isCompleted ? (
             <motion.div
               key="completed"
               initial={{ scale: 0.95, opacity: 0 }}
@@ -604,22 +681,40 @@ export const RSVPWizard: React.FC = () => {
                     />
                   </div>
 
-                  <div className="space-y-1.5">
-                    <label className="block font-mono-swiss text-[11px] tracking-wider text-[var(--fg-primary)]">
-                      Acompañante (+1) (opcional)
-                    </label>
-                    <input
-                      type="text"
-                      value={form.companion}
-                      onChange={(e) => setForm({ ...form, companion: e.target.value })}
-                      className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-4 py-3 text-sm text-[var(--fg-primary)] focus:border-[var(--accent-gold)] focus:outline-none"
-                    />
-                  </div>
+                  {form.attendance !== "no" && (
+                    <div className="space-y-1.5">
+                      <label className="block font-mono-swiss text-[11px] tracking-wider text-[var(--fg-primary)]">
+                        Acompañante (+1) (opcional)
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="Nombre de tu acompañante si viene contigo"
+                        value={form.companion}
+                        onChange={(e) => setForm({ ...form, companion: e.target.value })}
+                        className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-4 py-3 text-sm text-[var(--fg-primary)] focus:border-[var(--accent-gold)] focus:outline-none"
+                      />
+                    </div>
+                  )}
+
+                  {form.attendance === "no" && (
+                    <div className="space-y-1.5">
+                      <label className="block font-mono-swiss text-[11px] tracking-wider text-[var(--fg-primary)]">
+                        ¿Quieres dejarnos un mensaje? (opcional)
+                      </label>
+                      <textarea
+                        rows={3}
+                        placeholder="Déjanos unas palabras aunque no puedas venir..."
+                        value={form.message}
+                        onChange={(e) => setForm({ ...form, message: e.target.value })}
+                        className="w-full rounded-xl border border-[var(--card-border)] bg-black/[0.02] dark:bg-white/5 px-4 py-3 text-sm text-[var(--fg-primary)] focus:border-[var(--accent-gold)] focus:outline-none"
+                      />
+                    </div>
+                  )}
 
                   <div className="pt-3">
                     <button
                       type="button"
-                      disabled={!form.name || !form.attendance}
+                      disabled={!form.name || !form.attendance || isSubmitting}
                       onClick={() => {
                         if (form.attendance === "no") {
                           handleSubmit({ preventDefault: () => {} } as React.FormEvent);
@@ -629,8 +724,14 @@ export const RSVPWizard: React.FC = () => {
                       }}
                       className="w-full py-3.5 rounded-xl bg-[var(--fg-primary)] text-[var(--bg-primary)] font-sans-ui text-sm font-semibold hover:bg-[var(--accent-gold)] hover:text-black disabled:opacity-30 disabled:pointer-events-none transition-all flex items-center justify-center gap-2 cursor-pointer shadow-sm"
                     >
-                      <span>{form.attendance === "no" ? "Enviar respuesta" : "Siguiente paso"}</span>
-                      <ArrowRight className="w-4 h-4" />
+                      {isSubmitting ? (
+                        <span>Enviando respuesta...</span>
+                      ) : (
+                        <>
+                          <span>{form.attendance === "no" ? "Enviar respuesta" : "Siguiente paso"}</span>
+                          <ArrowRight className="w-4 h-4" />
+                        </>
+                      )}
                     </button>
                   </div>
                 </motion.div>
