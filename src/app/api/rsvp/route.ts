@@ -49,10 +49,12 @@ export async function POST(req: Request) {
       message: body.message ? String(body.message).trim() : undefined,
     });
 
-    // Notify Lucas & Josefina via email
-    sendRSVPNotification(saved).catch((err) => {
+    // Notify Lucas & Josefina via email before returning so serverless doesn't freeze mid-flight
+    try {
+      await sendRSVPNotification(saved);
+    } catch (err) {
       console.error("Error triggering RSVP email notification:", err);
-    });
+    }
 
     return NextResponse.json({ success: true, data: saved }, { status: 201 });
   } catch (error) {
